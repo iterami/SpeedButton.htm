@@ -1,2 +1,1 @@
-Speedbutton
-===========
+A JavaScript game in which you must click randomly arranged green or red buttons as quickly as possible. There are many settings with which you can customize your game experience, all of which are saved in localStorage.
