@@ -189,7 +189,7 @@ function setup(){
 
         /*create game area buttons*/
         var j = [''];
-        for(i=0;i<(grid_side*grid_side);i++){
+        for(i = 0;i<(grid_side*grid_side);i++){
             if(i%grid_side===0&&i!==0){
                 j.push('<br>')
             }
@@ -227,8 +227,8 @@ var interval = 0;
 var ls = window.localStorage;
 
 window.onkeydown = function(e){
-    i = window.event?event:e;
-    i = i.charCode?i.charCode:i.keyCode;
+    i = window.event ? event : e;
+    i = i.charCode ? i.charCode : i.keyCode;
     if(String.fromCharCode(i)===get('start-key').value){
         stop();
         start()
