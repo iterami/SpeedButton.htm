@@ -35,7 +35,9 @@ function randomize_buttons(clicked_button_id){
 
     /*reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click*/
     i = grid_side * grid_side - 1;
-    var p = (get('game-mode').value == 1 || get('max-points').value == 0 || parseInt(get('score').innerHTML) < get('max-points').value);
+    var p = (get('game-mode').value == 1 ||
+             get('max-points').value == 0 ||
+             parseInt(get('score').innerHTML) < get('max-points').value);
     do{
         if(p){
             get(i).classList.remove('color0');
@@ -50,7 +52,7 @@ function randomize_buttons(clicked_button_id){
         var ti = 0;
 
         /*randomize locations of and setup green buttons that currently exist*/
-        if(get('green-frequency').value>0){
+        if(get('green-frequency').value > 0){
             i = get('green-frequency').value > (grid_side * grid_side) - 1 ? (grid_side * grid_side) - 1 : get('green-frequency').value - 1;
             ti = i + 1;
             do{
@@ -66,9 +68,9 @@ function randomize_buttons(clicked_button_id){
         }
 
         /*if there are no green buttons or space for red buttons is available*/
-        if(get('green-frequency').value == 0 || (get('grid-dimensions').value > 1 && (grid_side * grid_side)-ti > 0)){
+        if(get('green-frequency').value == 0 || (get('grid-dimensions').value > 1 && (grid_side * grid_side) - ti > 0)){
             /*create and randomize enough red buttons to fill available space or just number of red buttons*/
-            i = get('red-frequency').value > (grid_side * grid_side) - ti - 1 ? (grid_side * grid_side) - ti-1 : get('red-frequency').value - 1;
+            i = get('red-frequency').value > (grid_side * grid_side) - ti - 1 ? (grid_side * grid_side) - ti - 1 : get('red-frequency').value - 1;
             if(i >= 0){
                 do{
                     do{
@@ -259,7 +261,7 @@ function stop(){
     game_running = 0;
 
     /*diable buttons to prevent further clicks*/
-    i = grid_side*grid_side - 1;
+    i = grid_side * grid_side - 1;
     do{
         get(i).disabled = 1
     }while(i--);
