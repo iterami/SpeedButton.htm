@@ -243,7 +243,7 @@ function setup(){
             if(i % grid_side === 0 && i !== 0){
                 j.push('<br>')
             }
-            j.push('<input class="buttons color2" disabled id='+i+' onclick=randomize_buttons('+i+') type=button value=->')
+            j.push('<input class="buttons color2" disabled id=' + i + ' onclick=randomize_buttons(' + i + ') type=button value=->')
         }
         get('game-area').innerHTML = j.join('');
         j = get('start-button').disabled = 0
@@ -282,6 +282,7 @@ var ls = window.localStorage;
 window.onkeydown = function(e){
     i = window.event ? event : e;
     i = i.charCode ? i.charCode : i.keyCode;
+
     if(String.fromCharCode(i) === get('start-key').value){
         stop();
         start()
