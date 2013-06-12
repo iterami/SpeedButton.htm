@@ -5,8 +5,8 @@
 
 <table id=lol-a-table>
     <tr>
-        <td rowspan=2 style=width:50%></td>
-        <td id=game-area style=min-width:325px></td>
+        <td rowspan=2 style=width:50%>
+        <td id=game-area style=min-width:325px>
         <td class=settings-td rowspan=2>
             <span id=settings-span>
                 <b>Speedbutton</b><br>
@@ -34,16 +34,12 @@
                 <input id=start-key maxlength=1 size=1 type=text value=H>Start<br>
                 <input id=y-margin size=1 type=text value=30>Y Margin
             </span>
-        </td>
-    </tr>
     <tr>
         <td>
             Score: <b id=score>0</b><span id=score-max></span><br>
             Time: <b id=time>0</b><span id=time-max> out of <b>30</b></span><br>
             <input disabled id=start-button onclick=start() style=font-size:123% type=button value="Start (H)">
             <input id=showhide-button onclick=showhide() type=button value=->
-        </td>
-    </tr>
 </table>
 
 <script src=js/speedbutton.js></script>
