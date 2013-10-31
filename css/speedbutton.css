@@ -16,6 +16,9 @@ body{
 .color2{
     background: #000;
 }
+input{
+    width: 75px;
+}
 .settings-td{
     padding: 9px;
     text-align: left;
