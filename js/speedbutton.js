@@ -238,7 +238,7 @@ function start(){
         document.getElementById('score-max').innerHTML = ' out of <b>' + document.getElementById('max-points').value + '</b>';
     }
 
-    document.getElementById('start-button').value = 'End (ESC)';
+    document.getElementById('start-button').value = 'End [ESC]';
     document.getElementById('start-button').onclick = function(){
         stop();
     };
@@ -288,7 +288,7 @@ function setup(){
             document.getElementById('start-key').value = 'H';
         }else{
             document.getElementById('start-key').value = window.localStorage.getItem('speedbutton-11');
-            document.getElementById('start-button').value = 'Start (' + document.getElementById('start-key').value + ')';
+            document.getElementById('start-button').value = 'Start [' + document.getElementById('start-key').value + ']';
         }
         document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
         grid_side = document.getElementById('grid-dimensions').value;
@@ -327,7 +327,7 @@ function stop(){
     // enable settings to allow editing
     set_settings_disable(0);
 
-    document.getElementById('start-button').value = 'Start (' + document.getElementById('start-key').value + ')';
+    document.getElementById('start-button').value = 'Start [' + document.getElementById('start-key').value + ']';
     document.getElementById('start-button').onclick = function(){
         start();
     };
