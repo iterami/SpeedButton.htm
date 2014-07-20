@@ -24,10 +24,6 @@ function decisecond(){
     }
 }
 
-function random_number(i){
-    return Math.floor(Math.random() * i);
-}
-
 function randomize_buttons(clicked_button_id){
     if(game_running){
         // stop game if clicking on a red button ends the game and clicked on a red button
@@ -71,7 +67,7 @@ function randomize_buttons(clicked_button_id){
             space_taken = loop_counter + 1;
             do{
                 do{
-                    var button = random_number(grid_side * grid_side);
+                    var button = Math.floor(Math.random() * (grid_side * grid_side));
                 }while(!document.getElementById(button).disabled);
 
                 document.getElementById(button).classList.remove('color2');
@@ -92,7 +88,7 @@ function randomize_buttons(clicked_button_id){
             if(loop_counter >= 0){
                 do{
                     do{
-                        var button = random_number(grid_side * grid_side);
+                        var button = Math.floor(Math.random() * (grid_side * grid_side));
                     }while(!document.getElementById(button).disabled);
 
                     document.getElementById(button).classList.remove('color2');
@@ -224,7 +220,7 @@ function start(){
     document.getElementById('time-max').innerHTML = '';
 
     // generate green and red buttons
-    randomize_buttons(random_number(grid_side * grid_side));
+    randomize_buttons(Math.floor(Math.random() * (grid_side * grid_side)));
 
     document.getElementById('score').innerHTML = 0;
     document.getElementById('time').innerHTML = 0;
