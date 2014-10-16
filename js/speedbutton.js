@@ -124,34 +124,35 @@ function reset(){
 
 function save(){
     // save settings into localStorage if they differ from default
-    j = [
-      'grid-dimensions',
-      'game-mode',
-      'max-points',
-      'max-time',
-      'green-frequency',
-      'green-points',
-      'red-frequency',
-      'red-onclick',
-      'red-points',
-      'audio-volume',
-      'y-margin',
-      'start-key'
-    ];
-    var loop_counter = j.length - 1;
+    var loop_counter = 11;
     do{
-        if(document.getElementById(j[loop_counter]).value === [5, 1, 50, 30, 1, 1, 1, 0, 1, 1, 0, 'H'][loop_counter]){
-            window.localStorage.removeItem('speedbutton-' + loop_counter);
+        var id = [
+          'audio-volume',
+          'game-mode',
+          'green-frequency',
+          'green-points',
+          'grid-dimensions',
+          'max-points',
+          'max-time',
+          'red-frequency',
+          'red-onclick',
+          'red-points',
+          'start-key',
+          'y-margin'
+        ][loop_counter];
+
+        if(document.getElementById(id).value === [1, 1, 1, 1, 5, 50, 30, 1, 0, 1, 'H', 0][loop_counter]){
+            window.localStorage.removeItem('SpeedButton.htm-' + id);
 
         }else{
             window.localStorage.setItem(
-              'speedbutton-' + loop_counter,
-              document.getElementById(j[loop_counter]).value
+              'SpeedButton.htm-' + id,
+              document.getElementById(id).value
             );
         }
     }while(loop_counter--);
-    j = 0;
 }
+
 function set_settings_disable(i){
     // enable or disable most setting inputs
     document.getElementById('grid-dimensions').disabled = i;
@@ -163,7 +164,81 @@ function set_settings_disable(i){
     document.getElementById('max-time').disabled = i;
     document.getElementById('red-frequency').disabled = i;
     document.getElementById('red-onclick').disabled = i;
-    document.getElementById('red-points').disabled = i
+    document.getElementById('red-points').disabled = i;
+}
+
+function setup(){
+    if(document.getElementById('start-button').disabled
+      || grid_side != document.getElementById('grid-dimensions').value){
+        // fetch settings from localStorage
+        document.getElementById('audio-volume').value = window.localStorage.getItem('SpeedButton.htm-audio-volume') === null
+          ? 1
+          : parseFloat(window.localStorage.getItem('SpeedButton.htm-audio-volume'));
+        document.getElementById('game-mode').value = window.localStorage.getItem('SpeedButton.htm-game-mode') === null
+          ? 1
+          : parseInt(window.localStorage.getItem('SpeedButton.htm-game-mode'));
+        document.getElementById('green-frequency').value = window.localStorage.getItem('SpeedButton.htm-green-frequency') === null
+          ? 1
+          : parseInt(window.localStorage.getItem('SpeedButton.htm-green-frequency'));
+        document.getElementById('green-points').value = window.localStorage.getItem('SpeedButton.htm-green-points') === null
+          ? 1
+          : parseInt(window.localStorage.getItem('SpeedButton.htm-green-points'));
+        document.getElementById('grid-dimensions').value = window.localStorage.getItem('SpeedButton.htm-grid-dimensions') === null
+          ? 5
+          : parseInt(window.localStorage.getItem('SpeedButton.htm-grid-dimensions'));
+        document.getElementById('max-points').value = window.localStorage.getItem('SpeedButton.htm-max-points') === null
+          ? 50
+          : parseInt(window.localStorage.getItem('SpeedButton.htm-max-points'));
+        document.getElementById('max-time').value = window.localStorage.getItem('SpeedButton.htm-max-time') === null
+          ? 30
+          : parseInt(window.localStorage.getItem('SpeedButton.htm-max-time'));
+        document.getElementById('red-frequency').value = window.localStorage.getItem('SpeedButton.htm-red-frequency') === null
+          ? 1
+          : parseInt(window.localStorage.getItem('SpeedButton.htm-red-frequency'));
+        document.getElementById('red-onclick').value = window.localStorage.getItem('SpeedButton.htm-red-onclick') === null
+          ? 0
+          : parseInt(window.localStorage.getItem('SpeedButton.htm-red-onclick'));
+        document.getElementById('red-points').value = window.localStorage.getItem('SpeedButton.htm-red-points') === null
+          ? 1
+          : parseInt(window.localStorage.getItem('SpeedButton.htm-red-points'));
+        document.getElementById('y-margin').value = window.localStorage.getItem('SpeedButton.htm-y-margin') === null
+          ? 0
+          : parseInt(window.localStorage.getItem('SpeedButton.htm-y-margin'));
+
+        if(window.localStorage.getItem('SpeedButton.htm-start-key') === null){
+            document.getElementById('start-key').value = 'H';
+        }else{
+            document.getElementById('start-key').value = window.localStorage.getItem('SpeedButton.htm-start-key');
+            document.getElementById('start-button').value = 'Start [' + document.getElementById('start-key').value + ']';
+        }
+        document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
+        grid_side = document.getElementById('grid-dimensions').value;
+
+        // create game area buttons
+        var j = [''];
+        for(var i = 0; i < (grid_side * grid_side); i++){
+            if(i % grid_side === 0
+              && i !== 0){
+                j.push('<br>');
+            }
+            j.push('<input class="buttons color2" disabled id=' + i + ' onclick=randomize_buttons(' + i + ') type=button value=->');
+        }
+        document.getElementById('game-area').innerHTML = j.join('');
+
+        j = 0;
+        document.getElementById('start-button').disabled = 0;
+    }
+}
+
+function showhide(){
+    if(document.getElementById('showhide-button').value === '-'){
+        document.getElementById('settings-span').style.display = 'none';
+        document.getElementById('showhide-button').value = '+';
+
+    }else{
+        document.getElementById('settings-span').style.display = 'inline';
+        document.getElementById('showhide-button').value = '-';
+    }
 }
 
 function start(){
@@ -251,80 +326,6 @@ function start(){
       'decisecond()',
       100
     );
-}
-
-function setup(){
-    if(document.getElementById('start-button').disabled
-      || grid_side != document.getElementById('grid-dimensions').value){
-        // fetch settings from localStorage
-        document.getElementById('grid-dimensions').value = window.localStorage.getItem('speedbutton-0') === null
-          ? 5
-          : parseInt(window.localStorage.getItem('speedbutton-0'));
-        document.getElementById('game-mode').value = window.localStorage.getItem('speedbutton-1') === null
-          ? 1
-          : parseInt(window.localStorage.getItem('speedbutton-1'));
-        document.getElementById('max-points').value = window.localStorage.getItem('speedbutton-2') === null
-          ? 50
-          : parseInt(window.localStorage.getItem('speedbutton-2'));
-        document.getElementById('max-time').value = window.localStorage.getItem('speedbutton-3') === null
-          ? 30
-          : parseInt(window.localStorage.getItem('speedbutton-3'));
-        document.getElementById('green-frequency').value = window.localStorage.getItem('speedbutton-4') === null
-          ? 1
-          : parseInt(window.localStorage.getItem('speedbutton-4'));
-        document.getElementById('green-points').value = window.localStorage.getItem('speedbutton-5') === null
-          ? 1
-          : parseInt(window.localStorage.getItem('speedbutton-5'));
-        document.getElementById('red-frequency').value = window.localStorage.getItem('speedbutton-6') === null
-          ? 1
-          : parseInt(window.localStorage.getItem('speedbutton-6'));
-        document.getElementById('red-onclick').value = window.localStorage.getItem('speedbutton-7') === null
-          ? 0
-          : parseInt(window.localStorage.getItem('speedbutton-7'));
-        document.getElementById('red-points').value = window.localStorage.getItem('speedbutton-8') === null
-          ? 1
-          : parseInt(window.localStorage.getItem('speedbutton-8'));
-        document.getElementById('audio-volume').value = window.localStorage.getItem('speedbutton-9') === null
-          ? 1
-          : parseFloat(window.localStorage.getItem('speedbutton-9'));
-        document.getElementById('y-margin').value = window.localStorage.getItem('speedbutton-10') === null
-          ? 0
-          : parseInt(window.localStorage.getItem('speedbutton-10'));
-
-        if(window.localStorage.getItem('speedbutton-11') === null){
-            document.getElementById('start-key').value = 'H';
-        }else{
-            document.getElementById('start-key').value = window.localStorage.getItem('speedbutton-11');
-            document.getElementById('start-button').value = 'Start [' + document.getElementById('start-key').value + ']';
-        }
-        document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
-        grid_side = document.getElementById('grid-dimensions').value;
-
-        // create game area buttons
-        var j = [''];
-        for(var i = 0; i < (grid_side * grid_side); i++){
-            if(i % grid_side === 0
-              && i !== 0){
-                j.push('<br>');
-            }
-            j.push('<input class="buttons color2" disabled id=' + i + ' onclick=randomize_buttons(' + i + ') type=button value=->');
-        }
-        document.getElementById('game-area').innerHTML = j.join('');
-
-        j = 0;
-        document.getElementById('start-button').disabled = 0;
-    }
-}
-
-function showhide(){
-    if(document.getElementById('showhide-button').value === '-'){
-        document.getElementById('settings-span').style.display = 'none';
-        document.getElementById('showhide-button').value = '+';
-
-    }else{
-        document.getElementById('settings-span').style.display = 'inline';
-        document.getElementById('showhide-button').value = '-';
-    }
 }
 
 function stop(){
