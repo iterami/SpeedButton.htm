@@ -1,17 +1,17 @@
 function decisecond(){
-    // if in max-time mode and time is less than or equal to 0 and max-time isn't 0
+    // If in max-time mode and time is less than or equal to 0 and max-time isn't 0...
     if(document.getElementById('game-mode').value === 1
       && parseFloat(document.getElementById('time').innerHTML) <= 0
       && document.getElementById('max-time').value > 0){
         stop();
 
-    // else if in max-points mode and score is not greater than max-points and max-points is not equal to 0
+    // ...else if in max-points mode and score is not greater than max-points and max-points is not equal to 0...
     }else if(document.getElementById('game-mode').value === 0
       && document.getElementById('max-points').value !== 0
       && parseInt(document.getElementById('score').innerHTML) >= document.getElementById('max-points').value){
         stop();
 
-    // else increase time if max-time is equal to 0 or in max-points mode, else decrease time
+    // ...else increase time if max-time is equal to 0 or in max-points mode, else decrease time.
     }else{
         document.getElementById('time').innerHTML =
           (parseFloat(document.getElementById('time').innerHTML)
@@ -26,7 +26,7 @@ function decisecond(){
 
 function randomize_buttons(clicked_button_id){
     if(game_running){
-        // stop game if clicking on a red button ends the game and clicked on a red button
+        // Stop game if clicking on a red button ends the game and clicked on a red button.
         if(document.getElementById('red-onclick').value === 1
           && document.getElementById(clicked_button_id).value.lastIndexOf('-', 0) === 0){
             stop();
@@ -34,13 +34,13 @@ function randomize_buttons(clicked_button_id){
         }
     }
 
-    // increase or decrease time based on settings value for clicked button
+    // Increase or decrease time based on settings value for clicked button.
     document.getElementById('score').innerHTML = parseInt(document.getElementById('score').innerHTML)
       + (document.getElementById(clicked_button_id).value.lastIndexOf('+', 0) === 0
         ? parseInt(document.getElementById('green-points').value)
         : -parseInt(document.getElementById('red-points').value));
 
-    // reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click
+    // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
     var game_has_not_ended = (document.getElementById('game-mode').value == 1
       || document.getElementById('max-points').value == 0
       || parseInt(document.getElementById('score').innerHTML) < document.getElementById('max-points').value);
@@ -59,7 +59,7 @@ function randomize_buttons(clicked_button_id){
     if(game_has_not_ended){
         var space_taken = 0;
 
-        // randomize locations of and setup green buttons that currently exist
+        // Randomize locations of and setup green buttons that currently exist.
         if(document.getElementById('green-frequency').value > 0){
             loop_counter = document.getElementById('green-frequency').value > (grid_side * grid_side) - 1
               ? (grid_side * grid_side) - 1
@@ -77,11 +77,11 @@ function randomize_buttons(clicked_button_id){
             }while(loop_counter--);
         }
 
-        // if there are no green buttons or space for red buttons is available
+        // If there are no green buttons or space for red buttons is available.
         if(document.getElementById('green-frequency').value == 0
           || (document.getElementById('grid-dimensions').value > 1
           && (grid_side * grid_side) - space_taken > 0)){
-            // create and randomize enough red buttons to fill available space or just number of red buttons
+            // Create and randomize enough red buttons to fill available space or just number of red buttons.
             loop_counter = document.getElementById('red-frequency').value > (grid_side * grid_side) - space_taken - 1
               ? (grid_side * grid_side) - space_taken - 1
               : document.getElementById('red-frequency').value - 1;
@@ -102,28 +102,32 @@ function randomize_buttons(clicked_button_id){
 }
 
 function reset(){
-    if(confirm('Reset settings?')){
-        stop();
-        document.getElementById('audio-volume').value = 1;
-        document.getElementById('game-mode').value = 1;
-        document.getElementById('green-frequency').value = 1;
-        document.getElementById('green-points').value = 1;
-        document.getElementById('grid-dimensions').value = 5;
-        document.getElementById('max-points').value = 50;
-        document.getElementById('max-time').value = 30;
-        document.getElementById('red-frequency').value = 1;
-        document.getElementById('red-onclick').value = 0;
-        document.getElementById('red-points').value = 1;
-        document.getElementById('score').value = 0;
-        document.getElementById('start-key').value = 'H';
-        document.getElementById('time').value = 0;
-        document.getElementById('y-margin').value = 0;
-        save();
+    if(!confirm('Reset settings?')){
+        return;
     }
+
+    stop();
+
+    document.getElementById('audio-volume').value = 1;
+    document.getElementById('game-mode').value = 1;
+    document.getElementById('green-frequency').value = 1;
+    document.getElementById('green-points').value = 1;
+    document.getElementById('grid-dimensions').value = 5;
+    document.getElementById('max-points').value = 50;
+    document.getElementById('max-time').value = 30;
+    document.getElementById('red-frequency').value = 1;
+    document.getElementById('red-onclick').value = 0;
+    document.getElementById('red-points').value = 1;
+    document.getElementById('score').value = 0;
+    document.getElementById('start-key').value = 'H';
+    document.getElementById('time').value = 0;
+    document.getElementById('y-margin').value = 0;
+
+    save();
 }
 
 function save(){
-    // save settings into localStorage if they differ from default
+    // Save settings into localStorage if they differ from default.
     var loop_counter = 11;
     do{
         var id = [
@@ -153,24 +157,24 @@ function save(){
     }while(loop_counter--);
 }
 
-function set_settings_disable(i){
-    // enable or disable most setting inputs
-    document.getElementById('grid-dimensions').disabled = i;
-    document.getElementById('game-mode').disabled = i;
-    document.getElementById('green-frequency').disabled = i;
-    document.getElementById('green-points').disabled = i;
-    document.getElementById('max-points').disabled = i;
-    document.getElementById('reset-button').disabled = i;
-    document.getElementById('max-time').disabled = i;
-    document.getElementById('red-frequency').disabled = i;
-    document.getElementById('red-onclick').disabled = i;
-    document.getElementById('red-points').disabled = i;
+function set_settings_disable(state){
+    // Enable or disable most setting inputs.
+    document.getElementById('grid-dimensions').disabled = state;
+    document.getElementById('game-mode').disabled = state;
+    document.getElementById('green-frequency').disabled = state;
+    document.getElementById('green-points').disabled = state;
+    document.getElementById('max-points').disabled = state;
+    document.getElementById('reset-button').disabled = state;
+    document.getElementById('max-time').disabled = state;
+    document.getElementById('red-frequency').disabled = state;
+    document.getElementById('red-onclick').disabled = state;
+    document.getElementById('red-points').disabled = state;
 }
 
 function setup(){
     if(document.getElementById('start-button').disabled
       || grid_side != document.getElementById('grid-dimensions').value){
-        // fetch settings from localStorage
+        // Fetch settings from window.localStorage.
         document.getElementById('audio-volume').value = window.localStorage.getItem('SpeedButton.htm-audio-volume') === null
           ? 1
           : parseFloat(window.localStorage.getItem('SpeedButton.htm-audio-volume'));
@@ -214,7 +218,7 @@ function setup(){
         document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
         grid_side = document.getElementById('grid-dimensions').value;
 
-        // create game area buttons
+        // Create game area buttons.
         var j = [''];
         for(var i = 0; i < (grid_side * grid_side); i++){
             if(i % grid_side === 0
@@ -225,7 +229,6 @@ function setup(){
         }
         document.getElementById('game-area').innerHTML = j.join('');
 
-        j = 0;
         document.getElementById('start-button').disabled = 0;
     }
 }
@@ -242,7 +245,7 @@ function showhide(){
 }
 
 function start(){
-    // verify settings are numbers and greater than or equal to 0
+    // Verify settings are numbers and greater than or equal to 0.
     var j = [
       'max-points',
       'max-time',
@@ -251,7 +254,7 @@ function start(){
       'red-frequency',
       'red-points',
       'audio-volume',
-      'y-margin'
+      'y-margin',
     ];
     var loop_counter = j.length - 1;
     do{
@@ -265,19 +268,19 @@ function start(){
               1,
               1,
               1,
-              0
+              0,
             ][loop_counter];
         }
     }while(loop_counter--);
 
-    // adjust margin-top of entire game
+    // Adjust margin-top of entire game.
     document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
-    // save settings into localStorage and create game area
+    // Save settings into localStorage and create game area.
     save();
     setup();
 
-    // reset game buttons
+    // Reset game buttons.
     loop_counter = grid_side * grid_side - 1;
     do{
         document.getElementById(loop_counter).disabled = 1;
@@ -288,19 +291,19 @@ function start(){
         document.getElementById(loop_counter).value = '-';
     }while(loop_counter--);
 
-    // disable many setting inputs
+    // Disable many setting inputs.
     set_settings_disable(1);
 
     document.getElementById('score-max').innerHTML = '';
     document.getElementById('time-max').innerHTML = '';
 
-    // generate green and red buttons
+    // Generate green and red buttons.
     randomize_buttons(Math.floor(Math.random() * (grid_side * grid_side)));
 
     document.getElementById('score').innerHTML = 0;
     document.getElementById('time').innerHTML = 0;
 
-    // setup max-time or max-points displays
+    // Setup max-time or max-points displays.
     if(document.getElementById('game-mode').value === 1){
         document.getElementById('time').innerHTML = document.getElementById('max-time').value >= 0
           ? (document.getElementById('max-time').value === ''
@@ -332,13 +335,13 @@ function stop(){
     clearInterval(interval);
     game_running = 0;
 
-    // diable buttons to prevent further clicks
+    // Disable buttons to prevent further clicks.
     var loop_counter = grid_side * grid_side - 1;
     do{
         document.getElementById(loop_counter).disabled = 1;
     }while(loop_counter--);
 
-    // enable settings to allow editing
+    // Enable settings to allow editing.
     set_settings_disable(0);
 
     document.getElementById('start-button').onclick = function(){
@@ -360,7 +363,8 @@ window.onkeydown = function(e){
         stop();
         start();
 
-    }else if(key === 27){// ESC
+    // ESC: stop current game.
+    }else if(key === 27){
         stop();
     }
 };
