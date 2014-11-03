@@ -53,7 +53,7 @@ function randomize_buttons(clicked_button_id){
             document.getElementById(loop_counter).classList.add('color2');
             document.getElementById(loop_counter).value = '-';
         }
-        document.getElementById(loop_counter).disabled = 1;
+        document.getElementById(loop_counter).disabled = true;
     }while(loop_counter--);
 
     if(game_has_not_ended){
@@ -72,7 +72,7 @@ function randomize_buttons(clicked_button_id){
 
                 document.getElementById(button).classList.remove('color2');
                 document.getElementById(button).classList.add('color1');
-                document.getElementById(button).disabled = 0;
+                document.getElementById(button).disabled = false;
                 document.getElementById(button).value = '+' + parseInt(document.getElementById('green-points').value);
             }while(loop_counter--);
         }
@@ -93,7 +93,7 @@ function randomize_buttons(clicked_button_id){
 
                     document.getElementById(button).classList.remove('color2');
                     document.getElementById(button).classList.add('color0');
-                    document.getElementById(button).disabled = 0;
+                    document.getElementById(button).disabled = false;
                     document.getElementById(button).value = '-' + parseInt(document.getElementById('red-points').value);
                 }while(loop_counter--);
             }
@@ -142,10 +142,10 @@ function save(){
           'red-onclick',
           'red-points',
           'start-key',
-          'y-margin'
+          'y-margin',
         ][loop_counter];
 
-        if(document.getElementById(id).value === [1, 1, 1, 1, 5, 50, 30, 1, 0, 1, 'H', 0][loop_counter]){
+        if(document.getElementById(id).value === [1, 1, 1, 1, 5, 50, 30, 1, 0, 1, 'H', 0,][loop_counter]){
             window.localStorage.removeItem('SpeedButton.htm-' + id);
 
         }else{
@@ -158,17 +158,16 @@ function save(){
 }
 
 function set_settings_disable(state){
-    // Enable or disable most setting inputs.
-    document.getElementById('grid-dimensions').disabled = state;
     document.getElementById('game-mode').disabled = state;
     document.getElementById('green-frequency').disabled = state;
     document.getElementById('green-points').disabled = state;
+    document.getElementById('grid-dimensions').disabled = state;
     document.getElementById('max-points').disabled = state;
-    document.getElementById('reset-button').disabled = state;
     document.getElementById('max-time').disabled = state;
     document.getElementById('red-frequency').disabled = state;
     document.getElementById('red-onclick').disabled = state;
     document.getElementById('red-points').disabled = state;
+    document.getElementById('reset-button').disabled = state;
 }
 
 function setup(){
@@ -215,21 +214,24 @@ function setup(){
             document.getElementById('start-key').value = window.localStorage.getItem('SpeedButton.htm-start-key');
             document.getElementById('start-button').value = 'Start [' + document.getElementById('start-key').value + ']';
         }
-        document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
+        document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
         grid_side = document.getElementById('grid-dimensions').value;
 
         // Create game area buttons.
-        var j = [''];
+        var output = [''];
+
         for(var i = 0; i < (grid_side * grid_side); i++){
             if(i % grid_side === 0
               && i !== 0){
-                j.push('<br>');
+                output.push('<br>');
             }
-            j.push('<input class="buttons color2" disabled id=' + i + ' onclick=randomize_buttons(' + i + ') type=button value=->');
+            output.push(
+              '<input class="buttons color2" disabled id=' + i + ' onclick=randomize_buttons(' + i + ') type=button value=->'
+            );
         }
-        document.getElementById('game-area').innerHTML = j.join('');
+        document.getElementById('game-area').innerHTML = output.join('');
 
-        document.getElementById('start-button').disabled = 0;
+        document.getElementById('start-button').disabled = false;
     }
 }
 
@@ -246,26 +248,27 @@ function showhide(){
 
 function start(){
     // Verify settings are numbers and greater than or equal to 0.
-    var j = [
-      'max-points',
-      'max-time',
-      'green-frequency',
-      'green-points',
-      'red-frequency',
-      'red-points',
-      'audio-volume',
-      'y-margin',
-    ];
-    var loop_counter = j.length - 1;
+    var loop_counter = 7;
     do{
-        if(isNaN(document.getElementById(j[loop_counter]).value)
-          || document.getElementById(j[loop_counter]).value < 0){
-            document.getElementById(j[loop_counter]).value = [
+        var id = [
+          'audio-volume',
+          'green-frequency',
+          'green-points',
+          'max-points',
+          'max-time',
+          'red-frequency',
+          'red-points',
+          'y-margin',
+        ][loop_counter];
+
+        if(isNaN(document.getElementById(id).value)
+          || document.getElementById(id).value < 0){
+            document.getElementById(id).value = [
+              1,
+              1,
+              1,
               50,
               30,
-              1,
-              1,
-              1,
               1,
               1,
               0,
@@ -274,7 +277,7 @@ function start(){
     }while(loop_counter--);
 
     // Adjust margin-top of entire game.
-    document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
+    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Save settings into localStorage and create game area.
     save();
@@ -283,7 +286,7 @@ function start(){
     // Reset game buttons.
     loop_counter = grid_side * grid_side - 1;
     do{
-        document.getElementById(loop_counter).disabled = 1;
+        document.getElementById(loop_counter).disabled = true;
         document.getElementById(loop_counter).classList.remove('color0');
         document.getElementById(loop_counter).classList.remove('color1');
         document.getElementById(loop_counter).classList.remove('color2');
@@ -292,7 +295,7 @@ function start(){
     }while(loop_counter--);
 
     // Disable many setting inputs.
-    set_settings_disable(1);
+    set_settings_disable(true);
 
     document.getElementById('score-max').innerHTML = '';
     document.getElementById('time-max').innerHTML = '';
@@ -324,7 +327,7 @@ function start(){
     };
     document.getElementById('start-button').value = 'End [ESC]';
 
-    game_running = 1;
+    game_running = true;
     interval = setInterval(
       'decisecond()',
       100
@@ -333,16 +336,16 @@ function start(){
 
 function stop(){
     clearInterval(interval);
-    game_running = 0;
+    game_running = false;
 
     // Disable buttons to prevent further clicks.
     var loop_counter = grid_side * grid_side - 1;
     do{
-        document.getElementById(loop_counter).disabled = 1;
+        document.getElementById(loop_counter).disabled = true;
     }while(loop_counter--);
 
     // Enable settings to allow editing.
-    set_settings_disable(0);
+    set_settings_disable(false);
 
     document.getElementById('start-button').onclick = function(){
         start();
@@ -351,7 +354,7 @@ function stop(){
       'Start [' + document.getElementById('start-key').value + ']';
 }
 
-var game_running = 0;
+var game_running = false;
 var grid_side = 5;
 var interval = 0;
 
