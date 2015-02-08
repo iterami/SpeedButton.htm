@@ -328,14 +328,14 @@ function start(){
     document.getElementById('start-button').value = 'End [ESC]';
 
     game_running = true;
-    interval = setInterval(
+    interval = window.setInterval(
       'decisecond()',
       100
     );
 }
 
 function stop(){
-    clearInterval(interval);
+    window.clearInterval(interval);
     game_running = false;
 
     // Disable buttons to prevent further clicks.
