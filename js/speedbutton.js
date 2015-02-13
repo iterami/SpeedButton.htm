@@ -1,12 +1,12 @@
 function decisecond(){
     // If in max-time mode and time is less than or equal to 0 and max-time isn't 0...
-    if(document.getElementById('game-mode').value === 1
+    if(document.getElementById('game-mode').value == 1
       && parseFloat(document.getElementById('time').innerHTML) <= 0
       && document.getElementById('max-time').value > 0){
         stop();
 
     // ...else if in max-points mode and score is not greater than max-points and max-points is not equal to 0...
-    }else if(document.getElementById('game-mode').value === 0
+    }else if(document.getElementById('game-mode').value == 0
       && document.getElementById('max-points').value !== 0
       && parseInt(document.getElementById('score').innerHTML) >= document.getElementById('max-points').value){
         stop();
@@ -15,7 +15,7 @@ function decisecond(){
     }else{
         document.getElementById('time').innerHTML =
           (parseFloat(document.getElementById('time').innerHTML)
-            + ((document.getElementById('game-mode').value === 1
+            + ((document.getElementById('game-mode').value == 1
               && document.getElementById('max-time').value > 0)
                 ? -.1
                 : .1
@@ -27,7 +27,7 @@ function decisecond(){
 function randomize_buttons(clicked_button_id){
     if(game_running){
         // Stop game if clicking on a red button ends the game and clicked on a red button.
-        if(document.getElementById('red-onclick').value === 1
+        if(document.getElementById('red-onclick').value == 1
           && document.getElementById(clicked_button_id).value.lastIndexOf('-', 0) === 0){
             stop();
             return;
@@ -41,62 +41,67 @@ function randomize_buttons(clicked_button_id){
         : -parseInt(document.getElementById('red-points').value));
 
     // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
-    var game_has_not_ended = (document.getElementById('game-mode').value == 1
+    var game_ended = !(document.getElementById('game-mode').value == 1
       || document.getElementById('max-points').value == 0
       || parseInt(document.getElementById('score').innerHTML) < document.getElementById('max-points').value);
 
     var loop_counter = grid_side * grid_side - 1;
     do{
-        if(game_has_not_ended){
-            document.getElementById(loop_counter).classList.remove('color0');
-            document.getElementById(loop_counter).classList.remove('color1');
-            document.getElementById(loop_counter).classList.add('color2');
-            document.getElementById(loop_counter).value = '-';
-        }
         document.getElementById(loop_counter).disabled = true;
+
+        if(game_ended){
+            continue;
+        }
+
+        document.getElementById(loop_counter).classList.remove('color0');
+        document.getElementById(loop_counter).classList.remove('color1');
+        document.getElementById(loop_counter).classList.add('color2');
+        document.getElementById(loop_counter).value = '-';
     }while(loop_counter--);
 
-    if(game_has_not_ended){
-        var space_taken = 0;
+    if(game_ended){
+        return;
+    }
 
-        // Randomize locations of and setup green buttons that currently exist.
-        if(document.getElementById('green-frequency').value > 0){
-            loop_counter = document.getElementById('green-frequency').value > (grid_side * grid_side) - 1
-              ? (grid_side * grid_side) - 1
-              : document.getElementById('green-frequency').value - 1;
-            space_taken = loop_counter + 1;
+    var space_taken = 0;
+
+    // Randomize locations of and setup green buttons that currently exist.
+    if(document.getElementById('green-frequency').value > 0){
+        loop_counter = document.getElementById('green-frequency').value > (grid_side * grid_side) - 1
+          ? (grid_side * grid_side) - 1
+          : document.getElementById('green-frequency').value - 1;
+        space_taken = loop_counter + 1;
+        do{
+            do{
+                var button = Math.floor(Math.random() * (grid_side * grid_side));
+            }while(!document.getElementById(button).disabled);
+
+            document.getElementById(button).classList.remove('color2');
+            document.getElementById(button).classList.add('color1');
+            document.getElementById(button).disabled = false;
+            document.getElementById(button).value = '+' + parseInt(document.getElementById('green-points').value);
+        }while(loop_counter--);
+    }
+
+    // If there are no green buttons or space for red buttons is available.
+    if(document.getElementById('green-frequency').value == 0
+      || (document.getElementById('grid-dimensions').value > 1
+      && (grid_side * grid_side) - space_taken > 0)){
+        // Create and randomize enough red buttons to fill available space or just number of red buttons.
+        loop_counter = document.getElementById('red-frequency').value > (grid_side * grid_side) - space_taken - 1
+          ? (grid_side * grid_side) - space_taken - 1
+          : document.getElementById('red-frequency').value - 1;
+        if(loop_counter >= 0){
             do{
                 do{
                     var button = Math.floor(Math.random() * (grid_side * grid_side));
                 }while(!document.getElementById(button).disabled);
 
                 document.getElementById(button).classList.remove('color2');
-                document.getElementById(button).classList.add('color1');
+                document.getElementById(button).classList.add('color0');
                 document.getElementById(button).disabled = false;
-                document.getElementById(button).value = '+' + parseInt(document.getElementById('green-points').value);
+                document.getElementById(button).value = '-' + parseInt(document.getElementById('red-points').value);
             }while(loop_counter--);
-        }
-
-        // If there are no green buttons or space for red buttons is available.
-        if(document.getElementById('green-frequency').value == 0
-          || (document.getElementById('grid-dimensions').value > 1
-          && (grid_side * grid_side) - space_taken > 0)){
-            // Create and randomize enough red buttons to fill available space or just number of red buttons.
-            loop_counter = document.getElementById('red-frequency').value > (grid_side * grid_side) - space_taken - 1
-              ? (grid_side * grid_side) - space_taken - 1
-              : document.getElementById('red-frequency').value - 1;
-            if(loop_counter >= 0){
-                do{
-                    do{
-                        var button = Math.floor(Math.random() * (grid_side * grid_side));
-                    }while(!document.getElementById(button).disabled);
-
-                    document.getElementById(button).classList.remove('color2');
-                    document.getElementById(button).classList.add('color0');
-                    document.getElementById(button).disabled = false;
-                    document.getElementById(button).value = '-' + parseInt(document.getElementById('red-points').value);
-                }while(loop_counter--);
-            }
         }
     }
 }
@@ -145,7 +150,7 @@ function save(){
           'y-margin',
         ][loop_counter];
 
-        if(document.getElementById(id).value === [1, 1, 1, 1, 5, 50, 30, 1, 0, 1, 'H', 0,][loop_counter]){
+        if(document.getElementById(id).value == [1, 1, 1, 1, 5, 50, 30, 1, 0, 1, 'H', 0,][loop_counter]){
             window.localStorage.removeItem('SpeedButton.htm-' + id);
 
         }else{
@@ -171,68 +176,70 @@ function set_settings_disable(state){
 }
 
 function setup(){
-    if(document.getElementById('start-button').disabled
-      || grid_side != document.getElementById('grid-dimensions').value){
-        // Fetch settings from window.localStorage.
-        document.getElementById('audio-volume').value = window.localStorage.getItem('SpeedButton.htm-audio-volume') === null
-          ? 1
-          : parseFloat(window.localStorage.getItem('SpeedButton.htm-audio-volume'));
-        document.getElementById('game-mode').value = window.localStorage.getItem('SpeedButton.htm-game-mode') === null
-          ? 1
-          : parseInt(window.localStorage.getItem('SpeedButton.htm-game-mode'));
-        document.getElementById('green-frequency').value = window.localStorage.getItem('SpeedButton.htm-green-frequency') === null
-          ? 1
-          : parseInt(window.localStorage.getItem('SpeedButton.htm-green-frequency'));
-        document.getElementById('green-points').value = window.localStorage.getItem('SpeedButton.htm-green-points') === null
-          ? 1
-          : parseInt(window.localStorage.getItem('SpeedButton.htm-green-points'));
-        document.getElementById('grid-dimensions').value = window.localStorage.getItem('SpeedButton.htm-grid-dimensions') === null
-          ? 5
-          : parseInt(window.localStorage.getItem('SpeedButton.htm-grid-dimensions'));
-        document.getElementById('max-points').value = window.localStorage.getItem('SpeedButton.htm-max-points') === null
-          ? 50
-          : parseInt(window.localStorage.getItem('SpeedButton.htm-max-points'));
-        document.getElementById('max-time').value = window.localStorage.getItem('SpeedButton.htm-max-time') === null
-          ? 30
-          : parseInt(window.localStorage.getItem('SpeedButton.htm-max-time'));
-        document.getElementById('red-frequency').value = window.localStorage.getItem('SpeedButton.htm-red-frequency') === null
-          ? 1
-          : parseInt(window.localStorage.getItem('SpeedButton.htm-red-frequency'));
-        document.getElementById('red-onclick').value = window.localStorage.getItem('SpeedButton.htm-red-onclick') === null
-          ? 0
-          : parseInt(window.localStorage.getItem('SpeedButton.htm-red-onclick'));
-        document.getElementById('red-points').value = window.localStorage.getItem('SpeedButton.htm-red-points') === null
-          ? 1
-          : parseInt(window.localStorage.getItem('SpeedButton.htm-red-points'));
-        document.getElementById('y-margin').value = window.localStorage.getItem('SpeedButton.htm-y-margin') === null
-          ? 0
-          : parseInt(window.localStorage.getItem('SpeedButton.htm-y-margin'));
-
-        if(window.localStorage.getItem('SpeedButton.htm-start-key') === null){
-            document.getElementById('start-key').value = 'H';
-        }else{
-            document.getElementById('start-key').value = window.localStorage.getItem('SpeedButton.htm-start-key');
-            document.getElementById('start-button').value = 'Start [' + document.getElementById('start-key').value + ']';
-        }
-        document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
-        grid_side = document.getElementById('grid-dimensions').value;
-
-        // Create game area buttons.
-        var output = [''];
-
-        for(var i = 0; i < (grid_side * grid_side); i++){
-            if(i % grid_side === 0
-              && i !== 0){
-                output.push('<br>');
-            }
-            output.push(
-              '<input class="buttons color2" disabled id=' + i + ' onclick=randomize_buttons(' + i + ') type=button value=->'
-            );
-        }
-        document.getElementById('game-area').innerHTML = output.join('');
-
-        document.getElementById('start-button').disabled = false;
+    if(!document.getElementById('start-button').disabled
+      && grid_side == document.getElementById('grid-dimensions').value){
+        return;
     }
+
+    // Fetch settings from window.localStorage.
+    document.getElementById('audio-volume').value = window.localStorage.getItem('SpeedButton.htm-audio-volume') === null
+      ? 1
+      : parseFloat(window.localStorage.getItem('SpeedButton.htm-audio-volume'));
+    document.getElementById('game-mode').value = window.localStorage.getItem('SpeedButton.htm-game-mode') === null
+      ? 1
+      : parseInt(window.localStorage.getItem('SpeedButton.htm-game-mode'));
+    document.getElementById('green-frequency').value = window.localStorage.getItem('SpeedButton.htm-green-frequency') === null
+      ? 1
+      : parseInt(window.localStorage.getItem('SpeedButton.htm-green-frequency'));
+    document.getElementById('green-points').value = window.localStorage.getItem('SpeedButton.htm-green-points') === null
+      ? 1
+      : parseInt(window.localStorage.getItem('SpeedButton.htm-green-points'));
+    document.getElementById('grid-dimensions').value = window.localStorage.getItem('SpeedButton.htm-grid-dimensions') === null
+      ? 5
+      : parseInt(window.localStorage.getItem('SpeedButton.htm-grid-dimensions'));
+    document.getElementById('max-points').value = window.localStorage.getItem('SpeedButton.htm-max-points') === null
+      ? 50
+      : parseInt(window.localStorage.getItem('SpeedButton.htm-max-points'));
+    document.getElementById('max-time').value = window.localStorage.getItem('SpeedButton.htm-max-time') === null
+      ? 30
+      : parseInt(window.localStorage.getItem('SpeedButton.htm-max-time'));
+    document.getElementById('red-frequency').value = window.localStorage.getItem('SpeedButton.htm-red-frequency') === null
+      ? 1
+      : parseInt(window.localStorage.getItem('SpeedButton.htm-red-frequency'));
+    document.getElementById('red-onclick').value = window.localStorage.getItem('SpeedButton.htm-red-onclick') === null
+      ? 0
+      : parseInt(window.localStorage.getItem('SpeedButton.htm-red-onclick'));
+    document.getElementById('red-points').value = window.localStorage.getItem('SpeedButton.htm-red-points') === null
+      ? 1
+      : parseInt(window.localStorage.getItem('SpeedButton.htm-red-points'));
+    document.getElementById('y-margin').value = window.localStorage.getItem('SpeedButton.htm-y-margin') === null
+      ? 0
+      : parseInt(window.localStorage.getItem('SpeedButton.htm-y-margin'));
+
+    if(window.localStorage.getItem('SpeedButton.htm-start-key') === null){
+        document.getElementById('start-key').value = 'H';
+    }else{
+        document.getElementById('start-key').value = window.localStorage.getItem('SpeedButton.htm-start-key');
+        document.getElementById('start-button').value = 'Start [' + document.getElementById('start-key').value + ']';
+    }
+    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
+    grid_side = document.getElementById('grid-dimensions').value;
+
+    // Create game area buttons.
+    var output = [''];
+
+    for(var i = 0; i < (grid_side * grid_side); i++){
+        if(i % grid_side === 0
+          && i !== 0){
+            output.push('<br>');
+        }
+        output.push(
+          '<input class="buttons color2" disabled id=' + i + ' onclick=randomize_buttons(' + i + ') type=button value=->'
+        );
+    }
+    document.getElementById('game-area').innerHTML = output.join('');
+
+    document.getElementById('start-button').disabled = false;
 }
 
 function showhide(){
@@ -307,7 +314,7 @@ function start(){
     document.getElementById('time').innerHTML = 0;
 
     // Setup max-time or max-points displays.
-    if(document.getElementById('game-mode').value === 1){
+    if(document.getElementById('game-mode').value == 1){
         document.getElementById('time').innerHTML = document.getElementById('max-time').value >= 0
           ? (document.getElementById('max-time').value === ''
             ? 0
