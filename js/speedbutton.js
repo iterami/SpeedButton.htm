@@ -131,26 +131,24 @@ function reset(){
     save();
 }
 
+// Save settings into window.localStorage if they differ from default.
 function save(){
-    // Save settings into localStorage if they differ from default.
-    var loop_counter = 11;
-    do{
-        var id = [
-          'audio-volume',
-          'game-mode',
-          'green-frequency',
-          'green-points',
-          'grid-dimensions',
-          'max-points',
-          'max-time',
-          'red-frequency',
-          'red-onclick',
-          'red-points',
-          'start-key',
-          'y-margin',
-        ][loop_counter];
-
-        if(document.getElementById(id).value == [1, 1, 1, 1, 5, 50, 30, 1, 0, 1, 'H', 0,][loop_counter]){
+    var ids = {
+      'audio-volume': 1,
+      'game-mode': 1,
+      'green-frequency': 1,
+      'green-points': 1,
+      'grid-dimensions': 5,
+      'max-points': 50,
+      'max-time': 30,
+      'red-frequency': 1,
+      'red-onclick': 0,
+      'red-points': 1,
+      'start-key': 'H',
+      'y-margin': 0,
+    };
+    for(var id in ids){
+        if(document.getElementById(id).value == ids[id]){
             window.localStorage.removeItem('SpeedButton.htm-' + id);
 
         }else{
@@ -159,7 +157,7 @@ function save(){
               document.getElementById(id).value
             );
         }
-    }while(loop_counter--);
+    }
 }
 
 function set_settings_disable(state){
