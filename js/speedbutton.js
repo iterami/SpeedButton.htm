@@ -107,7 +107,7 @@ function randomize_buttons(clicked_button_id){
 }
 
 function reset(){
-    if(!confirm('Reset settings?')){
+    if(!window.confirm('Reset settings?')){
         return;
     }
 
