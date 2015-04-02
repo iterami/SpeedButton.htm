@@ -180,39 +180,28 @@ function setup(){
     }
 
     // Fetch settings from window.localStorage.
-    document.getElementById('audio-volume').value = window.localStorage.getItem('SpeedButton.htm-audio-volume') === null
-      ? 1
-      : parseFloat(window.localStorage.getItem('SpeedButton.htm-audio-volume'));
-    document.getElementById('game-mode').value = window.localStorage.getItem('SpeedButton.htm-game-mode') === null
-      ? 1
-      : parseInt(window.localStorage.getItem('SpeedButton.htm-game-mode'));
-    document.getElementById('green-frequency').value = window.localStorage.getItem('SpeedButton.htm-green-frequency') === null
-      ? 1
-      : parseInt(window.localStorage.getItem('SpeedButton.htm-green-frequency'));
-    document.getElementById('green-points').value = window.localStorage.getItem('SpeedButton.htm-green-points') === null
-      ? 1
-      : parseInt(window.localStorage.getItem('SpeedButton.htm-green-points'));
-    document.getElementById('grid-dimensions').value = window.localStorage.getItem('SpeedButton.htm-grid-dimensions') === null
-      ? 5
-      : parseInt(window.localStorage.getItem('SpeedButton.htm-grid-dimensions'));
-    document.getElementById('max-points').value = window.localStorage.getItem('SpeedButton.htm-max-points') === null
-      ? 50
-      : parseInt(window.localStorage.getItem('SpeedButton.htm-max-points'));
-    document.getElementById('max-time').value = window.localStorage.getItem('SpeedButton.htm-max-time') === null
-      ? 30
-      : parseInt(window.localStorage.getItem('SpeedButton.htm-max-time'));
-    document.getElementById('red-frequency').value = window.localStorage.getItem('SpeedButton.htm-red-frequency') === null
-      ? 1
-      : parseInt(window.localStorage.getItem('SpeedButton.htm-red-frequency'));
-    document.getElementById('red-onclick').value = window.localStorage.getItem('SpeedButton.htm-red-onclick') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('SpeedButton.htm-red-onclick'));
-    document.getElementById('red-points').value = window.localStorage.getItem('SpeedButton.htm-red-points') === null
-      ? 1
-      : parseInt(window.localStorage.getItem('SpeedButton.htm-red-points'));
-    document.getElementById('y-margin').value = window.localStorage.getItem('SpeedButton.htm-y-margin') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('SpeedButton.htm-y-margin'));
+    document.getElementById('audio-volume').value =
+      parseFloat(window.localStorage.getItem('SpeedButton.htm-audio-volume')) || 1;
+    document.getElementById('game-mode').value =
+      parseInt(window.localStorage.getItem('SpeedButton.htm-game-mode')) || 1;
+    document.getElementById('green-frequency').value =
+      parseInt(window.localStorage.getItem('SpeedButton.htm-green-frequency')) || 1;
+    document.getElementById('green-points').value =
+      parseInt(window.localStorage.getItem('SpeedButton.htm-green-points')) || 1;
+    document.getElementById('grid-dimensions').value =
+      parseInt(window.localStorage.getItem('SpeedButton.htm-grid-dimensions')) || 5;
+    document.getElementById('max-points').value =
+      parseInt(window.localStorage.getItem('SpeedButton.htm-max-points')) || 50;
+    document.getElementById('max-time').value =
+      parseInt(window.localStorage.getItem('SpeedButton.htm-max-time')) || 30;
+    document.getElementById('red-frequency').value =
+      parseInt(window.localStorage.getItem('SpeedButton.htm-red-frequency')) || 1;
+    document.getElementById('red-onclick').value =
+      parseInt(window.localStorage.getItem('SpeedButton.htm-red-onclick')) || 0;
+    document.getElementById('red-points').value =
+      parseInt(window.localStorage.getItem('SpeedButton.htm-red-points')) || 1;
+    document.getElementById('y-margin').value =
+      parseInt(window.localStorage.getItem('SpeedButton.htm-y-margin')) || 0;
 
     if(window.localStorage.getItem('SpeedButton.htm-start-key') === null){
         document.getElementById('start-key').value = 'H';
