@@ -24,6 +24,9 @@ input{
     color: #aaa;
     width: 75px;
 }
+#settings-button{
+    width: auto;
+}
 .settings-td{
     padding: 9px;
     text-align: left;

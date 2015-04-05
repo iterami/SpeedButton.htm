@@ -229,14 +229,18 @@ function setup(){
     document.getElementById('start-button').disabled = false;
 }
 
-function settings_toggle(){
-    if(document.getElementById('settings-button').value === '-'){
-        document.getElementById('settings-span').style.display = 'none';
-        document.getElementById('settings-button').value = '+';
+function settings_toggle(state){
+    state = state == undefined
+      ? document.getElementById('settings-button').value === '+'
+      : state;
 
-    }else{
+    if(state){
         document.getElementById('settings-span').style.display = 'inline';
         document.getElementById('settings-button').value = '-';
+
+    }else{
+        document.getElementById('settings-span').style.display = 'none';
+        document.getElementById('settings-button').value = '+';
     }
 }
 
@@ -362,6 +366,14 @@ window.onkeydown = function(e){
     // ESC: stop current game.
     }else if(key === 27){
         stop();
+
+    // +: show settings.
+    }else if(key === 187){
+        settings_toggle(true);
+
+    // -: hide settings.
+    }else if(key === 189){
+        settings_toggle(false);
     }
 };
 
