@@ -24,6 +24,11 @@ input{
     color: #aaa;
     width: 75px;
 }
+input[type=button]:not([disabled]),
+input[type=range],
+select:not([disabled]){
+    cursor: pointer;
+}
 #settings-button{
     width: auto;
 }
