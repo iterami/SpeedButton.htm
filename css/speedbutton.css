@@ -42,6 +42,9 @@ select:not([disabled]){
     text-align: left;
     width: 50%;
 }
+#start-button{
+    font-size: 123%;
+}
 table{
     border-collapse: collapse;
     text-align: center;
