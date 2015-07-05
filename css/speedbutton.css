@@ -29,7 +29,9 @@ input[type=range],
 select:not([disabled]){
     cursor: pointer;
 }
-#settings-button{
+#reset-button,
+#settings-button,
+#start-button{
     width: auto;
 }
 #settings-span{
