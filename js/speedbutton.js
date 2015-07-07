@@ -1,3 +1,5 @@
+'use strict';
+
 function decisecond(){
     // If in max-time mode and time is less than or equal to 0 and max-time isn't 0...
     if(document.getElementById('game-mode').value == 1
