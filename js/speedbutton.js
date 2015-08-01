@@ -162,19 +162,6 @@ function save(){
     }
 }
 
-function set_settings_disable(state){
-    document.getElementById('game-mode').disabled = state;
-    document.getElementById('green-frequency').disabled = state;
-    document.getElementById('green-points').disabled = state;
-    document.getElementById('grid-dimensions').disabled = state;
-    document.getElementById('max-points').disabled = state;
-    document.getElementById('max-time').disabled = state;
-    document.getElementById('red-frequency').disabled = state;
-    document.getElementById('red-onclick').disabled = state;
-    document.getElementById('red-points').disabled = state;
-    document.getElementById('reset-button').disabled = state;
-}
-
 function setup(){
     if(!document.getElementById('start-button').disabled
       && grid_side == document.getElementById('grid-dimensions').value){
@@ -294,9 +281,6 @@ function start(){
         document.getElementById(loop_counter).value = '-';
     }while(loop_counter--);
 
-    // Disable many setting inputs.
-    set_settings_disable(true);
-
     document.getElementById('score-max').innerHTML = '';
     document.getElementById('time-max').innerHTML = '';
 
@@ -343,9 +327,6 @@ function stop(){
     do{
         document.getElementById(loop_counter).disabled = true;
     }while(loop_counter--);
-
-    // Enable settings to allow editing.
-    set_settings_disable(false);
 
     document.getElementById('start-button').onclick = function(){
         start();
