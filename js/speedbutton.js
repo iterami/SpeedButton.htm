@@ -306,9 +306,7 @@ function start(){
         document.getElementById('score-max').innerHTML = ' out of <b>' + document.getElementById('max-points').value + '</b>';
     }
 
-    document.getElementById('start-button').onclick = function(){
-        stop();
-    };
+    document.getElementById('start-button').onclick = stop;
     document.getElementById('start-button').value = 'End [ESC]';
 
     game_running = true;
@@ -328,9 +326,7 @@ function stop(){
         document.getElementById(loop_counter).disabled = true;
     }while(loop_counter--);
 
-    document.getElementById('start-button').onclick = function(){
-        start();
-    };
+    document.getElementById('start-button').onclick = start;
     document.getElementById('start-button').value =
       'Start [' + document.getElementById('start-key').value + ']';
 }
