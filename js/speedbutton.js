@@ -266,7 +266,7 @@ function start(){
     // Adjust margin-top of entire game.
     document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
-    // Save settings into localStorage and create game area.
+    // Save settings into window.localStorage and create game area.
     save();
     setup();
 
