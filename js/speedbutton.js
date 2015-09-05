@@ -202,16 +202,19 @@ function setup(){
     grid_side = document.getElementById('grid-dimensions').value;
 
     // Create game area buttons.
+    var dimensions = grid_side * grid_side;
     var output = '';
 
-    for(var i = 0; i < (grid_side * grid_side); i++){
-        if(i % grid_side === 0
-          && i !== 0){
+    for(var loop_counter = 0; loop_counter < dimensions; loop_counter++){
+        if(loop_counter % grid_side === 0
+          && loop_counter !== 0){
             output += '<br>';
         }
+
         output +=
-          '<input class="buttons color2" disabled id=' + i
-          + ' onclick=randomize_buttons(' + i + ') type=button value=->';
+          '<input class="buttons color2" disabled id=' + loop_counter
+          + ' onclick=randomize_buttons(' + loop_counter
+          + ') type=button value=->';
     }
     document.getElementById('game-area').innerHTML = output;
 
