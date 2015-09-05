@@ -202,18 +202,18 @@ function setup(){
     grid_side = document.getElementById('grid-dimensions').value;
 
     // Create game area buttons.
-    var output = [''];
+    var output = '';
 
     for(var i = 0; i < (grid_side * grid_side); i++){
         if(i % grid_side === 0
           && i !== 0){
-            output.push('<br>');
+            output += '<br>';
         }
-        output.push(
-          '<input class="buttons color2" disabled id=' + i + ' onclick=randomize_buttons(' + i + ') type=button value=->'
-        );
+        output +=
+          '<input class="buttons color2" disabled id=' + i
+          + ' onclick=randomize_buttons(' + i + ') type=button value=->';
     }
-    document.getElementById('game-area').innerHTML = output.join('');
+    document.getElementById('game-area').innerHTML = output;
 
     document.getElementById('start-button').disabled = false;
 }
