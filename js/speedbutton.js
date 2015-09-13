@@ -171,26 +171,22 @@ function setup(){
     // Fetch settings from window.localStorage.
     document.getElementById('audio-volume').value =
       parseFloat(window.localStorage.getItem('SpeedButton.htm-audio-volume')) || 1;
-    document.getElementById('game-mode').value =
-      parseInt(window.localStorage.getItem('SpeedButton.htm-game-mode')) || 1;
-    document.getElementById('green-frequency').value =
-      parseInt(window.localStorage.getItem('SpeedButton.htm-green-frequency')) || 1;
-    document.getElementById('green-points').value =
-      parseInt(window.localStorage.getItem('SpeedButton.htm-green-points')) || 1;
-    document.getElementById('grid-dimensions').value =
-      parseInt(window.localStorage.getItem('SpeedButton.htm-grid-dimensions')) || 5;
-    document.getElementById('max-points').value =
-      parseInt(window.localStorage.getItem('SpeedButton.htm-max-points')) || 50;
-    document.getElementById('max-time').value =
-      parseInt(window.localStorage.getItem('SpeedButton.htm-max-time')) || 30;
-    document.getElementById('red-frequency').value =
-      parseInt(window.localStorage.getItem('SpeedButton.htm-red-frequency')) || 1;
-    document.getElementById('red-onclick').value =
-      parseInt(window.localStorage.getItem('SpeedButton.htm-red-onclick')) || 0;
-    document.getElementById('red-points').value =
-      parseInt(window.localStorage.getItem('SpeedButton.htm-red-points')) || 1;
-    document.getElementById('y-margin').value =
-      parseInt(window.localStorage.getItem('SpeedButton.htm-y-margin')) || 0;
+    var ids = {
+      'game-mode': 1,
+      'green-frequency': 1,
+      'green-points': 1,
+      'grid-dimensions': 5,
+      'max-points': 50,
+      'max-time': 30,
+      'red-frequency': 1,
+      'red-onclick': 0,
+      'red-points': 1,
+      'y-margin': 0,
+    };
+    for(var id in ids){
+        document.getElementById(id).value =
+          parseInt(window.localStorage.getItem('SpeedButton.htm-' + id)) || ids[id];
+    }
 
     if(window.localStorage.getItem('SpeedButton.htm-start-key') === null){
         document.getElementById('start-key').value = 'H';
@@ -238,33 +234,22 @@ function settings_toggle(state){
 
 function start(){
     // Verify settings are numbers and greater than or equal to 0.
-    var loop_counter = 7;
-    do{
-        var id = [
-          'audio-volume',
-          'green-frequency',
-          'green-points',
-          'max-points',
-          'max-time',
-          'red-frequency',
-          'red-points',
-          'y-margin',
-        ][loop_counter];
-
+    var ids = {
+      'audio-volume': 1,
+      'green-frequency': 1,
+      'green-points': 1,
+      'max-points': 50,
+      'max-time': 30,
+      'red-frequency': 1,
+      'red-points': 1,
+      'y-margin': 0,
+    };
+    for(var id in ids){
         if(isNaN(document.getElementById(id).value)
           || document.getElementById(id).value < 0){
-            document.getElementById(id).value = [
-              1,
-              1,
-              1,
-              50,
-              30,
-              1,
-              1,
-              0,
-            ][loop_counter];
+            document.getElementById(id).value = ids[id]
         }
-    }while(loop_counter--);
+    }
 
     // Adjust margin-top of entire game.
     document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
@@ -274,7 +259,7 @@ function start(){
     setup();
 
     // Reset game buttons.
-    loop_counter = grid_side * grid_side - 1;
+    var loop_counter = grid_side * grid_side - 1;
     do{
         document.getElementById(loop_counter).disabled = true;
         document.getElementById(loop_counter).classList.remove('color0');
