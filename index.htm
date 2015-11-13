@@ -3,42 +3,35 @@
 <title>SpeedButton.htm</title>
 <link href=css/speedbutton.css rel=stylesheet>
 
-<table id=table>
-    <tr>
-        <td class=left rowspan=2>
-        <td id=game-area>
-        <td class=settings-td rowspan=2>
-            <span id=settings-span>
-                <input id=audio-volume max=1 min=0 step=.01 type=range value=1>Audio<br>
-                +<input id=green-points value=1><input id=green-frequency value=1>Green<br>
-                <select id=grid-dimensions>
-                  <option value=1>1x1</option>
-                  <option value=2>2x2</option>
-                  <option value=3>3x3</option>
-                  <option value=4>4x4</option>
-                  <option selected value=5>5x5</option>
-                </select>Grid<br>
-                <input id=max-points value=50>Max Points<br>
-                <input id=max-time value=30>Max Time<br>
-                Max<select id=game-mode>
-                  <option value=0>Points</option>
-                  <option selected value=1>Time</option>
-                </select>Mode<br>
-                -<input id=red-points value=1><input id=red-frequency value=1>Red<br>
-                <select id=red-onclick>
-                  <option value=0>Lose Points</option>
-                  <option value=1>End Game</option>
-                </select>Red Click<br>
-                <input id=start-key maxlength=1 value=H>Start<br>
-                <input id=y-margin value=30>Y Margin<br>
-                <input id=reset-button onclick=reset() type=button value=Reset>
-            </span>
-    <tr>
-        <td>
-            Score: <b id=score>0</b><span id=score-max></span><br>
-            Time: <b id=time>0</b><span id=time-max> out of <b>30</b></span><br>
-            <input disabled id=start-button onclick=start() type=button value="Start [H]">
-            <input id=settings-button onclick=settings_toggle() type=button value=+>
-</table>
+<div id=game-area></div>
+Score: <b id=score>0</b><span id=score-max></span><br>
+Time: <b id=time>0</b><span id=time-max> out of <b>30</b></span><br>
+<input disabled id=start-button onclick=start() type=button value="Start [H]">
+<input id=settings-button onclick=settings_toggle() type=button value=+>
+<div id=settings>
+    <input id=audio-volume max=1 min=0 step=.01 type=range value=1>Audio<br>
+    +<input id=green-points value=1><input id=green-frequency value=1>Green<br>
+    <select id=grid-dimensions>
+      <option value=1>1x1</option>
+      <option value=2>2x2</option>
+      <option value=3>3x3</option>
+      <option value=4>4x4</option>
+      <option selected value=5>5x5</option>
+    </select>Grid<br>
+    <input id=max-points value=50>Max Points<br>
+    <input id=max-time value=30>Max Time<br>
+    Max<select id=game-mode>
+      <option value=0>Points</option>
+      <option selected value=1>Time</option>
+    </select>Mode<br>
+    -<input id=red-points value=1><input id=red-frequency value=1>Red<br>
+    <select id=red-onclick>
+      <option value=0>Lose Points</option>
+      <option value=1>End Game</option>
+    </select>Red Click<br>
+    <input id=start-key maxlength=1 value=H>Start<br>
+    <input id=y-margin value=30>Y Margin<br>
+    <input id=reset-button onclick=reset() type=button value=Reset>
+</div>
 
 <script src=js/speedbutton.js></script>

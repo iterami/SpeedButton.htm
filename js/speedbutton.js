@@ -194,7 +194,7 @@ function setup(){
         document.getElementById('start-key').value = window.localStorage.getItem('SpeedButton.htm-start-key');
         document.getElementById('start-button').value = 'Start [' + document.getElementById('start-key').value + ']';
     }
-    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
+    document.getElementById('game-area').style.marginTop = document.getElementById('y-margin').value + 'px';
     grid_side = document.getElementById('grid-dimensions').value;
 
     // Create game area buttons.
@@ -223,11 +223,11 @@ function settings_toggle(state){
       : state;
 
     if(state){
-        document.getElementById('settings-span').style.display = 'inline';
+        document.getElementById('settings').style.display = 'block';
         document.getElementById('settings-button').value = '-';
 
     }else{
-        document.getElementById('settings-span').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
         document.getElementById('settings-button').value = '+';
     }
 }
@@ -252,7 +252,7 @@ function start(){
     }
 
     // Adjust margin-top of entire game.
-    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
+    document.getElementById('game-area').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Save settings into window.localStorage and create game area.
     save();

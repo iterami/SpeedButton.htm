@@ -3,6 +3,7 @@ body{
     color: #aaa;
     font-family: sans-serif;
     margin: 0;
+    text-align: center;
 }
 .buttons{
     color: #000;
@@ -40,18 +41,9 @@ select:not([disabled]){
 #start-button{
     width: auto;
 }
-#settings-span{
+#settings{
     display: none;
-}
-.settings-td{
-    padding: 9px;
-    text-align: left;
-    width: 50%;
 }
 #start-button{
     font-size: 123%;
-}
-table{
-    border-collapse: collapse;
-    text-align: center;
 }
