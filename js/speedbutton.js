@@ -115,20 +115,25 @@ function reset(){
 
     stop();
 
-    document.getElementById('audio-volume').value = 1;
-    document.getElementById('game-mode').value = 1;
-    document.getElementById('green-frequency').value = 1;
-    document.getElementById('green-points').value = 1;
-    document.getElementById('grid-dimensions').value = 5;
-    document.getElementById('max-points').value = 50;
-    document.getElementById('max-time').value = 30;
-    document.getElementById('red-frequency').value = 1;
-    document.getElementById('red-onclick').value = 0;
-    document.getElementById('red-points').value = 1;
-    document.getElementById('score').value = 0;
-    document.getElementById('start-key').value = 'H';
-    document.getElementById('time').value = 0;
-    document.getElementById('y-margin').value = 0;
+    var ids = {
+      'audio-volume': 1,
+      'game-mode': 1,
+      'green-frequency': 1,
+      'green-points': 1,
+      'grid-dimensions': 5,
+      'max-points': 50,
+      'max-time': 30,
+      'red-frequency': 1,
+      'red-onclick': 0,
+      'red-points': 1,
+      'score': 0,
+      'start-key': 'H',
+      'time': 0,
+      'y-margin': 0,
+    };
+    for(var id in ids){
+        document.getElementById(id).value = ids[id];
+    }
 
     save();
 }
@@ -150,13 +155,14 @@ function save(){
       'y-margin': 0,
     };
     for(var id in ids){
-        if(document.getElementById(id).value == ids[id]){
+        var value = document.getElementById(id).value;
+        if(value == ids[id]){
             window.localStorage.removeItem('SpeedButton.htm-' + id);
 
         }else{
             window.localStorage.setItem(
               'SpeedButton.htm-' + id,
-              document.getElementById(id).value
+              value
             );
         }
     }
@@ -245,8 +251,9 @@ function start(){
       'y-margin': 0,
     };
     for(var id in ids){
-        if(isNaN(document.getElementById(id).value)
-          || document.getElementById(id).value < 0){
+        var value = document.getElementById(id).value;
+        if(isNaN(value)
+          || value < 0){
             document.getElementById(id).value = ids[id]
         }
     }
@@ -279,19 +286,20 @@ function start(){
     document.getElementById('time').innerHTML = 0;
 
     // Setup max-time or max-points displays.
+    var max_time = document.getElementById('max-time').value;
     if(document.getElementById('game-mode').value == 1){
-        document.getElementById('time').innerHTML = document.getElementById('max-time').value >= 0
-          ? (document.getElementById('max-time').value === ''
+        document.getElementById('time').innerHTML = max_time >= 0
+          ? (max_time === ''
             ? 0
-            : document.getElementById('max-time').value
+            : max_time
           )
           : 30;
-        if(document.getElementById('max-time').value > 0){
-            document.getElementById('time-max').innerHTML = ' out of <b>' + document.getElementById('max-time').value + '</b>';
+        if(max_time > 0){
+            document.getElementById('time-max').innerHTML = ' out of <b>' + max_time + '</b>';
         }
 
     }else if(document.getElementById('max-points').value > 0){
-        document.getElementById('score-max').innerHTML = ' out of <b>' + document.getElementById('max-points').value + '</b>';
+        document.getElementById('score-max').innerHTML = ' out of <b>' + max_time + '</b>';
     }
 
     document.getElementById('start-button').onclick = stop;
