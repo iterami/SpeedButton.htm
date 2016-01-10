@@ -295,11 +295,11 @@ function start(){
           )
           : 30;
         if(max_time > 0){
-            document.getElementById('time-max').innerHTML = ' out of <b>' + max_time + '</b>';
+            document.getElementById('time-max').innerHTML = ' / <b>' + max_time + '</b>';
         }
 
     }else if(document.getElementById('max-points').value > 0){
-        document.getElementById('score-max').innerHTML = ' out of <b>' + max_time + '</b>';
+        document.getElementById('score-max').innerHTML = ' / <b>' + max_time + '</b>';
     }
 
     document.getElementById('start-button').onclick = stop;
