@@ -1,28 +1,24 @@
 'use strict';
 
 function decisecond(){
+    time = (game_mode === 1
+      && max_time > 0)
+      ? (parseFloat(time) - .1).toFixed(1)
+      : (parseFloat(time) + .1).toFixed(1);
+
+    document.getElementById('time').innerHTML = time;
+
     // If in max-time mode and time is less than or equal to 0 and max-time isn't 0...
-    if(document.getElementById('game-mode').value == 1
-      && parseFloat(document.getElementById('time').innerHTML) <= 0
-      && document.getElementById('max-time').value > 0){
+    if(game_mode === 1
+      && time <= 0
+      && max_time > 0){
         stop();
 
-    // ...else if in max-points mode and score is not greater than max-points and max-points is not equal to 0...
-    }else if(document.getElementById('game-mode').value == 0
-      && document.getElementById('max-points').value !== 0
-      && parseInt(document.getElementById('score').innerHTML) >= document.getElementById('max-points').value){
+    // ...else if in max-points mode and score is not greater than max-points and max-points is not equal to 0.
+    }else if(game_mode === 0
+      && max_points !== 0
+      && score >= max_points){
         stop();
-
-    // ...else increase time if max-time is equal to 0 or in max-points mode, else decrease time.
-    }else{
-        document.getElementById('time').innerHTML =
-          (parseFloat(document.getElementById('time').innerHTML)
-            + ((document.getElementById('game-mode').value == 1
-              && document.getElementById('max-time').value > 0)
-                ? -.1
-                : .1
-            )
-          ).toFixed(1);
     }
 }
 
@@ -37,15 +33,16 @@ function randomize_buttons(clicked_button_id){
     }
 
     // Increase or decrease time based on settings value for clicked button.
-    document.getElementById('score').innerHTML = parseInt(document.getElementById('score').innerHTML)
+    score = score
       + (document.getElementById(clicked_button_id).value.lastIndexOf('+', 0) === 0
         ? parseInt(document.getElementById('green-points').value)
         : -parseInt(document.getElementById('red-points').value));
+    document.getElementById('score').innerHTML = score;
 
     // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
-    var game_ended = !(document.getElementById('game-mode').value == 1
-      || document.getElementById('max-points').value == 0
-      || parseInt(document.getElementById('score').innerHTML) < document.getElementById('max-points').value);
+    var game_ended = !(game_mode === 1
+      || max_points === 0
+      || score < max_points);
 
     var loop_counter = grid_side * grid_side - 1;
     do{
@@ -190,8 +187,11 @@ function setup(){
       'y-margin': 0,
     };
     for(var id in ids){
-        document.getElementById(id).value =
-          parseInt(window.localStorage.getItem('SpeedButton.htm-' + id)) || ids[id];
+        var value = window.localStorage.getItem('SpeedButton.htm-' + id);
+
+        document.getElementById(id).value = (value != null
+          ? parseInt(value)
+          : ids[id]);
     }
 
     if(window.localStorage.getItem('SpeedButton.htm-start-key') === null){
@@ -282,13 +282,17 @@ function start(){
     // Generate green and red buttons.
     randomize_buttons(Math.floor(Math.random() * (grid_side * grid_side)));
 
-    document.getElementById('score').innerHTML = 0;
+    game_mode = parseInt(document.getElementById('game-mode').value);
+    score = 0;
+
+    document.getElementById('score').innerHTML = score;
     document.getElementById('time').innerHTML = 0;
 
     // Setup max-time or max-points displays.
-    var max_time = document.getElementById('max-time').value;
-    if(document.getElementById('game-mode').value == 1){
-        document.getElementById('time').innerHTML = max_time >= 0
+    max_points = parseInt(document.getElementById('max-points').value);
+    max_time = document.getElementById('max-time').value;
+    if(game_mode === 1){
+        time = max_time >= 0
           ? (max_time === ''
             ? 0
             : max_time
@@ -298,8 +302,8 @@ function start(){
             document.getElementById('time-max').innerHTML = ' / <b>' + max_time + '</b>';
         }
 
-    }else if(document.getElementById('max-points').value > 0){
-        document.getElementById('score-max').innerHTML = ' / <b>' + max_time + '</b>';
+    }else if(max_points > 0){
+        document.getElementById('score-max').innerHTML = ' / <b>' + max_points + '</b>';
     }
 
     document.getElementById('start-button').onclick = stop;
@@ -328,8 +332,13 @@ function stop(){
 }
 
 var game_running = false;
+var game_mode = 0;
 var grid_side = 5;
 var interval = 0;
+var max_points = 0;
+var max_time = 0;
+var score = 0;
+var time = 0;
 
 window.onkeydown = function(e){
     var key = e.keyCode || e.which;
