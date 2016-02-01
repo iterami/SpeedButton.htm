@@ -311,7 +311,7 @@ function start(){
 
     game_running = true;
     interval = window.setInterval(
-      'decisecond()',
+      decisecond,
       100
     );
 }
