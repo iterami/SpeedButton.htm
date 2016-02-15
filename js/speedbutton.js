@@ -229,7 +229,7 @@ function settings_toggle(state){
       : state;
 
     if(state){
-        document.getElementById('settings').style.display = 'block';
+        document.getElementById('settings').style.display = 'inline-block';
         document.getElementById('settings-button').value = '-';
 
     }else{
