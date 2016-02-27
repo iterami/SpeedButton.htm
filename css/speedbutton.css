@@ -26,6 +26,7 @@ body{
 input{
     background: #000;
     color: #aaa;
+    text-align: center;
     width: 75px;
 }
 input[type=button]:not([disabled]),
@@ -40,6 +41,10 @@ select:not([disabled]){
 }
 #settings{
     display: none;
+    text-align: left;
+}
+#settings td:nth-child(1){
+    text-align: right;
 }
 #start-button{
     font-size: 123%;
