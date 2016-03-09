@@ -189,9 +189,9 @@ function setup(){
     for(var id in ids){
         var value = window.localStorage.getItem('SpeedButton.htm-' + id);
 
-        document.getElementById(id).value = (value != null
+        document.getElementById(id).value = value != null
           ? parseInt(value)
-          : ids[id]);
+          : ids[id];
     }
 
     if(window.localStorage.getItem('SpeedButton.htm-start-key') === null){
