@@ -35,8 +35,8 @@ function randomize_buttons(clicked_button_id){
     // Increase or decrease time based on settings value for clicked button.
     score = score
       + (document.getElementById(clicked_button_id).value.lastIndexOf('+', 0) === 0
-        ? parseInt(document.getElementById('green-points').value)
-        : -parseInt(document.getElementById('red-points').value));
+        ? parseInt(document.getElementById('green-points').value, 10)
+        : -parseInt(document.getElementById('red-points').value, 10));
     document.getElementById('score').innerHTML = score;
 
     // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
@@ -78,7 +78,11 @@ function randomize_buttons(clicked_button_id){
             document.getElementById(button).classList.remove('color2');
             document.getElementById(button).classList.add('color1');
             document.getElementById(button).disabled = false;
-            document.getElementById(button).value = '+' + parseInt(document.getElementById('green-points').value);
+            document.getElementById(button).value = '+'
+              + parseInt(
+                document.getElementById('green-points').value,
+                10
+              );
         }while(loop_counter--);
     }
 
@@ -99,7 +103,11 @@ function randomize_buttons(clicked_button_id){
                 document.getElementById(button).classList.remove('color2');
                 document.getElementById(button).classList.add('color0');
                 document.getElementById(button).disabled = false;
-                document.getElementById(button).value = '-' + parseInt(document.getElementById('red-points').value);
+                document.getElementById(button).value = '-'
+                  + parseInt(
+                    document.getElementById('red-points').value,
+                    10
+                  );
             }while(loop_counter--);
         }
     }
@@ -190,7 +198,7 @@ function setup(){
         var value = window.localStorage.getItem('SpeedButton.htm-' + id);
 
         document.getElementById(id).value = value != null
-          ? parseInt(value)
+          ? parseInt(value, 10)
           : ids[id];
     }
 
@@ -282,14 +290,20 @@ function start(){
     // Generate green and red buttons.
     randomize_buttons(Math.floor(Math.random() * (grid_side * grid_side)));
 
-    game_mode = parseInt(document.getElementById('game-mode').value);
+    game_mode = parseInt(
+      document.getElementById('game-mode').value,
+      10
+    );
     score = 0;
 
     document.getElementById('score').innerHTML = score;
     document.getElementById('time').innerHTML = 0;
 
     // Setup max-time or max-points displays.
-    max_points = parseInt(document.getElementById('max-points').value);
+    max_points = parseInt(
+      document.getElementById('max-points').value,
+      10
+    );
     max_time = document.getElementById('max-time').value;
     if(game_mode === 1){
         time = max_time >= 0
