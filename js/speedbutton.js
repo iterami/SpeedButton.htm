@@ -118,6 +118,8 @@ function setup(){
         return;
     }
 
+    document.getElementById('start-button').value = 'Start [' + settings['start-key'] + ']';
+
     // Adjust margin-top of entire game.
     document.getElementById('game-area').style.marginTop = settings['y-margin'] + 'px';
 
