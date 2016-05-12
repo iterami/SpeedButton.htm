@@ -6,9 +6,12 @@ body{
     text-align: center;
 }
 .buttons{
+    border-width: 0;
     color: #000;
     font-size: 150%;
     height: 65px;
+    margin: 1px;
+    outline-width: 0;
     width: 65px;
 }
 .color0{
@@ -18,7 +21,7 @@ body{
     background: #262;
 }
 .color2{
-    background: #000;
+    background: #2a2a2a;
 }
 #game-area{
     min-width: 325px;
