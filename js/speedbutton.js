@@ -272,22 +272,20 @@ window.onload = function(){
     );
 
     document.getElementById('settings').innerHTML =
-      '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range value=' + settings['audio-volume'] + '><td>Audio'
-        + '<tr><td><input id=green-frequency value=' + settings['green-frequency'] + '><td>Green Frequency'
-        + '<tr><td>+<input id=green-points value=' + settings['green-points'] + '><td>Green Points'
+      '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
+        + '<tr><td><input id=green-frequency><td>Green Frequency'
+        + '<tr><td>+<input id=green-points><td>Green Points'
         + '<tr><td><select id=grid-dimensions><option value=1>1x1</option><option value=2>2x2</option><option value=3>3x3</option><option value=4>4x4</option><option value=5>5x5</option></select><td>Grid'
-        + '<tr><td><input id=max-points value=' + settings['max-points'] + '><td>Max Points'
-        + '<tr><td><input id=max-time value=' + settings['max-time'] + '><td>Max Time'
+        + '<tr><td><input id=max-points><td>Max Points'
+        + '<tr><td><input id=max-time><td>Max Time'
         + '<tr><td><select id=mode><option value=0>Points</option><option value=1>Time</option></select><td>Mode'
-        + '<tr><td><input id=red-frequency value=' + settings['red-frequency'] + '><td>Red Frequency'
-        + '<tr><td>-<input id=red-points value=' + settings['red-points'] + '><td>Red Points'
+        + '<tr><td><input id=red-frequency><td>Red Frequency'
+        + '<tr><td>-<input id=red-points><td>Red Points'
         + '<tr><td><select id=red-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select><td>Red Click'
-        + '<tr><td><input id=start-key maxlength=1 value=' + settings['start-key'] + '><td>Start'
-        + '<tr><td><input id=y-margin value=' + settings['y-margin'] + '><td>Y Margin'
+        + '<tr><td><input id=start-key maxlength=1><td>Start'
+        + '<tr><td><input id=y-margin><td>Y Margin'
         + '<tr><td colspan=2><input id=reset-button onclick=reset() type=button value=Reset>';
-    document.getElementById('grid-dimensions').value = settings['grid-dimensions'];
-    document.getElementById('mode').value = settings['mode'];
-    document.getElementById('red-onclick').value = settings['red-onclick'];
+    update_settings();
 
     setup();
 };
