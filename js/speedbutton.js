@@ -267,7 +267,7 @@ window.onload = function(){
         'red-points': 1,
         'red-onclick': 0,
         'start-key': 'H',
-        'y-margin': 30,
+        'y-margin': 0,
       }
     );
 
