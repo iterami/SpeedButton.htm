@@ -121,9 +121,9 @@ function setup(){
     document.getElementById('start-button').value = 'Start [' + settings['start-key'] + ']';
 
     // Adjust margin-top of entire game.
-    document.getElementById('game-area').style.marginTop = settings['y-margin'] + 'px';
+    document.getElementById('game-div').style.marginTop = settings['y-margin'] + 'px';
 
-    // Create game area buttons.
+    // Create game-div buttons.
     var dimensions = settings['grid-dimensions'] * settings['grid-dimensions'];
     var output = '';
 
@@ -138,7 +138,7 @@ function setup(){
           + ' onclick=randomize_buttons(' + loop_counter
           + ') type=button value=->';
     }
-    document.getElementById('game-area').innerHTML = output;
+    document.getElementById('game-div').innerHTML = output;
 
     document.getElementById('start-button').disabled = false;
 }
@@ -159,7 +159,7 @@ function settings_toggle(state){
 }
 
 function start(){
-    // Save settings into window.localStorage and create game area.
+    // Save settings into window.localStorage and create game-div.
     save();
     setup();
 
