@@ -114,10 +114,6 @@ function randomize_buttons(clicked_button_id){
 }
 
 function setup(){
-    if(!document.getElementById('start-button').disabled){
-        return;
-    }
-
     document.getElementById('start-button').value = 'Start [' + settings['start-key'] + ']';
 
     // Adjust margin-top of entire game.
@@ -139,8 +135,6 @@ function setup(){
           + ') type=button value=->';
     }
     document.getElementById('game-div').innerHTML = output;
-
-    document.getElementById('start-button').disabled = false;
 }
 
 function settings_toggle(state){
