@@ -52,10 +52,8 @@ function randomize_buttons(clicked_button_id){
             continue;
         }
 
-        document.getElementById(loop_counter).classList.remove('color0');
-        document.getElementById(loop_counter).classList.remove('color1');
-        document.getElementById(loop_counter).classList.add('color2');
-        document.getElementById(loop_counter).value = '-';
+        document.getElementById(loop_counter).style.background = colors['default'];
+        document.getElementById(loop_counter).value = ' ';
     }while(loop_counter--);
 
     if(game_ended){
@@ -75,8 +73,7 @@ function randomize_buttons(clicked_button_id){
                 var button = Math.floor(Math.random() * (settings['grid-dimensions'] * settings['grid-dimensions']));
             }while(!document.getElementById(button).disabled);
 
-            document.getElementById(button).classList.remove('color2');
-            document.getElementById(button).classList.add('color1');
+            document.getElementById(button).style.background = colors[1];
             document.getElementById(button).disabled = false;
             document.getElementById(button).value = '+'
               + parseInt(
@@ -100,8 +97,7 @@ function randomize_buttons(clicked_button_id){
                     var button = Math.floor(Math.random() * (settings['grid-dimensions'] * settings['grid-dimensions']));
                 }while(!document.getElementById(button).disabled);
 
-                document.getElementById(button).classList.remove('color2');
-                document.getElementById(button).classList.add('color0');
+                document.getElementById(button).style.background = colors[0];
                 document.getElementById(button).disabled = false;
                 document.getElementById(button).value = '-'
                   + parseInt(
@@ -130,11 +126,16 @@ function setup(){
         }
 
         output +=
-          '<input class="buttons color2" disabled id=' + loop_counter
+          '<input class=gamebuttonclickable disabled id=' + loop_counter
           + ' onclick=randomize_buttons(' + loop_counter
-          + ') type=button value=->';
+          + ') type=button value=" ">';
     }
     document.getElementById('game-div').innerHTML = output;
+
+    var loop_counter = dimensions - 1;
+    do{
+        document.getElementById(loop_counter).style.background = colors['default'];
+    }while(loop_counter--);
 }
 
 function settings_toggle(state){
@@ -161,11 +162,8 @@ function start(){
     var loop_counter = settings['grid-dimensions'] * settings['grid-dimensions'] - 1;
     do{
         document.getElementById(loop_counter).disabled = true;
-        document.getElementById(loop_counter).classList.remove('color0');
-        document.getElementById(loop_counter).classList.remove('color1');
-        document.getElementById(loop_counter).classList.remove('color2');
-        document.getElementById(loop_counter).classList.add('color2');
-        document.getElementById(loop_counter).value = '-';
+        document.getElementById(loop_counter).style.background = colors['default'];
+        document.getElementById(loop_counter).value = ' ';
     }while(loop_counter--);
 
     document.getElementById('score-max').innerHTML = '';
@@ -175,6 +173,7 @@ function start(){
     randomize_buttons(Math.floor(Math.random() * (settings['grid-dimensions'] * settings['grid-dimensions'])));
 
     score = 0;
+    time = 0;
 
     document.getElementById('score').innerHTML = score;
     document.getElementById('time').innerHTML = 0;
@@ -220,6 +219,11 @@ function stop(){
       'Start [' + settings['start-key'] + ']';
 }
 
+var colors = {
+  'default': '#2a2a2a',
+  '0': '#c83232',
+  '1': '#262',
+};
 var game_running = false;
 var interval = 0;
 var score = 0;
@@ -251,12 +255,12 @@ window.onload = function(){
       'SpeedButton.htm-',
       {
         'audio-volume': 1,
+        'game-mode': 1,
         'green-frequency': 1,
         'green-points': 1,
         'grid-dimensions': 5,
         'max-points': 50,
         'max-time': 30,
-        'mode': 1,
         'red-frequency': 1,
         'red-points': 1,
         'red-onclick': 0,
@@ -272,7 +276,7 @@ window.onload = function(){
         + '<tr><td><select id=grid-dimensions><option value=1>1x1</option><option value=2>2x2</option><option value=3>3x3</option><option value=4>4x4</option><option value=5>5x5</option></select><td>Grid'
         + '<tr><td><input id=max-points><td>Max Points'
         + '<tr><td><input id=max-time><td>Max Time'
-        + '<tr><td><select id=mode><option value=0>Points</option><option value=1>Time</option></select><td>Mode'
+        + '<tr><td><select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><td>Mode'
         + '<tr><td><input id=red-frequency><td>Red Frequency'
         + '<tr><td>-<input id=red-points><td>Red Points'
         + '<tr><td><select id=red-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select><td>Red Click'

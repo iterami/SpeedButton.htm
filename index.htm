@@ -1,15 +1,17 @@
 <!doctype html>
 <meta charset=utf-8>
 <title>SpeedButton.htm</title>
-<link href=css/speedbutton.css rel=stylesheet>
+<link href=../common/css/dom.css rel=stylesheet>
 
 <div id=game-div></div>
-Score: <b id=score>0</b><span id=score-max></span><br>
-Time: <b id=time>0</b><span id=time-max> / <b>30</b></span><br>
-<input id=start-button onclick=start() type=button value="Start [H]">
+<div class=medium>
+    Score: <b id=score>0</b><span id=score-max></span><br>
+    Time: <b id=time>0</b><span id=time-max> / <b>30</b></span>
+</div>
+<input class=medium id=start-button onclick=start() type=button value="Start [H]">
 <input id=settings-button onclick=settings_toggle() type=button value=+>
 <br>
-<table id=settings></table>
+<table class=hidden id=settings></table>
 
 <script src=../common/js/settings.js></script>
 <script src=js/speedbutton.js></script>
