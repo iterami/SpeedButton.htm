@@ -126,7 +126,7 @@ function setup(){
         }
 
         output +=
-          '<input class=gamebuttonclickable disabled id=' + loop_counter
+          '<input class=gridbuttonclickable disabled id=' + loop_counter
           + ' onclick=randomize_buttons(' + loop_counter
           + ') type=button value=" ">';
     }
