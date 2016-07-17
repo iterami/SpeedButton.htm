@@ -269,7 +269,8 @@ window.onload = function(){
     );
 
     document.getElementById('settings').innerHTML =
-      '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
+      '<tr><td colspan=2><input id=reset-button onclick=settings_reset() type=button value=Reset>'
+        + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
         + '<tr><td><input id=green-frequency><td>Green Frequency'
         + '<tr><td>+<input id=green-points><td>Green Points'
         + '<tr><td><select id=grid-dimensions><option value=1>1x1</option><option value=2>2x2</option><option value=3>3x3</option><option value=4>4x4</option><option value=5>5x5</option></select><td>Grid'
@@ -280,8 +281,7 @@ window.onload = function(){
         + '<tr><td>-<input id=red-points><td>Red Points'
         + '<tr><td><select id=red-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select><td>Red Click'
         + '<tr><td><input id=start-key maxlength=1><td>Start'
-        + '<tr><td><input id=y-margin><td>Y Margin'
-        + '<tr><td colspan=2><input id=reset-button onclick=settings_reset() type=button value=Reset>';
+        + '<tr><td><input id=y-margin><td>Y Margin';
 
     settings_update();
     setup();
