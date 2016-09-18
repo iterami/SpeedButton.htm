@@ -23,6 +23,11 @@ function decisecond(){
 }
 
 function randomize_buttons(clicked_button_id){
+    audio_start(
+      'boop',
+      settings_settings['audio-volume']
+    );
+
     if(game_running){
         // Stop game if clicking on a red button ends the game and clicked on a red button.
         if(document.getElementById('red-onclick').value == 1
@@ -265,6 +270,14 @@ window.onload = function(){
         'red-onclick': 0,
         'start-key': 'H',
         'y-margin': 0,
+      }
+    );
+    audio_init(settings_settings['audio-volume']);
+    audio_create(
+      'boop',
+      {
+        'duration': .1,
+        'volume': .1,
       }
     );
 
