@@ -1,5 +1,14 @@
 'use strict';
 
+function click_button(clicked_button_id){
+    audio_start(
+      'boop',
+      settings_settings['audio-volume']
+    );
+
+    randomize_buttons(clicked_button_id);
+}
+
 function decisecond(){
     time = (settings_settings['game-mode'] === 1
       && settings_settings['max-time'] > 0)
@@ -23,11 +32,6 @@ function decisecond(){
 }
 
 function randomize_buttons(clicked_button_id){
-    audio_start(
-      'boop',
-      settings_settings['audio-volume']
-    );
-
     if(game_running){
         // Stop game if clicking on a red button ends the game and clicked on a red button.
         if(document.getElementById('red-onclick').value == 1
@@ -132,7 +136,7 @@ function setup(){
 
         output +=
           '<input class=gridbuttonclickable disabled id=' + loop_counter
-          + ' onclick=randomize_buttons(' + loop_counter
+          + ' onclick=click_button(' + loop_counter
           + ') type=button value=" ">';
     }
     document.getElementById('game-div').innerHTML = output;
