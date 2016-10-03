@@ -302,4 +302,9 @@ window.onload = function(){
 
     settings_update();
     setup();
+
+    document.getElementById('settings-button').onclick = function(){
+        settings_toggle();
+    };
+    document.getElementById('start-button').onclick = start;
 };
