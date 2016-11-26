@@ -1,10 +1,10 @@
 'use strict';
 
 function click_button(clicked_button_id){
-    audio_start(
-      'boop',
-      settings_settings['audio-volume']
-    );
+    audio_start({
+      'id': 'boop',
+      'volume-multiplier': settings_settings['audio-volume'],
+    });
 
     randomize_buttons(clicked_button_id);
 }
@@ -276,14 +276,16 @@ window.onload = function(){
         'y-margin': 0,
       }
     );
-    audio_init(settings_settings['audio-volume']);
-    audio_create(
-      'boop',
-      {
+    audio_init({
+      'volume': settings_settings['audio-volume'],
+    });
+    audio_create({
+      'id': 'boop',
+      'properties': {
         'duration': .1,
         'volume': .1,
-      }
-    );
+      },
+    });
 
     document.getElementById('settings').innerHTML =
       '<tr><td colspan=2><input id=reset-button onclick=settings_reset() type=button value=Reset>'
