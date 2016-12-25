@@ -11,7 +11,7 @@ function click_button(clicked_button_id){
 
 function decisecond(){
     time = (settings_settings['game-mode'] === 1
-      && settings_settings['max-time'] > 0)
+      && settings_settings['max'] > 0)
       ? (parseFloat(time) - .1).toFixed(1)
       : (parseFloat(time) + .1).toFixed(1);
 
@@ -20,13 +20,13 @@ function decisecond(){
     // If in max-time mode and time is less than or equal to 0 and max-time isn't 0...
     if(settings_settings['game-mode'] === 1
       && time <= 0
-      && settings_settings['max-time'] > 0){
+      && settings_settings['max'] > 0){
         stop();
 
     // ...else if in max-points mode and score is not greater than max-points and max-points is not equal to 0.
     }else if(settings_settings['game-mode'] === 0
-      && settings_settings['max-points'] !== 0
-      && score >= settings_settings['max-points']){
+      && settings_settings['max'] !== 0
+      && score >= settings_settings['max']){
         stop();
     }
 }
@@ -50,8 +50,8 @@ function randomize_buttons(clicked_button_id){
 
     // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
     var game_ended = !(settings_settings['game-mode'] === 1
-      || settings_settings['max-points'] === 0
-      || score < settings_settings['max-points']);
+      || settings_settings['max'] === 0
+      || score < settings_settings['max']);
 
     var loop_counter = settings_settings['grid-dimensions'] * settings_settings['grid-dimensions'] - 1;
     do{
@@ -188,18 +188,18 @@ function start(){
 
     // Setup max-time or max-points displays.
     if(settings_settings['game-mode'] === 1){
-        time = settings_settings['max-time'] >= 0
-          ? (settings_settings['max-time'] === ''
+        time = settings_settings['max'] >= 0
+          ? (settings_settings['max'] === ''
             ? 0
-            : settings_settings['max-time']
+            : settings_settings['max']
           )
           : 30;
-        if(settings_settings['max-time'] > 0){
-            document.getElementById('time-max').innerHTML = ' / <b>' + settings_settings['max-time'] + '</b>';
+        if(settings_settings['max'] > 0){
+            document.getElementById('time-max').innerHTML = ' / <b>' + settings_settings['max'] + '</b>';
         }
 
-    }else if(settings_settings['max-points'] > 0){
-        document.getElementById('score-max').innerHTML = ' / <b>' + settings_settings['max-points'] + '</b>';
+    }else if(settings_settings['max'] > 0){
+        document.getElementById('score-max').innerHTML = ' / <b>' + settings_settings['max'] + '</b>';
     }
 
     document.getElementById('start-button').onclick = stop;
@@ -267,8 +267,7 @@ window.onload = function(){
         'green-frequency': 1,
         'green-points': 1,
         'grid-dimensions': 5,
-        'max-points': 50,
-        'max-time': 30,
+        'max': 30,
         'red-frequency': 1,
         'red-points': 1,
         'red-onclick': 0,
@@ -293,9 +292,7 @@ window.onload = function(){
         + '<tr><td><input id=green-frequency><td>Green Frequency'
         + '<tr><td>+<input id=green-points><td>Green Points'
         + '<tr><td><select id=grid-dimensions><option value=1>1x1</option><option value=2>2x2</option><option value=3>3x3</option><option value=4>4x4</option><option value=5>5x5</option></select><td>Grid'
-        + '<tr><td><input id=max-points><td>Max Points'
-        + '<tr><td><input id=max-time><td>Max Time'
-        + '<tr><td><select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><td>Mode'
+        + '<tr><td><input id=max><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select>'
         + '<tr><td><input id=red-frequency><td>Red Frequency'
         + '<tr><td>-<input id=red-points><td>Red Points'
         + '<tr><td><select id=red-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select><td>Red Click'
