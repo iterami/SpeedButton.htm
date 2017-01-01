@@ -79,7 +79,9 @@ function randomize_buttons(clicked_button_id){
         space_taken = loop_counter + 1;
         do{
             do{
-                var button = random_integer(settings_settings['grid-dimensions'] * settings_settings['grid-dimensions']);
+                var button = random_integer({
+                  'max': settings_settings['grid-dimensions'] * settings_settings['grid-dimensions'],
+                });
             }while(!document.getElementById(button).disabled);
 
             document.getElementById(button).style.background = colors[1];
@@ -103,7 +105,9 @@ function randomize_buttons(clicked_button_id){
         if(loop_counter >= 0){
             do{
                 do{
-                    var button = random_integer(settings_settings['grid-dimensions'] * settings_settings['grid-dimensions']);
+                    var button = random_integer({
+                      'max': settings_settings['grid-dimensions'] * settings_settings['grid-dimensions'],
+                    });
                 }while(!document.getElementById(button).disabled);
 
                 document.getElementById(button).style.background = colors[0];
@@ -178,7 +182,11 @@ function start(){
     document.getElementById('time-max').innerHTML = '';
 
     // Generate green and red buttons.
-    randomize_buttons(random_integer(settings_settings['grid-dimensions'] * settings_settings['grid-dimensions']));
+    randomize_buttons(
+      random_integer({
+        'max': settings_settings['grid-dimensions'] * settings_settings['grid-dimensions'],
+      })
+    );
 
     score = 0;
     time = 0;
