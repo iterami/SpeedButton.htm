@@ -203,11 +203,11 @@ function start(){
           )
           : 30;
         if(settings_settings['max'] > 0){
-            document.getElementById('time-max').innerHTML = ' / <b>' + settings_settings['max'] + '</b>';
+            document.getElementById('time-max').innerHTML = ' / ' + settings_settings['max'];
         }
 
     }else if(settings_settings['max'] > 0){
-        document.getElementById('score-max').innerHTML = ' / <b>' + settings_settings['max'] + '</b>';
+        document.getElementById('score-max').innerHTML = ' / ' + settings_settings['max'];
     }
 
     document.getElementById('start-button').onclick = stop;
