@@ -131,7 +131,6 @@ function setup(){
     // Create game-div buttons.
     var dimensions = settings_settings['grid-dimensions'] * settings_settings['grid-dimensions'];
     var output = '';
-
     for(var loop_counter = 0; loop_counter < dimensions; loop_counter++){
         if(loop_counter % settings_settings['grid-dimensions'] === 0
           && loop_counter !== 0){
@@ -143,7 +142,7 @@ function setup(){
           + ' onclick=click_button(' + loop_counter
           + ') type=button value=" ">';
     }
-    document.getElementById('game-div').innerHTML = output;
+    document.getElementById('game-div').innerHTML = output + '<br>';
 
     var loop_counter = dimensions - 1;
     do{
