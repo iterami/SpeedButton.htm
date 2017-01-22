@@ -3,30 +3,30 @@
 function click_button(clicked_button_id){
     audio_start({
       'id': 'boop',
-      'volume-multiplier': settings_settings['audio-volume'],
+      'volume-multiplier': storage_data['audio-volume'],
     });
 
     randomize_buttons(clicked_button_id);
 }
 
 function decisecond(){
-    time = (settings_settings['game-mode'] === 1
-      && settings_settings['max'] > 0)
+    time = (storage_data['game-mode'] === 1
+      && storage_data['max'] > 0)
       ? (parseFloat(time) - .1).toFixed(1)
       : (parseFloat(time) + .1).toFixed(1);
 
     document.getElementById('time').innerHTML = time;
 
     // If in max-time mode and time is less than or equal to 0 and max-time isn't 0...
-    if(settings_settings['game-mode'] === 1
+    if(storage_data['game-mode'] === 1
       && time <= 0
-      && settings_settings['max'] > 0){
+      && storage_data['max'] > 0){
         stop();
 
     // ...else if in max-points mode and score is not greater than max-points and max-points is not equal to 0.
-    }else if(settings_settings['game-mode'] === 0
-      && settings_settings['max'] !== 0
-      && score >= settings_settings['max']){
+    }else if(storage_data['game-mode'] === 0
+      && storage_data['max'] !== 0
+      && score >= storage_data['max']){
         stop();
     }
 }
@@ -44,16 +44,16 @@ function randomize_buttons(clicked_button_id){
     // Increase or decrease time based on settings value for clicked button.
     score = score
       + (document.getElementById(clicked_button_id).value.lastIndexOf('+', 0) === 0
-        ? parseInt(settings_settings['green-points'], 10)
-        : -parseInt(settings_settings['red-points'], 10));
+        ? parseInt(storage_data['green-points'], 10)
+        : -parseInt(storage_data['red-points'], 10));
     document.getElementById('score').innerHTML = score;
 
     // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
-    var game_ended = !(settings_settings['game-mode'] === 1
-      || settings_settings['max'] === 0
-      || score < settings_settings['max']);
+    var game_ended = !(storage_data['game-mode'] === 1
+      || storage_data['max'] === 0
+      || score < storage_data['max']);
 
-    var loop_counter = settings_settings['grid-dimensions'] * settings_settings['grid-dimensions'] - 1;
+    var loop_counter = storage_data['grid-dimensions'] * storage_data['grid-dimensions'] - 1;
     do{
         document.getElementById(loop_counter).disabled = true;
 
@@ -72,15 +72,15 @@ function randomize_buttons(clicked_button_id){
     var space_taken = 0;
 
     // Randomize locations of and setup green buttons that currently exist.
-    if(settings_settings['green-frequency'] > 0){
-        loop_counter = settings_settings['green-frequency'] > (settings_settings['grid-dimensions'] * settings_settings['grid-dimensions']) - 1
-          ? (settings_settings['grid-dimensions'] * settings_settings['grid-dimensions']) - 1
-          : settings_settings['green-frequency'] - 1;
+    if(storage_data['green-frequency'] > 0){
+        loop_counter = storage_data['green-frequency'] > (storage_data['grid-dimensions'] * storage_data['grid-dimensions']) - 1
+          ? (storage_data['grid-dimensions'] * storage_data['grid-dimensions']) - 1
+          : storage_data['green-frequency'] - 1;
         space_taken = loop_counter + 1;
         do{
             do{
                 var button = random_integer({
-                  'max': settings_settings['grid-dimensions'] * settings_settings['grid-dimensions'],
+                  'max': storage_data['grid-dimensions'] * storage_data['grid-dimensions'],
                 });
             }while(!document.getElementById(button).disabled);
 
@@ -88,25 +88,25 @@ function randomize_buttons(clicked_button_id){
             document.getElementById(button).disabled = false;
             document.getElementById(button).value = '+'
               + parseInt(
-                settings_settings['green-points'],
+                storage_data['green-points'],
                 10
               );
         }while(loop_counter--);
     }
 
     // If there are no green buttons or space for red buttons is available.
-    if(settings_settings['green-frequency'] == 0
-      || (settings_settings['grid-dimensions'] > 1
-      && (settings_settings['grid-dimensions'] * settings_settings['grid-dimensions']) - space_taken > 0)){
+    if(storage_data['green-frequency'] == 0
+      || (storage_data['grid-dimensions'] > 1
+      && (storage_data['grid-dimensions'] * storage_data['grid-dimensions']) - space_taken > 0)){
         // Create and randomize enough red buttons to fill available space or just number of red buttons.
-        loop_counter = settings_settings['red-frequency'] > (settings_settings['grid-dimensions'] * settings_settings['grid-dimensions']) - space_taken - 1
-          ? (settings_settings['grid-dimensions'] * settings_settings['grid-dimensions']) - space_taken - 1
-          : settings_settings['red-frequency'] - 1;
+        loop_counter = storage_data['red-frequency'] > (storage_data['grid-dimensions'] * storage_data['grid-dimensions']) - space_taken - 1
+          ? (storage_data['grid-dimensions'] * storage_data['grid-dimensions']) - space_taken - 1
+          : storage_data['red-frequency'] - 1;
         if(loop_counter >= 0){
             do{
                 do{
                     var button = random_integer({
-                      'max': settings_settings['grid-dimensions'] * settings_settings['grid-dimensions'],
+                      'max': storage_data['grid-dimensions'] * storage_data['grid-dimensions'],
                     });
                 }while(!document.getElementById(button).disabled);
 
@@ -114,7 +114,7 @@ function randomize_buttons(clicked_button_id){
                 document.getElementById(button).disabled = false;
                 document.getElementById(button).value = '-'
                   + parseInt(
-                    settings_settings['red-points'],
+                    storage_data['red-points'],
                     10
                   );
             }while(loop_counter--);
@@ -123,16 +123,16 @@ function randomize_buttons(clicked_button_id){
 }
 
 function setup(){
-    document.getElementById('start-button').value = 'Start [' + settings_settings['start-key'] + ']';
+    document.getElementById('start-button').value = 'Start [' + storage_data['start-key'] + ']';
 
     // Adjust margin-top of entire game.
-    document.getElementById('game-div').style.marginTop = settings_settings['y-margin'] + 'px';
+    document.getElementById('game-div').style.marginTop = storage_data['y-margin'] + 'px';
 
     // Create game-div buttons.
-    var dimensions = settings_settings['grid-dimensions'] * settings_settings['grid-dimensions'];
+    var dimensions = storage_data['grid-dimensions'] * storage_data['grid-dimensions'];
     var output = '';
     for(var loop_counter = 0; loop_counter < dimensions; loop_counter++){
-        if(loop_counter % settings_settings['grid-dimensions'] === 0
+        if(loop_counter % storage_data['grid-dimensions'] === 0
           && loop_counter !== 0){
             output += '<br>';
         }
@@ -166,11 +166,11 @@ function settings_toggle(state){
 }
 
 function start(){
-    settings_save();
+    storage_save();
     setup();
 
     // Reset game buttons.
-    var loop_counter = settings_settings['grid-dimensions'] * settings_settings['grid-dimensions'] - 1;
+    var loop_counter = storage_data['grid-dimensions'] * storage_data['grid-dimensions'] - 1;
     do{
         document.getElementById(loop_counter).disabled = true;
         document.getElementById(loop_counter).style.background = colors['default'];
@@ -183,7 +183,7 @@ function start(){
     // Generate green and red buttons.
     randomize_buttons(
       random_integer({
-        'max': settings_settings['grid-dimensions'] * settings_settings['grid-dimensions'],
+        'max': storage_data['grid-dimensions'] * storage_data['grid-dimensions'],
       })
     );
 
@@ -194,19 +194,19 @@ function start(){
     document.getElementById('time').innerHTML = 0;
 
     // Setup max-time or max-points displays.
-    if(settings_settings['game-mode'] === 1){
-        time = settings_settings['max'] >= 0
-          ? (settings_settings['max'] === ''
+    if(storage_data['game-mode'] === 1){
+        time = storage_data['max'] >= 0
+          ? (storage_data['max'] === ''
             ? 0
-            : settings_settings['max']
+            : storage_data['max']
           )
           : 30;
-        if(settings_settings['max'] > 0){
-            document.getElementById('time-max').innerHTML = ' / ' + settings_settings['max'];
+        if(storage_data['max'] > 0){
+            document.getElementById('time-max').innerHTML = ' / ' + storage_data['max'];
         }
 
-    }else if(settings_settings['max'] > 0){
-        document.getElementById('score-max').innerHTML = ' / ' + settings_settings['max'];
+    }else if(storage_data['max'] > 0){
+        document.getElementById('score-max').innerHTML = ' / ' + storage_data['max'];
     }
 
     document.getElementById('start-button').onclick = stop;
@@ -224,14 +224,14 @@ function stop(){
     game_running = false;
 
     // Disable buttons to prevent further clicks.
-    var loop_counter = settings_settings['grid-dimensions'] * settings_settings['grid-dimensions'] - 1;
+    var loop_counter = storage_data['grid-dimensions'] * storage_data['grid-dimensions'] - 1;
     do{
         document.getElementById(loop_counter).disabled = true;
     }while(loop_counter--);
 
     document.getElementById('start-button').onclick = start;
     document.getElementById('start-button').value =
-      'Start [' + settings_settings['start-key'] + ']';
+      'Start [' + storage_data['start-key'] + ']';
 }
 
 var colors = {
@@ -245,9 +245,8 @@ var score = 0;
 var time = 0;
 
 window.onload = function(){
-    settings_init({
-      'prefix': 'SpeedButton.htm-',
-      'settings': {
+    storage_init({
+      'data': {
         'audio-volume': 1,
         'game-mode': 1,
         'green-frequency': 1,
@@ -260,9 +259,10 @@ window.onload = function(){
         'start-key': 'H',
         'y-margin': 0,
       },
+      'prefix': 'SpeedButton.htm-',
     });
     audio_init({
-      'volume': settings_settings['audio-volume'],
+      'volume': storage_data['audio-volume'],
     });
     audio_create({
       'id': 'boop',
@@ -273,7 +273,7 @@ window.onload = function(){
     });
 
     document.getElementById('settings').innerHTML =
-      '<tr><td colspan=2><input id=reset-button onclick=settings_reset() type=button value=Reset>'
+      '<tr><td colspan=2><input id=reset-button onclick=storage_reset() type=button value=Reset>'
         + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
         + '<tr><td><input id=green-frequency><td>Green Frequency'
         + '<tr><td>+<input id=green-points><td>Green Points'
@@ -285,7 +285,7 @@ window.onload = function(){
         + '<tr><td><input id=start-key maxlength=1><td>Start'
         + '<tr><td><input id=y-margin><td>Y Margin';
 
-    settings_update();
+    storage_update();
     setup();
 
     document.getElementById('settings-button').onclick = function(){
@@ -296,7 +296,7 @@ window.onload = function(){
     window.onkeydown = function(e){
         var key = e.keyCode || e.which;
 
-        if(String.fromCharCode(key) === settings_settings['start-key']){
+        if(String.fromCharCode(key) === storage_data['start-key']){
             stop();
             start();
 
