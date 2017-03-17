@@ -97,7 +97,8 @@ function randomize_buttons(clicked_button_id){
     // If there are no green buttons or space for red buttons is available.
     if(storage_data['green-frequency'] == 0
       || (storage_data['grid-dimensions'] > 1
-      && (storage_data['grid-dimensions'] * storage_data['grid-dimensions']) - space_taken > 0)){
+        && (storage_data['grid-dimensions'] * storage_data['grid-dimensions']) - space_taken > 0)
+    ){
         // Create and randomize enough red buttons to fill available space or just number of red buttons.
         loop_counter = storage_data['red-frequency'] > (storage_data['grid-dimensions'] * storage_data['grid-dimensions']) - space_taken - 1
           ? (storage_data['grid-dimensions'] * storage_data['grid-dimensions']) - space_taken - 1
@@ -137,8 +138,7 @@ function setup(){
             output += '<br>';
         }
 
-        output +=
-          '<input class=gridbuttonclickable disabled id=' + loop_counter
+        output += '<input class=gridbuttonclickable disabled id=' + loop_counter
           + ' onclick=click_button(' + loop_counter
           + ') type=button value=" ">';
     }
@@ -230,8 +230,7 @@ function stop(){
     }while(loop_counter--);
 
     document.getElementById('start-button').onclick = start;
-    document.getElementById('start-button').value =
-      'Start [' + storage_data['start-key'] + ']';
+    document.getElementById('start-button').value = 'Start [' + storage_data['start-key'] + ']';
 }
 
 var colors = {
