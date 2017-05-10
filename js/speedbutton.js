@@ -79,7 +79,7 @@ function randomize_buttons(clicked_button_id){
         space_taken = loop_counter + 1;
         do{
             do{
-                var button = random_integer({
+                var button = core_random_integer({
                   'max': storage_data['grid-dimensions'] * storage_data['grid-dimensions'],
                 });
             }while(!document.getElementById(button).disabled);
@@ -106,7 +106,7 @@ function randomize_buttons(clicked_button_id){
         if(loop_counter >= 0){
             do{
                 do{
-                    var button = random_integer({
+                    var button = core_random_integer({
                       'max': storage_data['grid-dimensions'] * storage_data['grid-dimensions'],
                     });
                 }while(!document.getElementById(button).disabled);
@@ -182,7 +182,7 @@ function start(){
 
     // Generate green and red buttons.
     randomize_buttons(
-      random_integer({
+      core_random_integer({
         'max': storage_data['grid-dimensions'] * storage_data['grid-dimensions'],
       })
     );
