@@ -124,8 +124,8 @@ function randomize_buttons(clicked_button_id){
 }
 
 function repo_init(){
-    core_storage_init({
-      'data': {
+    core_repo_init({
+      'storage': {
         'audio-volume': 1,
         'game-mode': 1,
         'green-frequency': 1,
@@ -138,7 +138,7 @@ function repo_init(){
         'start-key': 'H',
         'y-margin': 0,
       },
-      'prefix': 'SpeedButton.htm-',
+      'title': 'SpeedButton.htm',
     });
     audio_init({
       'volume': core_storage_data['audio-volume'],
