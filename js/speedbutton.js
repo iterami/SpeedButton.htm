@@ -123,8 +123,30 @@ function randomize_buttons(clicked_button_id){
     }
 }
 
+function repo_escape(){
+    stop();
+}
+
 function repo_init(){
     core_repo_init({
+      'keybinds': {
+        72: {
+          'todo': function(){
+              stop();
+              start();
+          },
+        },
+        187: {
+          'todo': function(){
+              settings_toggle(true);
+          },
+        },
+        189: {
+          'todo': function(){
+              settings_toggle(false);
+          },
+        },
+      },
       'storage': {
         'audio-volume': 1,
         'game-mode': 1,
@@ -135,7 +157,6 @@ function repo_init(){
         'red-frequency': 1,
         'red-points': 1,
         'red-onclick': 0,
-        'start-key': 'H',
         'y-margin': 0,
       },
       'title': 'SpeedButton.htm',
@@ -161,7 +182,6 @@ function repo_init(){
         + '<tr><td><input id=red-frequency><td>Red Frequency'
         + '<tr><td>-<input id=red-points><td>Red Points'
         + '<tr><td><select id=red-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select><td>Red Click'
-        + '<tr><td><input id=start-key maxlength=1><td>Start'
         + '<tr><td><input id=y-margin><td>Y Margin';
 
     core_storage_update();
@@ -171,31 +191,10 @@ function repo_init(){
         settings_toggle();
     };
     document.getElementById('start-button').onclick = start;
-
-    window.onkeydown = function(e){
-        var key = e.keyCode || e.which;
-
-        if(String.fromCharCode(key) === core_storage_data['start-key']){
-            stop();
-            start();
-
-        // ESC: stop current game.
-        }else if(key === 27){
-            stop();
-
-        // +: show settings.
-        }else if(key === 187){
-            settings_toggle(true);
-
-        // -: hide settings.
-        }else if(key === 189){
-            settings_toggle(false);
-        }
-    };
 }
 
 function setup(){
-    document.getElementById('start-button').value = 'Start [' + core_storage_data['start-key'] + ']';
+    document.getElementById('start-button').value = 'Start [H]';
 
     // Adjust margin-top of entire game.
     document.getElementById('game-div').style.marginTop = core_storage_data['y-margin'] + 'px';
@@ -301,7 +300,7 @@ function stop(){
     }while(loop_counter--);
 
     document.getElementById('start-button').onclick = start;
-    document.getElementById('start-button').value = 'Start [' + core_storage_data['start-key'] + ']';
+    document.getElementById('start-button').value = 'Start [H]';
 }
 
 var colors = {
