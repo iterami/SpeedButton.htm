@@ -136,19 +136,8 @@ function repo_init(){
               start();
           },
         },
-        187: {
-          'todo': function(){
-              settings_toggle(true);
-          },
-        },
-        189: {
-          'todo': function(){
-              settings_toggle(false);
-          },
-        },
       },
       'storage': {
-        'audio-volume': 1,
         'game-mode': 1,
         'green-frequency': 1,
         'green-points': 1,
@@ -159,6 +148,7 @@ function repo_init(){
         'red-onclick': 0,
         'y-margin': 0,
       },
+      'storage-menu': '<input id=green-frequency>Green Frequency<br><input id=green-points>Green Points<br><select id=grid-dimensions><option value=1>1x1</option><option value=2>2x2</option><option value=3>3x3</option><option value=4>4x4</option><option value=5>5x5</option></select>Dimensions<br><input id=max>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><br><input id=red-frequency>Red Frequency<br>-<input id=red-points>Red Points<br><select id=red-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select>Red Click<br><input id=y-margin>Y Margin',
       'title': 'SpeedButton.htm',
     });
     audio_init({
@@ -172,24 +162,8 @@ function repo_init(){
       },
     });
 
-    document.getElementById('settings').innerHTML =
-      '<tr><td colspan=2><input id=reset-button onclick=core_storage_reset() type=button value=Reset>'
-        + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
-        + '<tr><td><input id=green-frequency><td>Green Frequency'
-        + '<tr><td>+<input id=green-points><td>Green Points'
-        + '<tr><td><select id=grid-dimensions><option value=1>1x1</option><option value=2>2x2</option><option value=3>3x3</option><option value=4>4x4</option><option value=5>5x5</option></select><td>Grid'
-        + '<tr><td><input id=max><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select>'
-        + '<tr><td><input id=red-frequency><td>Red Frequency'
-        + '<tr><td>-<input id=red-points><td>Red Points'
-        + '<tr><td><select id=red-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select><td>Red Click'
-        + '<tr><td><input id=y-margin><td>Y Margin';
-
-    core_storage_update();
     setup();
 
-    document.getElementById('settings-button').onclick = function(){
-        settings_toggle();
-    };
     document.getElementById('start-button').onclick = start;
 }
 
@@ -218,21 +192,6 @@ function setup(){
     do{
         document.getElementById(loop_counter).style.background = colors['default'];
     }while(loop_counter--);
-}
-
-function settings_toggle(state){
-    state = state == void 0
-      ? document.getElementById('settings-button').value === '+'
-      : state;
-
-    if(state){
-        document.getElementById('settings').style.display = 'inline-block';
-        document.getElementById('settings-button').value = '-';
-
-    }else{
-        document.getElementById('settings').style.display = 'none';
-        document.getElementById('settings-button').value = '+';
-    }
 }
 
 function start(){
