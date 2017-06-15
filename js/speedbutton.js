@@ -1,9 +1,8 @@
 'use strict';
 
 function click_button(clicked_button_id){
-    audio_start({
+    core_audio_start({
       'id': 'boop',
-      'volume-multiplier': core_storage_data['audio-volume'],
     });
 
     randomize_buttons(clicked_button_id);
@@ -151,14 +150,10 @@ function repo_init(){
       'storage-menu': '<input id=green-frequency>Green Frequency<br><input id=green-points>Green Points<br><select id=grid-dimensions><option value=1>1x1</option><option value=2>2x2</option><option value=3>3x3</option><option value=4>4x4</option><option value=5>5x5</option></select>Dimensions<br><input id=max>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><br><input id=red-frequency>Red Frequency<br>-<input id=red-points>Red Points<br><select id=red-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select>Red Click<br><input id=y-margin>Y Margin',
       'title': 'SpeedButton.htm',
     });
-    audio_init({
-      'volume': core_storage_data['audio-volume'],
-    });
-    audio_create({
+    core_audio_create({
       'id': 'boop',
       'properties': {
         'duration': .1,
-        'volume': .1,
       },
     });
 
