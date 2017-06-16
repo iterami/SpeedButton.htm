@@ -43,8 +43,8 @@ function randomize_buttons(clicked_button_id){
     // Increase or decrease time based on settings value for clicked button.
     score = score
       + (document.getElementById(clicked_button_id).value.lastIndexOf('+', 0) === 0
-        ? parseInt(core_storage_data['green-points'], 10)
-        : -parseInt(core_storage_data['red-points'], 10));
+        ? core_storage_data['green-points']
+        : core_storage_data['red-points']);
     document.getElementById('score').innerHTML = score;
 
     // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
@@ -85,11 +85,10 @@ function randomize_buttons(clicked_button_id){
 
             document.getElementById(button).style.background = colors[1];
             document.getElementById(button).disabled = false;
-            document.getElementById(button).value = '+'
-              + parseInt(
-                core_storage_data['green-points'],
-                10
-              );
+            document.getElementById(button).value = (core_storage_data['green-points'] > 0
+              ? '+'
+              : '')
+              + core_storage_data['green-points'];
         }while(loop_counter--);
     }
 
@@ -112,11 +111,10 @@ function randomize_buttons(clicked_button_id){
 
                 document.getElementById(button).style.background = colors[0];
                 document.getElementById(button).disabled = false;
-                document.getElementById(button).value = '-'
-                  + parseInt(
-                    core_storage_data['red-points'],
-                    10
-                  );
+                document.getElementById(button).value = (core_storage_data['red-points'] > 0
+                  ? '+'
+                  : '')
+                  + core_storage_data['red-points'];
             }while(loop_counter--);
         }
     }
@@ -143,11 +141,11 @@ function repo_init(){
         'grid-dimensions': 5,
         'max': 30,
         'red-frequency': 1,
-        'red-points': 1,
+        'red-points': -1,
         'red-onclick': 0,
         'y-margin': 0,
       },
-      'storage-menu': '<input id=green-frequency>Green Frequency<br><input id=green-points>Green Points<br><select id=grid-dimensions><option value=1>1x1</option><option value=2>2x2</option><option value=3>3x3</option><option value=4>4x4</option><option value=5>5x5</option></select>Dimensions<br><input id=max>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><br><input id=red-frequency>Red Frequency<br>-<input id=red-points>Red Points<br><select id=red-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select>Red Click<br><input id=y-margin>Y Margin',
+      'storage-menu': '<table><tr><td><input id=green-frequency><td>Green Frequency<tr><td><input id=green-points><td>Green Points<tr><td><select id=grid-dimensions><option value=1>1x1</option><option value=2>2x2</option><option value=3>3x3</option><option value=4>4x4</option><option value=5>5x5</option></select><td>Dimensions<tr><td><input id=max><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><tr><td><input id=red-frequency><td>Red Frequency<tr><td><input id=red-points><td>Red Points<tr><td><select id=red-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select><td>Red Click<tr><td><input id=y-margin><td>Y Margin</table>',
       'title': 'SpeedButton.htm',
     });
     core_audio_create({
