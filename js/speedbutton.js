@@ -60,7 +60,7 @@ function randomize_buttons(clicked_button_id){
             continue;
         }
 
-        document.getElementById(loop_counter).style.background = colors['default'];
+        document.getElementById(loop_counter).style.background = '#2a2a2a';
         document.getElementById(loop_counter).value = ' ';
     }while(loop_counter--);
 
@@ -83,7 +83,7 @@ function randomize_buttons(clicked_button_id){
                 });
             }while(!document.getElementById(button).disabled);
 
-            document.getElementById(button).style.background = colors[1];
+            document.getElementById(button).style.background = core_storage_data['color-positive'];
             document.getElementById(button).disabled = false;
             document.getElementById(button).value = (core_storage_data['green-points'] > 0
               ? '+'
@@ -109,7 +109,7 @@ function randomize_buttons(clicked_button_id){
                     });
                 }while(!document.getElementById(button).disabled);
 
-                document.getElementById(button).style.background = colors[0];
+                document.getElementById(button).style.background = core_storage_data['color-negative'];
                 document.getElementById(button).disabled = false;
                 document.getElementById(button).value = (core_storage_data['red-points'] > 0
                   ? '+'
@@ -178,7 +178,7 @@ function setup(){
 
     var loop_counter = dimensions - 1;
     do{
-        document.getElementById(loop_counter).style.background = colors['default'];
+        document.getElementById(loop_counter).style.background = '#2a2a2a';
     }while(loop_counter--);
 }
 
@@ -190,7 +190,7 @@ function start(){
     var loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
     do{
         document.getElementById(loop_counter).disabled = true;
-        document.getElementById(loop_counter).style.background = colors['default'];
+        document.getElementById(loop_counter).style.background = '#2a2a2a';
         document.getElementById(loop_counter).value = ' ';
     }while(loop_counter--);
 
@@ -250,11 +250,6 @@ function stop(){
     document.getElementById('start-button').value = 'Start [H]';
 }
 
-var colors = {
-  'default': '#2a2a2a',
-  '0': '#c83232',
-  '1': '#262',
-};
 var game_running = false;
 var interval = 0;
 var score = 0;
