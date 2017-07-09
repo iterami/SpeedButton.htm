@@ -85,10 +85,9 @@ function randomize_buttons(clicked_button_id){
 
             document.getElementById(button).style.background = core_storage_data['color-positive'];
             document.getElementById(button).disabled = false;
-            document.getElementById(button).value = (core_storage_data['green-points'] > 0
+            document.getElementById(button).value = core_storage_data['green-points'] > 0
               ? '+'
-              : '')
-              + core_storage_data['green-points'];
+              : '-';
         }while(loop_counter--);
     }
 
@@ -111,10 +110,9 @@ function randomize_buttons(clicked_button_id){
 
                 document.getElementById(button).style.background = core_storage_data['color-negative'];
                 document.getElementById(button).disabled = false;
-                document.getElementById(button).value = (core_storage_data['red-points'] > 0
+                document.getElementById(button).value = core_storage_data['red-points'] > 0
                   ? '+'
-                  : '')
-                  + core_storage_data['red-points'];
+                  : '-';
             }while(loop_counter--);
         }
     }
