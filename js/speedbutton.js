@@ -54,14 +54,15 @@ function randomize_buttons(clicked_button_id){
 
     var loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
     do{
-        document.getElementById(loop_counter).disabled = true;
+        var element = document.getElementById(loop_counter);
+        element.disabled = true;
 
         if(game_ended){
             continue;
         }
 
-        document.getElementById(loop_counter).style.background = '#2a2a2a';
-        document.getElementById(loop_counter).value = ' ';
+        element.style.background = '#2a2a2a';
+        element.value = ' ';
     }while(loop_counter--);
 
     if(game_ended){
@@ -83,9 +84,10 @@ function randomize_buttons(clicked_button_id){
                 });
             }while(!document.getElementById(button).disabled);
 
-            document.getElementById(button).style.background = core_storage_data['color-positive'];
-            document.getElementById(button).disabled = false;
-            document.getElementById(button).value = core_storage_data['green-points'] > 0
+            var element = document.getElementById(button);
+            element.style.background = core_storage_data['color-positive'];
+            element.disabled = false;
+            element.value = core_storage_data['green-points'] > 0
               ? '+'
               : '-';
         }while(loop_counter--);
@@ -108,9 +110,10 @@ function randomize_buttons(clicked_button_id){
                     });
                 }while(!document.getElementById(button).disabled);
 
-                document.getElementById(button).style.background = core_storage_data['color-negative'];
-                document.getElementById(button).disabled = false;
-                document.getElementById(button).value = core_storage_data['red-points'] > 0
+                var element = document.getElementById(button);
+                element.style.background = core_storage_data['color-negative'];
+                element.disabled = false;
+                element.value = core_storage_data['red-points'] > 0
                   ? '+'
                   : '-';
             }while(loop_counter--);
@@ -187,9 +190,10 @@ function start(){
     // Reset game buttons.
     var loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
     do{
-        document.getElementById(loop_counter).disabled = true;
-        document.getElementById(loop_counter).style.background = '#2a2a2a';
-        document.getElementById(loop_counter).value = ' ';
+        var element = document.getElementById(loop_counter);
+        element.disabled = true;
+        element.style.background = '#2a2a2a';
+        element.value = ' ';
     }while(loop_counter--);
 
     document.getElementById('score-max').innerHTML = '';
@@ -224,8 +228,9 @@ function start(){
         document.getElementById('score-max').innerHTML = ' / ' + core_storage_data['max'];
     }
 
-    document.getElementById('start-button').onclick = stop;
-    document.getElementById('start-button').value = 'End [ESC]';
+    var element = document.getElementById('start-button');
+    element.onclick = stop;
+    element.value = 'End [ESC]';
 
     game_running = true;
     interval = window.setInterval(
@@ -244,8 +249,9 @@ function stop(){
         document.getElementById(loop_counter).disabled = true;
     }while(loop_counter--);
 
-    document.getElementById('start-button').onclick = start;
-    document.getElementById('start-button').value = 'Start [H]';
+    var element = document.getElementById('start-button');
+    element.onclick = start;
+    element.value = 'Start [H]';
 }
 
 var game_running = false;
