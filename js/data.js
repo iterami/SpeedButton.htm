@@ -190,9 +190,13 @@ function start(){
         document.getElementById('score-max').innerHTML = ' / ' + core_storage_data['max'];
     }
 
-    var element = document.getElementById('start-button');
-    element.onclick = stop;
-    element.value = 'End [ESC]';
+    core_html_modify({
+      'id': 'start-button',
+      'properties': {
+        'onclick': stop,
+        'value': 'End [ESC]',
+      },
+    });
 
     game_running = true;
     interval = window.setInterval(
@@ -211,9 +215,13 @@ function stop(){
         document.getElementById(loop_counter).disabled = true;
     }while(loop_counter--);
 
-    var element = document.getElementById('start-button');
-    element.onclick = start;
-    element.value = 'Start [H]';
+    core_html_modify({
+      'id': 'start-button',
+      'properties': {
+        'onclick': start,
+        'value': 'Start [H]',
+      },
+    });
 }
 
 var game_running = false;
