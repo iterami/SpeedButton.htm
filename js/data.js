@@ -223,8 +223,3 @@ function stop(){
       },
     });
 }
-
-var game_running = false;
-var interval = 0;
-var score = 0;
-var time = 0;

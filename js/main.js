@@ -11,6 +11,12 @@ function repo_init(){
           'duration': .1,
         },
       },
+      'globals': {
+        'game_running': false,
+        'interval': 0,
+        'score': 0,
+        'time': 0,
+      },
       'info-events': {
         'start-button': {
           'todo': start,
