@@ -1,6 +1,10 @@
 'use strict';
 
 function click_button(clicked_button_id){
+    if(core_menu_open){
+        return;
+    }
+
     core_audio_start({
       'id': 'boop',
     });
@@ -121,8 +125,10 @@ function randomize_buttons(clicked_button_id){
     }
 }
 
-function setup(){
-    document.getElementById('start-button').value = 'Start [H]';
+function start(){
+    if(core_menu_open){
+        core_escape();
+    }
 
     // Create game-div buttons.
     var dimensions = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'];
@@ -143,11 +149,6 @@ function setup(){
     do{
         document.getElementById(loop_counter).style.background = '#2a2a2a';
     }while(loop_counter--);
-}
-
-function start(){
-    core_storage_save();
-    setup();
 
     // Reset game buttons.
     var loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
@@ -190,23 +191,16 @@ function start(){
         document.getElementById('score-max').innerHTML = ' / ' + core_storage_data['max'];
     }
 
-    core_html_modify({
-      'id': 'start-button',
-      'properties': {
-        'onclick': stop,
-        'value': 'End [ESC]',
-      },
-    });
-
     game_running = true;
-    interval = window.setInterval(
-      decisecond,
-      100
-    );
+    core_interval_modify({
+      'id': 'interval',
+      'interval': 100,
+      'todo': decisecond,
+    });
 }
 
 function stop(){
-    window.clearInterval(interval);
+    core_interval_pause_all();
     game_running = false;
 
     // Disable buttons to prevent further clicks.
@@ -214,12 +208,4 @@ function stop(){
     do{
         document.getElementById(loop_counter).disabled = true;
     }while(loop_counter--);
-
-    core_html_modify({
-      'id': 'start-button',
-      'properties': {
-        'onclick': start,
-        'value': 'Start [H]',
-      },
-    });
 }

@@ -1,9 +1,5 @@
 'use strict';
 
-function repo_escape(){
-    stop();
-}
-
 function repo_init(){
     core_repo_init({
       'audios': {
@@ -18,10 +14,10 @@ function repo_init(){
       },
       'globals': {
         'game_running': false,
-        'interval': 0,
         'score': 0,
         'time': 0,
       },
+      'info': '<input id=start-button type=button value=Restart>',
       'keybinds': {
         72: {
           'todo': function(){
@@ -44,5 +40,5 @@ function repo_init(){
       'title': 'SpeedButton.htm',
     });
 
-    setup();
+    start();
 }
