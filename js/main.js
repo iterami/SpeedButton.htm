@@ -9,7 +9,10 @@ function repo_init(){
       },
       'events': {
         'start-button': {
-          'onclick': start,
+          'onclick': function(){
+              core_escape();
+              start();
+          },
         },
       },
       'globals': {
@@ -26,6 +29,7 @@ function repo_init(){
           },
         },
       },
+      'menu': true,
       'storage': {
         'game-mode': 1,
         'green-frequency': 1,
@@ -40,5 +44,23 @@ function repo_init(){
       'title': 'SpeedButton.htm',
     });
 
-    start();
+    // Create game-div buttons.
+    var dimensions = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'];
+    var output = '';
+    for(var loop_counter = 0; loop_counter < dimensions; loop_counter++){
+        if(loop_counter % core_storage_data['grid-dimensions'] === 0
+          && loop_counter !== 0){
+            output += '<br>';
+        }
+
+        output += '<input class=gridbuttonclickable disabled id=' + loop_counter
+          + ' onclick=click_button(' + loop_counter
+          + ') type=button value=" ">';
+    }
+    document.getElementById('game-div').innerHTML = output + '<br>';
+
+    var loop_counter = dimensions - 1;
+    do{
+        document.getElementById(loop_counter).style.background = '#2a2a2a';
+    }while(loop_counter--);
 }
