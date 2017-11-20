@@ -32,15 +32,15 @@ function repo_init(){
       'menu': true,
       'storage': {
         'game-mode': 1,
-        'green-frequency': 1,
-        'green-points': 1,
         'grid-dimensions': 5,
         'max': 30,
-        'red-frequency': 1,
-        'red-points': -1,
-        'red-onclick': 0,
+        'negative-frequency': 1,
+        'negative-onclick': 0,
+        'negative-points': -1,
+        'positive-frequency': 1,
+        'positive-points': 1,
       },
-      'storage-menu': '<table><tr><td><input id=green-frequency><td>Green Frequency<tr><td><input id=green-points><td>Green Points<tr><td><select id=grid-dimensions><option value=1>1x1</option><option value=2>2x2</option><option value=3>3x3</option><option value=4>4x4</option><option value=5>5x5</option></select><td>Dimensions<tr><td><input id=max><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><tr><td><input id=red-frequency><td>Red Frequency<tr><td><input id=red-points><td>Red Points<tr><td><select id=red-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select><td>Red Click</table>',
+      'storage-menu': '<table><tr><td><select id=grid-dimensions><option value=1>1x1</option><option value=2>2x2</option><option value=3>3x3</option><option value=4>4x4</option><option value=5>5x5</option></select><td>Dimensions<tr><td><input id=max><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><tr><td><input id=negative-frequency><td>Negative Frequency<tr><td><input id=negative-points><td>Negative Points<tr><td><select id=negative-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select><td>Negative Click<tr><td><input id=positive-frequency><td>Positive Frequency<tr><td><input id=positive-points><td>Positive Points</table>',
       'title': 'SpeedButton.htm',
     });
 

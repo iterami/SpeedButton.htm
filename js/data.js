@@ -36,8 +36,8 @@ function decisecond(){
 
 function randomize_buttons(clicked_button_id){
     if(game_running){
-        // Stop game if clicking on a red button ends the game and clicked on a red button.
-        if(document.getElementById('red-onclick').value == 1
+        // Stop game if clicking on a negative button ends the game and clicked on a negative button.
+        if(document.getElementById('negative-onclick').value == 1
           && document.getElementById(clicked_button_id).value.lastIndexOf('-', 0) === 0){
             stop();
             return;
@@ -47,8 +47,8 @@ function randomize_buttons(clicked_button_id){
     // Increase or decrease time based on settings value for clicked button.
     score = score
       + (document.getElementById(clicked_button_id).value.lastIndexOf('+', 0) === 0
-        ? core_storage_data['green-points']
-        : core_storage_data['red-points']);
+        ? core_storage_data['positive-points']
+        : core_storage_data['negative-points']);
     document.getElementById('score').innerHTML = score;
 
     // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
@@ -75,11 +75,11 @@ function randomize_buttons(clicked_button_id){
 
     var space_taken = 0;
 
-    // Randomize locations of and setup green buttons that currently exist.
-    if(core_storage_data['green-frequency'] > 0){
-        loop_counter = core_storage_data['green-frequency'] > (core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions']) - 1
+    // Randomize locations of and setup positive buttons that currently exist.
+    if(core_storage_data['positive-frequency'] > 0){
+        loop_counter = core_storage_data['positive-frequency'] > (core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions']) - 1
           ? (core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions']) - 1
-          : core_storage_data['green-frequency'] - 1;
+          : core_storage_data['positive-frequency'] - 1;
         space_taken = loop_counter + 1;
         do{
             do{
@@ -91,21 +91,21 @@ function randomize_buttons(clicked_button_id){
             var element = document.getElementById(button);
             element.style.background = core_storage_data['color-positive'];
             element.disabled = false;
-            element.value = core_storage_data['green-points'] > 0
+            element.value = core_storage_data['positive-points'] > 0
               ? '+'
               : '-';
         }while(loop_counter--);
     }
 
-    // If there are no green buttons or space for red buttons is available.
-    if(core_storage_data['green-frequency'] == 0
+    // If there are no positive buttons or space for negative buttons is available.
+    if(core_storage_data['positive-frequency'] == 0
       || (core_storage_data['grid-dimensions'] > 1
         && (core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions']) - space_taken > 0)
     ){
-        // Create and randomize enough red buttons to fill available space or just number of red buttons.
-        loop_counter = core_storage_data['red-frequency'] > (core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions']) - space_taken - 1
+        // Create and randomize enough negative buttons to fill available space or just number of negative buttons.
+        loop_counter = core_storage_data['negative-frequency'] > (core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions']) - space_taken - 1
           ? (core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions']) - space_taken - 1
-          : core_storage_data['red-frequency'] - 1;
+          : core_storage_data['negative-frequency'] - 1;
         if(loop_counter >= 0){
             do{
                 do{
@@ -117,7 +117,7 @@ function randomize_buttons(clicked_button_id){
                 var element = document.getElementById(button);
                 element.style.background = core_storage_data['color-negative'];
                 element.disabled = false;
-                element.value = core_storage_data['red-points'] > 0
+                element.value = core_storage_data['negative-points'] > 0
                   ? '+'
                   : '-';
             }while(loop_counter--);
@@ -138,7 +138,7 @@ function start(){
     document.getElementById('score-max').innerHTML = '';
     document.getElementById('time-max').innerHTML = '';
 
-    // Generate green and red buttons.
+    // Generate positive and negative buttons.
     randomize_buttons(
       core_random_integer({
         'max': core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'],
