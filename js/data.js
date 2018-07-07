@@ -15,8 +15,8 @@ function click_button(clicked_button_id){
 function decisecond(){
     time = (core_storage_data['game-mode'] === 1
       && core_storage_data['max'] > 0)
-      ? (parseFloat(time) - .1).toFixed(1)
-      : (parseFloat(time) + .1).toFixed(1);
+      ? (Number.parseFloat(time) - .1).toFixed(1)
+      : (Number.parseFloat(time) + .1).toFixed(1);
 
     document.getElementById('time').innerHTML = time;
 
