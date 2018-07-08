@@ -52,13 +52,13 @@ function randomize_buttons(clicked_button_id){
     document.getElementById('score').innerHTML = score;
 
     // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
-    var game_ended = !(core_storage_data['game-mode'] === 1
+    let game_ended = !(core_storage_data['game-mode'] === 1
       || core_storage_data['max'] === 0
       || score < core_storage_data['max']);
 
-    var loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
+    let loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
     do{
-        var element = document.getElementById(loop_counter);
+        let element = document.getElementById(loop_counter);
         element.disabled = true;
 
         if(game_ended){
@@ -73,7 +73,7 @@ function randomize_buttons(clicked_button_id){
         return;
     }
 
-    var space_taken = 0;
+    let space_taken = 0;
 
     // Randomize locations of and setup positive buttons that currently exist.
     if(core_storage_data['positive-frequency'] > 0){
@@ -82,13 +82,14 @@ function randomize_buttons(clicked_button_id){
           : core_storage_data['positive-frequency'] - 1;
         space_taken = loop_counter + 1;
         do{
+            let button = '';
             do{
-                var button = core_random_integer({
+                button = core_random_integer({
                   'max': core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'],
                 });
             }while(!document.getElementById(button).disabled);
 
-            var element = document.getElementById(button);
+            let element = document.getElementById(button);
             element.style.background = core_storage_data['color-positive'];
             element.disabled = false;
             element.value = core_storage_data['positive-points'] > 0
@@ -108,13 +109,14 @@ function randomize_buttons(clicked_button_id){
           : core_storage_data['negative-frequency'] - 1;
         if(loop_counter >= 0){
             do{
+                let button = '';
                 do{
-                    var button = core_random_integer({
+                    button = core_random_integer({
                       'max': core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'],
                     });
                 }while(!document.getElementById(button).disabled);
 
-                var element = document.getElementById(button);
+                let element = document.getElementById(button);
                 element.style.background = core_storage_data['color-negative'];
                 element.disabled = false;
                 element.value = core_storage_data['negative-points'] > 0
@@ -127,9 +129,9 @@ function randomize_buttons(clicked_button_id){
 
 function start(){
     // Reset game buttons.
-    var loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
+    let loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
     do{
-        var element = document.getElementById(loop_counter);
+        let element = document.getElementById(loop_counter);
         element.disabled = true;
         element.style.background = '#2a2a2a';
         element.value = ' ';
@@ -180,7 +182,7 @@ function stop(){
     game_running = false;
 
     // Disable buttons to prevent further clicks.
-    var loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
+    let loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
     do{
         document.getElementById(loop_counter).disabled = true;
     }while(loop_counter--);

@@ -45,9 +45,9 @@ function repo_init(){
     });
 
     // Create game-div buttons.
-    var dimensions = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'];
-    var output = '';
-    for(var loop_counter = 0; loop_counter < dimensions; loop_counter++){
+    let dimensions = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'];
+    let output = '';
+    for(let loop_counter = 0; loop_counter < dimensions; loop_counter++){
         if(loop_counter % core_storage_data['grid-dimensions'] === 0
           && loop_counter !== 0){
             output += '<br>';
@@ -59,7 +59,7 @@ function repo_init(){
     }
     document.getElementById('game-div').innerHTML = output + '<br>';
 
-    var loop_counter = dimensions - 1;
+    let loop_counter = dimensions - 1;
     do{
         document.getElementById(loop_counter).style.background = '#2a2a2a';
     }while(loop_counter--);
