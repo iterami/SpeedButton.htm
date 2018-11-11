@@ -128,10 +128,32 @@ function randomize_buttons(clicked_button_id){
 }
 
 function start(){
-    grid_dimensions_squared = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'];
+    grid_dimensions_squared = Math.max(
+      core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'],
+      1
+    );
+
+    // Create game-div buttons.
+    let output = '';
+    for(let loop_counter = 0; loop_counter < grid_dimensions_squared; loop_counter++){
+        if(loop_counter % core_storage_data['grid-dimensions'] === 0
+          && loop_counter !== 0){
+            output += '<br>';
+        }
+
+        output += '<input class=gridbuttonclickable disabled id=' + loop_counter
+          + ' onclick=click_button(' + loop_counter
+          + ') type=button value=" ">';
+    }
+    document.getElementById('game-div').innerHTML = output + '<br>';
+
+    let loop_counter = grid_dimensions_squared - 1;
+    do{
+        document.getElementById(loop_counter).style.background = '#2a2a2a';
+    }while(loop_counter--);
 
     // Reset game buttons.
-    let loop_counter = grid_dimensions_squared - 1;
+    loop_counter = grid_dimensions_squared - 1;
     do{
         let element = document.getElementById(loop_counter);
         element.disabled = true;
