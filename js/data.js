@@ -56,7 +56,7 @@ function randomize_buttons(clicked_button_id){
       || core_storage_data['max'] === 0
       || score < core_storage_data['max']);
 
-    let loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
+    let loop_counter = grid_dimensions_squared - 1;
     do{
         let element = document.getElementById(loop_counter);
         element.disabled = true;
@@ -77,15 +77,15 @@ function randomize_buttons(clicked_button_id){
 
     // Randomize locations of and setup positive buttons that currently exist.
     if(core_storage_data['positive-frequency'] > 0){
-        loop_counter = core_storage_data['positive-frequency'] > (core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions']) - 1
-          ? (core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions']) - 1
+        loop_counter = core_storage_data['positive-frequency'] > grid_dimensions_squared - 1
+          ? grid_dimensions_squared - 1
           : core_storage_data['positive-frequency'] - 1;
         space_taken = loop_counter + 1;
         do{
             let button = '';
             do{
                 button = core_random_integer({
-                  'max': core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'],
+                  'max': grid_dimensions_squared,
                 });
             }while(!document.getElementById(button).disabled);
 
@@ -101,18 +101,18 @@ function randomize_buttons(clicked_button_id){
     // If there are no positive buttons or space for negative buttons is available.
     if(core_storage_data['positive-frequency'] == 0
       || (core_storage_data['grid-dimensions'] > 1
-        && (core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions']) - space_taken > 0)
+        && grid_dimensions_squared - space_taken > 0)
     ){
         // Create and randomize enough negative buttons to fill available space or just number of negative buttons.
-        loop_counter = core_storage_data['negative-frequency'] > (core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions']) - space_taken - 1
-          ? (core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions']) - space_taken - 1
+        loop_counter = core_storage_data['negative-frequency'] > grid_dimensions_squared - space_taken - 1
+          ? grid_dimensions_squared - space_taken - 1
           : core_storage_data['negative-frequency'] - 1;
         if(loop_counter >= 0){
             do{
                 let button = '';
                 do{
                     button = core_random_integer({
-                      'max': core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'],
+                      'max': grid_dimensions_squared,
                     });
                 }while(!document.getElementById(button).disabled);
 
@@ -128,8 +128,10 @@ function randomize_buttons(clicked_button_id){
 }
 
 function start(){
+    grid_dimensions_squared = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'];
+
     // Reset game buttons.
-    let loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
+    let loop_counter = grid_dimensions_squared - 1;
     do{
         let element = document.getElementById(loop_counter);
         element.disabled = true;
@@ -143,7 +145,7 @@ function start(){
     // Generate positive and negative buttons.
     randomize_buttons(
       core_random_integer({
-        'max': core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'],
+        'max': grid_dimensions_squared,
       })
     );
 
@@ -182,7 +184,7 @@ function stop(){
     game_running = false;
 
     // Disable buttons to prevent further clicks.
-    let loop_counter = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'] - 1;
+    let loop_counter = grid_dimensions_squared - 1;
     do{
         document.getElementById(loop_counter).disabled = true;
     }while(loop_counter--);

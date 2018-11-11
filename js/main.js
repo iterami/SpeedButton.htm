@@ -17,6 +17,7 @@ function repo_init(){
       },
       'globals': {
         'game_running': false,
+        'grid_dimensions_squared': 0,
         'score': 0,
         'time': 0,
       },
@@ -44,8 +45,10 @@ function repo_init(){
       'title': 'SpeedButton.htm',
     });
 
+    grid_dimensions_squared = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'];
+
     // Create game-div buttons.
-    let dimensions = core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'];
+    let dimensions = grid_dimensions_squared;
     let output = '';
     for(let loop_counter = 0; loop_counter < dimensions; loop_counter++){
         if(loop_counter % core_storage_data['grid-dimensions'] === 0
