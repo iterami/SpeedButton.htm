@@ -13,6 +13,10 @@ function click_button(clicked_button_id){
 }
 
 function decisecond(){
+    if(!game_running){
+        return;
+    }
+
     time = (core_storage_data['game-mode'] === 1
       && core_storage_data['max'] > 0)
       ? (Number.parseFloat(time) - .1).toFixed(1)
