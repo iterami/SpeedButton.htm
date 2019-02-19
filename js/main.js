@@ -16,7 +16,6 @@ function repo_init(){
         },
       },
       'globals': {
-        'game_running': false,
         'grid_dimensions_squared': 0,
         'score': 0,
         'time': 0,

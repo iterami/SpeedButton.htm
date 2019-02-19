@@ -13,7 +13,7 @@ function click_button(clicked_button_id){
 }
 
 function decisecond(){
-    if(!game_running){
+    if(core_mode === 0){
         return;
     }
 
@@ -39,7 +39,7 @@ function decisecond(){
 }
 
 function randomize_buttons(clicked_button_id){
-    if(game_running){
+    if(core_mode === 1){
         // Stop game if clicking on a negative button ends the game and clicked on a negative button.
         if(document.getElementById('negative-onclick').value == 1
           && document.getElementById(clicked_button_id).value.lastIndexOf('-', 0) === 0){
@@ -197,7 +197,7 @@ function start(){
         document.getElementById('score-max').innerHTML = ' / ' + core_storage_data['max'];
     }
 
-    game_running = true;
+    core_mode = 1;
     core_interval_modify({
       'id': 'interval',
       'interval': 100,
@@ -207,7 +207,7 @@ function start(){
 
 function stop(){
     core_interval_pause_all();
-    game_running = false;
+    core_mode = 0;
 
     // Disable buttons to prevent further clicks.
     let loop_counter = grid_dimensions_squared - 1;
