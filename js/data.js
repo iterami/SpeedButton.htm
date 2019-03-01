@@ -49,10 +49,9 @@ function randomize_buttons(clicked_button_id){
     }
 
     // Increase or decrease time based on settings value for clicked button.
-    score = score
-      + (document.getElementById(clicked_button_id).value.lastIndexOf('+', 0) === 0
-        ? core_storage_data['positive-points']
-        : core_storage_data['negative-points']);
+    score += document.getElementById(clicked_button_id).value.lastIndexOf('+', 0) === 0
+      ? core_storage_data['positive-points']
+      : core_storage_data['negative-points'];
     document.getElementById('score').innerHTML = score;
 
     // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
