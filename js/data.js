@@ -162,6 +162,8 @@ function start(){
         let element = document.getElementById(loop_counter);
         element.disabled = true;
         element.style.background = '#2a2a2a';
+        element.style.height = core_storage_data['height'];
+        element.style.width = core_storage_data['width'];
         element.value = ' ';
     }while(loop_counter--);
 
