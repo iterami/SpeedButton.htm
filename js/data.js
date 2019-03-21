@@ -17,10 +17,18 @@ function decisecond(){
         return;
     }
 
-    time = (core_storage_data['game-mode'] === 1
-      && core_storage_data['max'] > 0)
-      ? (Number.parseFloat(time) - .1).toFixed(1)
-      : (Number.parseFloat(time) + .1).toFixed(1);
+    time = Number.parseFloat(time);
+    if(core_storage_data['game-mode'] === 1
+      && core_storage_data['max'] > 0){
+        time -= .1;
+
+    }else{
+        time += .1;
+    }
+    time = core_round({
+      'decimals': 1,
+      'number': time,
+    });
 
     document.getElementById('time').innerHTML = time;
 
