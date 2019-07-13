@@ -5,7 +5,7 @@ function click_button(clicked_button_id){
         return;
     }
 
-    core_audio_start({
+    audio_start({
       'id': 'boop',
     });
 

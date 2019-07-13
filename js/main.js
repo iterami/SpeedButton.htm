@@ -2,11 +2,6 @@
 
 function repo_init(){
     core_repo_init({
-      'audios': {
-        'boop': {
-          'duration': .1,
-        },
-      },
       'events': {
         'start-button': {
           'onclick': function(){
@@ -52,5 +47,12 @@ function repo_init(){
         + '<tr><td><input id=positive-frequency><td>Positive Frequency'
         + '<tr><td><input id=positive-points><td>Positive Points</table>',
       'title': 'SpeedButton.htm',
+    });
+    audio_create({
+      'audios': {
+        'boop': {
+          'duration': .1,
+        },
+      },
     });
 }
