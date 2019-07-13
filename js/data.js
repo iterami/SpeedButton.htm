@@ -32,13 +32,11 @@ function decisecond(){
 
     document.getElementById('time').innerHTML = time;
 
-    // If in max-time mode and time is less than or equal to 0 and max-time isn't 0...
     if(core_storage_data['game-mode'] === 1
       && time <= 0
       && core_storage_data['max'] > 0){
         stop();
 
-    // ...else if in max-points mode and score is not greater than max-points and max-points is not equal to 0.
     }else if(core_storage_data['game-mode'] === 0
       && core_storage_data['max'] !== 0
       && score >= core_storage_data['max']){
@@ -109,7 +107,7 @@ function randomize_buttons(clicked_button_id){
         }while(loop_counter--);
     }
 
-    // If there are no positive buttons or space for negative buttons is available.
+    // If there are no positive buttons or space for negative buttons.
     if(core_storage_data['positive-frequency'] == 0
       || (core_storage_data['grid-dimensions'] > 1
         && grid_dimensions_squared - space_taken > 0)
