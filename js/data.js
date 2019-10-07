@@ -219,6 +219,12 @@ function stop(){
     // Disable buttons to prevent further clicks.
     let loop_counter = grid_dimensions_squared - 1;
     do{
-        document.getElementById(loop_counter).disabled = true;
+        let element = document.getElementById(loop_counter);
+
+        if(!element){
+            break;
+        }
+
+        element.disabled = true;
     }while(loop_counter--);
 }

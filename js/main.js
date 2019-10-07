@@ -4,10 +4,7 @@ function repo_init(){
     core_repo_init({
       'events': {
         'start-button': {
-          'onclick': function(){
-              core_escape();
-              start();
-          },
+          'onclick': core_repo_reset,
         },
       },
       'globals': {
@@ -16,15 +13,15 @@ function repo_init(){
         'time': 0,
       },
       'info': '<input id=start-button type=button value=Restart>',
-      'keybinds': {
-        72: {
-          'todo': function(){
-              stop();
-              start();
-          },
-        },
-      },
       'menu': true,
+      'reset': function(){
+          stop();
+          start();
+
+          if(core_menu_open){
+              core_escape();
+          }
+      },
       'storage': {
         'game-mode': 1,
         'grid-dimensions': 5,
