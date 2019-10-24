@@ -30,7 +30,10 @@ function decisecond(){
       'number': time,
     });
 
-    core_elements['time'].innerHTML = time;
+    core_elements['time'].innerHTML = core_number_format({
+      'decimals-min': 1,
+      'number': time,
+    });;
 
     if(core_storage_data['game-mode'] === 1
       && time <= 0
