@@ -30,7 +30,7 @@ function decisecond(){
       'number': time,
     });
 
-    document.getElementById('time').innerHTML = time;
+    core_elements['time'].innerHTML = time;
 
     if(core_storage_data['game-mode'] === 1
       && time <= 0
@@ -186,7 +186,7 @@ function start(){
     time = 0;
 
     document.getElementById('score').innerHTML = score;
-    document.getElementById('time').innerHTML = 0;
+    core_elements['time'].innerHTML = 0;
 
     // Setup max-time or max-points displays.
     if(core_storage_data['game-mode'] === 1){
