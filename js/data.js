@@ -50,7 +50,7 @@ function decisecond(){
 function randomize_buttons(clicked_button_id){
     if(core_mode === 1){
         // Stop game if clicking on a negative button ends the game and clicked on a negative button.
-        if(document.getElementById('negative-onclick').value == 1
+        if(document.getElementById('negative-onclick').value === 1
           && document.getElementById(clicked_button_id).value.lastIndexOf('-', 0) === 0){
             stop();
             return;
@@ -111,7 +111,7 @@ function randomize_buttons(clicked_button_id){
     }
 
     // If there are no positive buttons or space for negative buttons.
-    if(core_storage_data['positive-frequency'] == 0
+    if(core_storage_data['positive-frequency'] === 0
       || (core_storage_data['grid-dimensions'] > 1
         && grid_dimensions_squared - space_taken > 0)
     ){
