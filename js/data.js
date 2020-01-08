@@ -30,7 +30,7 @@ function decisecond(){
       'number': time,
     });
 
-    core_elements['time'].innerHTML = core_number_format({
+    core_elements['time'].textContent = core_number_format({
       'decimals-min': 1,
       'number': time,
     });;
@@ -61,7 +61,7 @@ function randomize_buttons(clicked_button_id){
     score += document.getElementById(clicked_button_id).value.lastIndexOf('+', 0) === 0
       ? core_storage_data['positive-points']
       : core_storage_data['negative-points'];
-    document.getElementById('score').innerHTML = score;
+    document.getElementById('score').textContent = score;
 
     // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
     let game_ended = !(core_storage_data['game-mode'] === 1
@@ -175,8 +175,8 @@ function start(){
         element.value = ' ';
     }while(loop_counter--);
 
-    document.getElementById('score-max').innerHTML = '';
-    document.getElementById('time-max').innerHTML = '';
+    document.getElementById('score-max').textContent = '';
+    document.getElementById('time-max').textContent = '';
 
     // Generate positive and negative buttons.
     randomize_buttons(
@@ -188,8 +188,8 @@ function start(){
     score = 0;
     time = 0;
 
-    document.getElementById('score').innerHTML = score;
-    core_elements['time'].innerHTML = 0;
+    document.getElementById('score').textContent = score;
+    core_elements['time'].textContent = 0;
 
     // Setup max-time or max-points displays.
     if(core_storage_data['game-mode'] === 1){
@@ -200,11 +200,11 @@ function start(){
           )
           : 30;
         if(core_storage_data['max'] > 0){
-            document.getElementById('time-max').innerHTML = ' / ' + core_storage_data['max'];
+            document.getElementById('time-max').textContent = ' / ' + core_storage_data['max'];
         }
 
     }else if(core_storage_data['max'] > 0){
-        document.getElementById('score-max').innerHTML = ' / ' + core_storage_data['max'];
+        document.getElementById('score-max').textContent = ' / ' + core_storage_data['max'];
     }
 
     core_mode = 1;
