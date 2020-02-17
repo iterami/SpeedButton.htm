@@ -64,13 +64,13 @@ function randomize_buttons(clicked_button_id){
     document.getElementById('score').textContent = score;
 
     // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
-    let game_ended = !(core_storage_data['game-mode'] === 1
+    const game_ended = !(core_storage_data['game-mode'] === 1
       || core_storage_data['max'] === 0
       || score < core_storage_data['max']);
 
     let loop_counter = grid_dimensions_squared - 1;
     do{
-        let element = document.getElementById(loop_counter);
+        const element = document.getElementById(loop_counter);
         element.disabled = true;
 
         if(game_ended){
@@ -101,7 +101,7 @@ function randomize_buttons(clicked_button_id){
                 });
             }while(!document.getElementById(button).disabled);
 
-            let element = document.getElementById(button);
+            const element = document.getElementById(button);
             element.style.background = core_storage_data['color-positive'];
             element.disabled = false;
             element.value = core_storage_data['positive-points'] > 0
@@ -128,7 +128,7 @@ function randomize_buttons(clicked_button_id){
                     });
                 }while(!document.getElementById(button).disabled);
 
-                let element = document.getElementById(button);
+                const element = document.getElementById(button);
                 element.style.background = core_storage_data['color-negative'];
                 element.disabled = false;
                 element.value = core_storage_data['negative-points'] > 0
@@ -167,7 +167,7 @@ function start(){
     // Reset game buttons.
     loop_counter = grid_dimensions_squared - 1;
     do{
-        let element = document.getElementById(loop_counter);
+        const element = document.getElementById(loop_counter);
         element.disabled = true;
         element.style.background = '#2a2a2a';
         element.style.height = core_storage_data['height'];
@@ -222,7 +222,7 @@ function stop(){
     // Disable buttons to prevent further clicks.
     let loop_counter = grid_dimensions_squared - 1;
     do{
-        let element = document.getElementById(loop_counter);
+        const element = document.getElementById(loop_counter);
 
         if(!element){
             break;
