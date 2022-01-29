@@ -49,7 +49,6 @@ function decisecond(){
 
 function randomize_buttons(clicked_button_id){
     if(core_mode === 1){
-        // Stop game if clicking on a negative button ends the game and clicked on a negative button.
         if(document.getElementById('negative-onclick').value === 1
           && document.getElementById(clicked_button_id).value.lastIndexOf('-', 0) === 0){
             stop();
@@ -57,13 +56,11 @@ function randomize_buttons(clicked_button_id){
         }
     }
 
-    // Increase or decrease time based on settings value for clicked button.
     score += document.getElementById(clicked_button_id).value.lastIndexOf('+', 0) === 0
       ? core_storage_data['positive-points']
       : core_storage_data['negative-points'];
     document.getElementById('score').textContent = score;
 
-    // Reset buttons to disabled, value=-, and black backgrounds if game has not ended with this click.
     const game_ended = !(core_storage_data['game-mode'] === 1
       || core_storage_data['max'] === 0
       || score < core_storage_data['max']);
@@ -87,7 +84,6 @@ function randomize_buttons(clicked_button_id){
 
     let space_taken = 0;
 
-    // Randomize locations of and setup positive buttons that currently exist.
     if(core_storage_data['positive-frequency'] > 0){
         loop_counter = core_storage_data['positive-frequency'] > grid_dimensions_squared - 1
           ? grid_dimensions_squared - 1
@@ -110,12 +106,10 @@ function randomize_buttons(clicked_button_id){
         }while(loop_counter--);
     }
 
-    // If there are no positive buttons or space for negative buttons.
     if(core_storage_data['positive-frequency'] === 0
       || (core_storage_data['grid-dimensions'] > 1
         && grid_dimensions_squared - space_taken > 0)
     ){
-        // Create and randomize enough negative buttons to fill available space or just number of negative buttons.
         loop_counter = core_storage_data['negative-frequency'] > grid_dimensions_squared - space_taken - 1
           ? grid_dimensions_squared - space_taken - 1
           : core_storage_data['negative-frequency'] - 1;
@@ -145,7 +139,6 @@ function start(){
       1
     );
 
-    // Create game-div buttons.
     let output = '';
     for(let loop_counter = 0; loop_counter < grid_dimensions_squared; loop_counter++){
         if(loop_counter % core_storage_data['grid-dimensions'] === 0
@@ -164,7 +157,6 @@ function start(){
         document.getElementById(loop_counter).style.background = '#2a2a2a';
     }while(loop_counter--);
 
-    // Reset game buttons.
     loop_counter = grid_dimensions_squared - 1;
     do{
         const element = document.getElementById(loop_counter);
@@ -178,7 +170,6 @@ function start(){
     document.getElementById('score-max').textContent = '';
     document.getElementById('time-max').textContent = '';
 
-    // Generate positive and negative buttons.
     randomize_buttons(
       core_random_integer({
         'max': grid_dimensions_squared,
@@ -191,7 +182,6 @@ function start(){
     document.getElementById('score').textContent = score;
     core_elements['time'].textContent = 0;
 
-    // Setup max-time or max-points displays.
     if(core_storage_data['game-mode'] === 1){
         time = core_storage_data['max'] >= 0
           ? (core_storage_data['max'] === ''
@@ -219,7 +209,6 @@ function stop(){
     core_interval_pause_all();
     core_mode = 0;
 
-    // Disable buttons to prevent further clicks.
     let loop_counter = grid_dimensions_squared - 1;
     do{
         const element = document.getElementById(loop_counter);
