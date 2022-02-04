@@ -40,15 +40,15 @@ function repo_init(){
         'positive-points': 1,
         'width': '50px',
       },
-      'storage-menu': '<table><tr><td><input id=height><td>Button Height'
-        + '<tr><td><input id=width><td>Button Width'
-        + '<tr><td><input id=grid-dimensions min=1 step=any type=number><td>Dimensions'
-        + '<tr><td><input id=max step=any type=number><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select>'
+      'storage-menu': '<table><tr><td><input class=mini id=height><td>Button Height'
+        + '<tr><td><input class=mini id=width><td>Button Width'
+        + '<tr><td><input class=mini id=grid-dimensions min=1 step=any type=number><td>Dimensions'
+        + '<tr><td><input class=mini id=max step=any type=number><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select>'
         + '<tr><td><select id=negative-onclick><option value=0>Lose Points</option><option value=1>End Game</option></select><td>Negative Click'
-        + '<tr><td><input id=negative-frequency step=any type=number><td>Negative Frequency'
-        + '<tr><td><input id=negative-points step=any type=number><td>Negative Points'
-        + '<tr><td><input id=positive-frequency step=any type=number><td>Positive Frequency'
-        + '<tr><td><input id=positive-points step=any type=number><td>Positive Points</table>',
+        + '<tr><td><input class=mini id=negative-frequency step=any type=number><td>Negative Frequency'
+        + '<tr><td><input class=mini id=negative-points step=any type=number><td>Negative Points'
+        + '<tr><td><input class=mini id=positive-frequency step=any type=number><td>Positive Frequency'
+        + '<tr><td><input class=mini id=positive-points step=any type=number><td>Positive Points</table>',
       'title': 'SpeedButton.htm',
     });
     audio_create({
