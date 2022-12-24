@@ -74,7 +74,7 @@ function randomize_buttons(clicked_button_id){
             continue;
         }
 
-        element.style.background = '#2a2a2a';
+        element.style.backgroundColor = '#2a2a2a';
         element.value = ' ';
     }while(loop_counter--);
 
@@ -98,7 +98,7 @@ function randomize_buttons(clicked_button_id){
             }while(!document.getElementById(button).disabled);
 
             const element = document.getElementById(button);
-            element.style.background = core_storage_data['color-positive'];
+            element.style.backgroundColor = core_storage_data['color-positive'];
             element.disabled = false;
             element.value = core_storage_data['positive-points'] > 0
               ? '+'
@@ -123,7 +123,7 @@ function randomize_buttons(clicked_button_id){
                 }while(!document.getElementById(button).disabled);
 
                 const element = document.getElementById(button);
-                element.style.background = core_storage_data['color-negative'];
+                element.style.backgroundColor = core_storage_data['color-negative'];
                 element.disabled = false;
                 element.value = core_storage_data['negative-points'] > 0
                   ? '+'
@@ -154,14 +154,14 @@ function start(){
 
     let loop_counter = grid_dimensions_squared - 1;
     do{
-        document.getElementById(loop_counter).style.background = '#2a2a2a';
+        document.getElementById(loop_counter).style.backgroundColor = '#2a2a2a';
     }while(loop_counter--);
 
     loop_counter = grid_dimensions_squared - 1;
     do{
         const element = document.getElementById(loop_counter);
         element.disabled = true;
-        element.style.background = '#2a2a2a';
+        element.style.backgroundColor = '#2a2a2a';
         element.style.height = core_storage_data['height'];
         element.style.width = core_storage_data['width'];
         element.value = ' ';
