@@ -98,7 +98,7 @@ function randomize_buttons(clicked_button_id){
             }while(!document.getElementById(button).disabled);
 
             const element = document.getElementById(button);
-            element.style.backgroundColor = core_storage_data['color-positive'];
+            element.style.backgroundColor = '#206620';
             element.disabled = false;
             element.value = core_storage_data['positive-points'] > 0
               ? '+'
@@ -123,7 +123,7 @@ function randomize_buttons(clicked_button_id){
                 }while(!document.getElementById(button).disabled);
 
                 const element = document.getElementById(button);
-                element.style.backgroundColor = core_storage_data['color-negative'];
+                element.style.backgroundColor = '#663366';
                 element.disabled = false;
                 element.value = core_storage_data['negative-points'] > 0
                   ? '+'
