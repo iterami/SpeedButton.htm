@@ -191,11 +191,9 @@ function repo_init(){
         },
       },
     });
-    core_html_store({
-      'ids': [
-        'time',
-      ],
-    });
+    core_html_store([
+      'time',
+    ]);
 }
 
 function start(){
