@@ -49,14 +49,14 @@ function decisecond(){
 
 function randomize_buttons(clicked_button_id){
     if(core_mode === 1){
-        if(document.getElementById('negative-onclick').value === 1
-          && document.getElementById(clicked_button_id).value.lastIndexOf('-', 0) === 0){
+        if(document.getElementById('negative-onclick').textContent === 1
+          && document.getElementById(clicked_button_id).textContent.lastIndexOf('-', 0) === 0){
             stop();
             return;
         }
     }
 
-    score += document.getElementById(clicked_button_id).value.lastIndexOf('+', 0) === 0
+    score += document.getElementById(clicked_button_id).textContent.lastIndexOf('+', 0) === 0
       ? core_storage_data['positive-points']
       : core_storage_data['negative-points'];
     document.getElementById('score').textContent = score;
@@ -75,7 +75,7 @@ function randomize_buttons(clicked_button_id){
         }
 
         element.style.backgroundColor = '#2a2a2a';
-        element.value = ' ';
+        element.textContent = ' ';
     }while(loop_counter--);
 
     if(game_ended){
@@ -100,7 +100,7 @@ function randomize_buttons(clicked_button_id){
             const element = document.getElementById(button);
             element.style.backgroundColor = '#206620';
             element.disabled = false;
-            element.value = core_storage_data['positive-points'] > 0
+            element.textContent = core_storage_data['positive-points'] > 0
               ? '+'
               : '-';
         }while(loop_counter--);
@@ -125,7 +125,7 @@ function randomize_buttons(clicked_button_id){
                 const element = document.getElementById(button);
                 element.style.backgroundColor = '#663366';
                 element.disabled = false;
-                element.value = core_storage_data['negative-points'] > 0
+                element.textContent = core_storage_data['negative-points'] > 0
                   ? '+'
                   : '-';
             }while(loop_counter--);
@@ -152,7 +152,7 @@ function repo_init(){
         'score': 0,
         'time': 0,
       },
-      'info': '<input id=start-button type=button value=Restart>',
+      'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
       'reset': function(){
           stop();
@@ -209,9 +209,9 @@ function start(){
             output += '<br>';
         }
 
-        output += '<input class=gridbuttonclickable disabled id=' + loop_counter
+        output += '<button class=gridbuttonclickable disabled id=' + loop_counter
           + ' onclick=click_button(' + loop_counter
-          + ') type=button value=" ">';
+          + ') type=button> </button>';
     }
     document.getElementById('game-div').innerHTML = output + '<br>';
 
@@ -227,7 +227,7 @@ function start(){
         element.style.backgroundColor = '#2a2a2a';
         element.style.height = core_storage_data['height'];
         element.style.width = core_storage_data['width'];
-        element.value = ' ';
+        element.textContent = ' ';
     }while(loop_counter--);
 
     document.getElementById('score-max').textContent = '';
