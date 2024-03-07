@@ -5,9 +5,7 @@ function click_button(clicked_button_id){
         return;
     }
 
-    audio_start({
-      'id': 'boop',
-    });
+    audio_start('boop');
 
     randomize_buttons(clicked_button_id);
 }
@@ -183,13 +181,6 @@ function repo_init(){
         + '<tr><td><input class=mini id=positive-frequency step=any type=number><td>Positive Frequency'
         + '<tr><td><input class=mini id=positive-points step=any type=number><td>Positive Points</table>',
       'title': 'SpeedButton.htm',
-    });
-    audio_create({
-      'audios': {
-        'boop': {
-          'duration': .1,
-        },
-      },
     });
     core_html_store([
       'time',
