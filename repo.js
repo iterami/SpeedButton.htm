@@ -88,14 +88,7 @@ function randomize_buttons(clicked_button_id){
           : core_storage_data['positive-frequency'] - 1;
         space_taken = loop_counter + 1;
         do{
-            let button = '';
-            do{
-                button = core_random_integer({
-                  'max': grid_dimensions_squared,
-                });
-            }while(!document.getElementById(button).disabled);
-
-            const element = document.getElementById(button);
+            const element = document.getElementById(core_random_splice(buttons));
             element.style.backgroundColor = '#206620';
             element.disabled = false;
             element.textContent = core_storage_data['positive-points'] > 0
@@ -113,14 +106,7 @@ function randomize_buttons(clicked_button_id){
           : core_storage_data['negative-frequency'] - 1;
         if(loop_counter >= 0){
             do{
-                let button = '';
-                do{
-                    button = core_random_integer({
-                      'max': grid_dimensions_squared,
-                    });
-                }while(!document.getElementById(button).disabled);
-
-                const element = document.getElementById(button);
+                const element = document.getElementById(core_random_splice(buttons));
                 element.style.backgroundColor = '#663366';
                 element.disabled = false;
                 element.textContent = core_storage_data['negative-points'] > 0
@@ -146,6 +132,7 @@ function repo_init(){
         },
       },
       'globals': {
+        'buttons': [],
         'grid_dimensions_squared': 0,
         'score': 0,
         'time': 0,
@@ -188,6 +175,7 @@ function repo_init(){
 }
 
 function start(){
+    buttons.length = 0;
     grid_dimensions_squared = Math.max(
       core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'],
       1
@@ -219,6 +207,7 @@ function start(){
         element.style.height = core_storage_data['height'];
         element.style.width = core_storage_data['width'];
         element.textContent = ' ';
+        buttons.push(loop_counter);
     }while(loop_counter--);
 
     document.getElementById('score-max').textContent = '';
