@@ -149,14 +149,14 @@ function repo_init(){
       'storage': {
         'game-mode': 1,
         'grid-dimensions': 5,
-        'height': '50px',
+        'height': 50,
         'max': 30,
         'negative-frequency': 1,
         'negative-onclick': 0,
         'negative-points': -1,
         'positive-frequency': 1,
         'positive-points': 1,
-        'width': '50px',
+        'width': 50,
       },
       'storage-menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
         + '<tr><td><input class=mini id=width type=text><td>Button Width'
@@ -192,7 +192,9 @@ function start(){
           + ' onclick=click_button(' + loop_counter
           + ') type=button> </button>';
     }
-    document.getElementById('game-div').innerHTML = output + '<br>';
+    const gamediv = document.getElementById('game-div');
+    gamediv.innerHTML = output + '<br>';
+    gamediv.style.lineHeight = core_storage_data['height'] + 'px';
 
     let loop_counter = grid_dimensions_squared - 1;
     do{
@@ -204,8 +206,10 @@ function start(){
         const element = document.getElementById(loop_counter);
         element.disabled = true;
         element.style.backgroundColor = '#2a2a2a';
-        element.style.height = core_storage_data['height'];
-        element.style.width = core_storage_data['width'];
+        element.style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
+        element.style.height = core_storage_data['height'] + 'px';
+        element.style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
+        element.style.width = core_storage_data['width'] + 'px';
         element.textContent = ' ';
         buttons.push(loop_counter);
     }while(loop_counter--);
