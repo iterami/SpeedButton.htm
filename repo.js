@@ -169,9 +169,7 @@ function repo_init(){
         + '<tr><td><input class=mini id=positive-points step=any type=number><td>Positive Points</table>',
       'title': 'SpeedButton.htm',
     });
-    core_html_store([
-      'time',
-    ]);
+    core_elements['time'] = document.getElementById('time');
 }
 
 function start(){
