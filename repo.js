@@ -28,10 +28,14 @@ function decisecond(){
       'number': time,
     });
 
-    core_elements['time'].textContent = core_number_format({
-      'decimals-min': 1,
-      'number': time,
-    });;
+    core_ui_update({
+      'ids': {
+        'time': core_number_format({
+          'decimals-min': 1,
+          'number': time,
+        }),
+      },
+    });
 
     if(core_storage_data['game-mode'] === 1
       && time <= 0
@@ -57,7 +61,11 @@ function randomize_buttons(clicked_button_id){
     score += document.getElementById(clicked_button_id).textContent.lastIndexOf('+', 0) === 0
       ? core_storage_data['positive-points']
       : core_storage_data['negative-points'];
-    document.getElementById('score').textContent = score;
+    core_ui_update({
+      'ids': {
+        'score': score,
+      },
+    });
 
     const game_ended = !(core_storage_data['game-mode'] === 1
       || core_storage_data['max'] === 0
@@ -169,7 +177,6 @@ function repo_init(){
         + '<tr><td><input class=mini id=positive-points step=any type=number><td>Positive Points</table>',
       'title': 'SpeedButton.htm',
     });
-    core_elements['time'] = document.getElementById('time');
 }
 
 function start(){
@@ -212,9 +219,6 @@ function start(){
         buttons.push(loop_counter);
     }while(loop_counter--);
 
-    document.getElementById('score-max').textContent = '';
-    document.getElementById('time-max').textContent = '';
-
     randomize_buttons(
       core_random_integer({
         'max': grid_dimensions_squared,
@@ -223,9 +227,14 @@ function start(){
 
     score = 0;
     time = 0;
-
-    document.getElementById('score').textContent = score;
-    core_elements['time'].textContent = 0;
+    core_ui_update({
+      'ids': {
+        'score': 0,
+        'score-max': '',
+        'time': 0,
+        'time-max': '',
+      },
+    });
 
     if(core_storage_data['game-mode'] === 1){
         time = core_storage_data['max'] >= 0
