@@ -51,14 +51,14 @@ function decisecond(){
 
 function randomize_buttons(clicked_button_id){
     if(core_mode === 1){
-        if(document.getElementById('negative-onclick').textContent === 1
-          && document.getElementById(clicked_button_id).textContent.lastIndexOf('-', 0) === 0){
+        if(core_storage_data['negative-onclick'] === 1
+          && core_elements[clicked_button_id].textContent.lastIndexOf('-', 0) === 0){
             stop();
             return;
         }
     }
 
-    score += document.getElementById(clicked_button_id).textContent.lastIndexOf('+', 0) === 0
+    score += core_elements[clicked_button_id].textContent.lastIndexOf('+', 0) === 0
       ? core_storage_data['positive-points']
       : core_storage_data['negative-points'];
     core_ui_update({
@@ -73,15 +73,12 @@ function randomize_buttons(clicked_button_id){
 
     let loop_counter = grid_dimensions_squared - 1;
     do{
-        const element = document.getElementById(loop_counter);
-        element.disabled = true;
-
+        core_elements[loop_counter].disabled = true;
         if(game_ended){
             continue;
         }
-
-        element.style.backgroundColor = '#2a2a2a';
-        element.textContent = ' ';
+        core_elements[loop_counter].style.backgroundColor = '#2a2a2a';
+        core_elements[loop_counter].textContent = ' ';
     }while(loop_counter--);
 
     if(game_ended){
@@ -96,7 +93,7 @@ function randomize_buttons(clicked_button_id){
           : core_storage_data['positive-frequency'] - 1;
         space_taken = loop_counter + 1;
         do{
-            const element = document.getElementById(core_random_splice(buttons));
+            const element = core_elements[core_random_splice(buttons)];
             element.style.backgroundColor = '#206620';
             element.disabled = false;
             element.textContent = core_storage_data['positive-points'] > 0
@@ -114,7 +111,7 @@ function randomize_buttons(clicked_button_id){
           : core_storage_data['negative-frequency'] - 1;
         if(loop_counter >= 0){
             do{
-                const element = document.getElementById(core_random_splice(buttons));
+                const element = core_elements[core_random_splice(buttons)];
                 element.style.backgroundColor = '#663366';
                 element.disabled = false;
                 element.textContent = core_storage_data['negative-points'] > 0
@@ -176,6 +173,9 @@ function repo_init(){
         + '<tr><td><input class=mini id=positive-frequency step=any type=number><td>Positive Frequency'
         + '<tr><td><input class=mini id=positive-points step=any type=number><td>Positive Points</table>',
       'title': 'SpeedButton.htm',
+      'ui-elements': [
+        'game-div',
+      ],
     });
 }
 
@@ -197,25 +197,24 @@ function start(){
           + ' onclick=click_button(' + loop_counter
           + ') type=button> </button>';
     }
-    const gamediv = document.getElementById('game-div');
-    gamediv.innerHTML = output + '<br>';
-    gamediv.style.lineHeight = core_storage_data['height'] + 'px';
+    core_elements['game-div'].innerHTML = output + '<br>';
+    core_elements['game-div'].style.lineHeight = core_storage_data['height'] + 'px';
 
+    for(const element in core_elements){
+        if(!globalThis.isNaN(element)){
+            delete core_elements[element];
+        }
+    }
     let loop_counter = grid_dimensions_squared - 1;
     do{
-        document.getElementById(loop_counter).style.backgroundColor = '#2a2a2a';
-    }while(loop_counter--);
-
-    loop_counter = grid_dimensions_squared - 1;
-    do{
-        const element = document.getElementById(loop_counter);
-        element.disabled = true;
-        element.style.backgroundColor = '#2a2a2a';
-        element.style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
-        element.style.height = core_storage_data['height'] + 'px';
-        element.style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
-        element.style.width = core_storage_data['width'] + 'px';
-        element.textContent = ' ';
+        core_elements[loop_counter] = document.getElementById(loop_counter);
+        core_elements[loop_counter].disabled = true;
+        core_elements[loop_counter].style.backgroundColor = '#2a2a2a';
+        core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
+        core_elements[loop_counter].style.height = core_storage_data['height'] + 'px';
+        core_elements[loop_counter].style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
+        core_elements[loop_counter].style.width = core_storage_data['width'] + 'px';
+        core_elements[loop_counter].textContent = ' ';
         buttons.push(loop_counter);
     }while(loop_counter--);
 
@@ -244,11 +243,11 @@ function start(){
           )
           : 30;
         if(core_storage_data['max'] > 0){
-            document.getElementById('time-max').textContent = ' / ' + core_storage_data['max'];
+            core_elements['time-max'].textContent = ' / ' + core_storage_data['max'];
         }
 
     }else if(core_storage_data['max'] > 0){
-        document.getElementById('score-max').textContent = ' / ' + core_storage_data['max'];
+        core_elements['score-max'].textContent = ' / ' + core_storage_data['max'];
     }
 
     core_mode = 1;
@@ -265,12 +264,9 @@ function stop(){
 
     let loop_counter = grid_dimensions_squared - 1;
     do{
-        const element = document.getElementById(loop_counter);
-
-        if(!element){
+        if(!core_elements[loop_counter]){
             break;
         }
-
-        element.disabled = true;
+        core_elements[loop_counter].disabled = true;
     }while(loop_counter--);
 }
