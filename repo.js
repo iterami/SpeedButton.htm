@@ -86,6 +86,7 @@ function randomize_buttons(clicked_button_id){
     }
 
     let space_taken = 0;
+    const available_buttons = [...buttons];
 
     if(core_storage_data['positive-frequency'] > 0){
         loop_counter = core_storage_data['positive-frequency'] > grid_dimensions_squared - 1
@@ -93,7 +94,7 @@ function randomize_buttons(clicked_button_id){
           : core_storage_data['positive-frequency'] - 1;
         space_taken = loop_counter + 1;
         do{
-            const element = core_elements[core_random_splice(buttons)];
+            const element = core_elements[core_random_splice(available_buttons)];
             element.style.backgroundColor = '#206620';
             element.disabled = false;
             element.textContent = core_storage_data['positive-points'] > 0
@@ -108,10 +109,10 @@ function randomize_buttons(clicked_button_id){
     ){
         loop_counter = core_storage_data['negative-frequency'] > grid_dimensions_squared - space_taken - 1
           ? grid_dimensions_squared - space_taken - 1
-          : core_storage_data['negative-frequency'] - 1;
+          : Math.floor(core_storage_data['negative-frequency']) - 1;
         if(loop_counter >= 0){
             do{
-                const element = core_elements[core_random_splice(buttons)];
+                const element = core_elements[core_random_splice(available_buttons)];
                 element.style.backgroundColor = '#663366';
                 element.disabled = false;
                 element.textContent = core_storage_data['negative-points'] > 0
@@ -165,12 +166,12 @@ function repo_init(){
       },
       'storage-menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
         + '<tr><td><input class=mini id=width type=text><td>Button Width'
-        + '<tr><td><input class=mini id=grid-dimensions min=1 step=any type=number><td>Dimensions'
+        + '<tr><td><input class=mini id=grid-dimensions min=1 step=1 type=number><td>Dimensions'
         + '<tr><td><input class=mini id=max step=any type=number><td>Max <select id=game-mode><option value=0>Points<option value=1>Time</select>'
         + '<tr><td><select id=negative-onclick><option value=0>Lose Points<option value=1>End Game</select><td>Negative Click'
-        + '<tr><td><input class=mini id=negative-frequency step=any type=number><td>Negative Frequency'
+        + '<tr><td><input class=mini id=negative-frequency step=1 type=number><td>Negative Frequency'
         + '<tr><td><input class=mini id=negative-points step=any type=number><td>Negative Points'
-        + '<tr><td><input class=mini id=positive-frequency step=any type=number><td>Positive Frequency'
+        + '<tr><td><input class=mini id=positive-frequency step=1 type=number><td>Positive Frequency'
         + '<tr><td><input class=mini id=positive-points step=any type=number><td>Positive Points</table>',
       'title': 'SpeedButton.htm',
       'ui-elements': [
@@ -181,10 +182,10 @@ function repo_init(){
 
 function start(){
     buttons.length = 0;
-    grid_dimensions_squared = Math.max(
-      core_storage_data['grid-dimensions'] * core_storage_data['grid-dimensions'],
+    grid_dimensions_squared = Math.floor(Math.max(
+      core_storage_data['grid-dimensions'] ** 2,
       1
-    );
+    ));
 
     let output = '';
     for(let loop_counter = 0; loop_counter < grid_dimensions_squared; loop_counter++){
