@@ -164,8 +164,8 @@ function repo_init(){
         'positive-points': 1,
         'width': 50,
       },
-      'storage-menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
-        + '<tr><td><input class=mini id=width type=text><td>Button Width'
+      'storage-menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
+        + '<tr><td><input class=mini id=width min=1 step=any type=number><td>Button Width'
         + '<tr><td><input class=mini id=grid-dimensions min=1 step=1 type=number><td>Dimensions'
         + '<tr><td><input class=mini id=max step=any type=number><td>Max <select id=game-mode><option value=0>Points<option value=1>Time</select>'
         + '<tr><td><select id=negative-onclick><option value=0>Lose Points<option value=1>End Game</select><td>Negative Click'
