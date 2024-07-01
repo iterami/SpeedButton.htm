@@ -77,7 +77,7 @@ function randomize_buttons(clicked_button_id){
         if(game_ended){
             continue;
         }
-        core_elements[loop_counter].style.backgroundColor = '#2a2a2a';
+        core_elements[loop_counter].style.backgroundColor = '';
         core_elements[loop_counter].textContent = ' ';
     }while(loop_counter--);
 
@@ -210,7 +210,6 @@ function start(){
     do{
         core_elements[loop_counter] = document.getElementById(loop_counter);
         core_elements[loop_counter].disabled = true;
-        core_elements[loop_counter].style.backgroundColor = '#2a2a2a';
         core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
         core_elements[loop_counter].style.height = core_storage_data['height'] + 'px';
         core_elements[loop_counter].style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
