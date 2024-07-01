@@ -5,9 +5,9 @@ function click_button(clicked_button_id){
         return;
     }
 
-    audio_start('boop');
-
+    core_elements[clicked_button_id].blur();
     randomize_buttons(clicked_button_id);
+    audio_start('boop');
 }
 
 function decisecond(){
