@@ -71,7 +71,7 @@ function randomize_buttons(clicked_button_id){
       || core_storage_data['max'] === 0
       || score < core_storage_data['max']);
 
-    let loop_counter = grid_dimensions_squared - 1;
+    let loop_counter = grid_total - 1;
     do{
         core_elements[loop_counter].disabled = true;
         if(game_ended){
@@ -89,8 +89,8 @@ function randomize_buttons(clicked_button_id){
     const available_buttons = [...buttons];
 
     if(core_storage_data['positive-frequency'] > 0){
-        loop_counter = core_storage_data['positive-frequency'] > grid_dimensions_squared - 1
-          ? grid_dimensions_squared - 1
+        loop_counter = core_storage_data['positive-frequency'] > grid_total - 1
+          ? grid_total - 1
           : core_storage_data['positive-frequency'] - 1;
         space_taken = loop_counter + 1;
         do{
@@ -104,11 +104,9 @@ function randomize_buttons(clicked_button_id){
     }
 
     if(core_storage_data['positive-frequency'] === 0
-      || (core_storage_data['grid-dimensions'] > 1
-        && grid_dimensions_squared - space_taken > 0)
-    ){
-        loop_counter = core_storage_data['negative-frequency'] > grid_dimensions_squared - space_taken - 1
-          ? grid_dimensions_squared - space_taken - 1
+      || grid_total - space_taken > 0){
+        loop_counter = core_storage_data['negative-frequency'] > grid_total - space_taken - 1
+          ? grid_total - space_taken - 1
           : Math.floor(core_storage_data['negative-frequency']) - 1;
         if(loop_counter >= 0){
             do{
@@ -139,7 +137,7 @@ function repo_init(){
       },
       'globals': {
         'buttons': [],
-        'grid_dimensions_squared': 0,
+        'grid_total': 0,
         'score': 0,
         'time': 0,
       },
@@ -154,7 +152,8 @@ function repo_init(){
       },
       'storage': {
         'game-mode': 1,
-        'grid-dimensions': 5,
+        'grid-x': 5,
+        'grid-y': 5,
         'height': 50,
         'max': 30,
         'negative-frequency': 1,
@@ -166,7 +165,8 @@ function repo_init(){
       },
       'storage-menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
         + '<tr><td><input class=mini id=width min=1 step=any type=number><td>Button Width'
-        + '<tr><td><input class=mini id=grid-dimensions min=1 step=1 type=number><td>Dimensions'
+        + '<tr><td><input class=mini id=grid-x min=1 step=1 type=number><td>Grid X'
+        + '<tr><td><input class=mini id=grid-y min=1 step=1 type=number><td>Grid Y'
         + '<tr><td><input class=mini id=max step=any type=number><td>Max <select id=game-mode><option value=0>Points<option value=1>Time</select>'
         + '<tr><td><select id=negative-onclick><option value=0>Lose Points<option value=1>End Game</select><td>Negative Click'
         + '<tr><td><input class=mini id=negative-frequency step=1 type=number><td>Negative Frequency'
@@ -182,14 +182,17 @@ function repo_init(){
 
 function start(){
     buttons.length = 0;
-    grid_dimensions_squared = Math.floor(Math.max(
-      core_storage_data['grid-dimensions'] ** 2,
-      1
-    ));
+    grid_total = Math.floor(Math.max(
+        core_storage_data['grid-x'],
+        1
+      )) * Math.floor(Math.max(
+        core_storage_data['grid-y'],
+        1
+      ));
 
     let output = '';
-    for(let loop_counter = 0; loop_counter < grid_dimensions_squared; loop_counter++){
-        if(loop_counter % core_storage_data['grid-dimensions'] === 0
+    for(let loop_counter = 0; loop_counter < grid_total; loop_counter++){
+        if(loop_counter % core_storage_data['grid-x'] === 0
           && loop_counter !== 0){
             output += '<br>';
         }
@@ -206,7 +209,7 @@ function start(){
             delete core_elements[element];
         }
     }
-    let loop_counter = grid_dimensions_squared - 1;
+    let loop_counter = grid_total - 1;
     do{
         core_elements[loop_counter] = document.getElementById(loop_counter);
         core_elements[loop_counter].disabled = true;
@@ -220,7 +223,7 @@ function start(){
 
     randomize_buttons(
       core_random_integer({
-        'max': grid_dimensions_squared,
+        'max': grid_total,
       })
     );
 
@@ -262,7 +265,7 @@ function stop(){
     core_interval_pause_all();
     core_mode = 0;
 
-    let loop_counter = grid_dimensions_squared - 1;
+    let loop_counter = grid_total - 1;
     do{
         if(!core_elements[loop_counter]){
             break;
