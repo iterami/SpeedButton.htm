@@ -181,7 +181,7 @@ function repo_init(){
 }
 
 function start(){
-    buttons.length = 0;
+    core_object_reset(buttons);
     grid_total = Math.floor(Math.max(
         core_storage_data['grid-x'],
         1
