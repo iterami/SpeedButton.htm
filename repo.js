@@ -11,8 +11,6 @@ function click_button(clicked_button_id){
 }
 
 function decisecond(){
-    time = Number.parseFloat(time);
-
     if(core_storage_data['game-mode'] === 1
       && core_storage_data['max'] > 0){
         if(time > 0){
