@@ -11,10 +11,6 @@ function click_button(clicked_button_id){
 }
 
 function decisecond(){
-    if(core_mode === 0){
-        return;
-    }
-
     time = Number.parseFloat(time);
     if(core_storage_data['game-mode'] === 1
       && core_storage_data['max'] > 0){
@@ -50,12 +46,10 @@ function decisecond(){
 }
 
 function randomize_buttons(clicked_button_id){
-    if(core_mode === 1){
-        if(core_storage_data['negative-onclick'] === 1
-          && core_elements[clicked_button_id].textContent.lastIndexOf('-', 0) === 0){
-            stop();
-            return;
-        }
+    if(core_storage_data['negative-onclick'] === 1
+      && core_elements[clicked_button_id].textContent.lastIndexOf('-', 0) === 0){
+        stop();
+        return;
     }
 
     score += core_elements[clicked_button_id].textContent.lastIndexOf('+', 0) === 0
@@ -253,7 +247,6 @@ function start(){
         core_elements['score-max'].textContent = ' / ' + core_storage_data['max'];
     }
 
-    core_mode = 1;
     core_interval_modify({
       'id': 'interval',
       'interval': 100,
@@ -263,7 +256,6 @@ function start(){
 
 function stop(){
     core_interval_pause_all();
-    core_mode = 0;
 
     let loop_counter = grid_total - 1;
     do{
