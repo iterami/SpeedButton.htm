@@ -121,7 +121,7 @@ function randomize_buttons(clicked_button_id){
 function repo_escape(){
     if(!core_intervals['interval']
       && !core_menu_open){
-        core_repo_reset();
+        reset();
     }
 }
 
@@ -129,7 +129,7 @@ function repo_init(){
     core_repo_init({
       'events': {
         'start-button': {
-          'onclick': core_repo_reset,
+          'onclick': reset,
         },
       },
       'globals': {
@@ -140,13 +140,6 @@ function repo_init(){
       },
       'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
-      'reset': function(){
-          stop();
-          if(core_menu_open){
-              core_escape();
-          }
-          start();
-      },
       'storage': {
         'game-mode': 1,
         'grid-x': 5,
@@ -175,6 +168,14 @@ function repo_init(){
         'game-div',
       ],
     });
+}
+
+function reset(){
+    stop();
+    if(core_menu_open){
+        core_escape();
+    }
+    start();
 }
 
 function start(){
