@@ -171,6 +171,10 @@ function repo_init(){
 }
 
 function reset(){
+    if(score !== 0
+      && !globalThis.confirm('Start new game?')){
+        return;
+    }
     stop();
     if(core_menu_open){
         core_escape();
