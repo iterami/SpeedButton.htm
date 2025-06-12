@@ -223,11 +223,7 @@ function start(){
         buttons.push(loop_counter);
     }while(loop_counter--);
 
-    randomize_buttons(
-      core_random_integer({
-        'max': grid_total,
-      })
-    );
+    randomize_buttons(core_random_integer(grid_total));
 
     score = 0;
     time = 0;
