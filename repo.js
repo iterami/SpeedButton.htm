@@ -15,8 +15,8 @@ function decisecond(){
         return;
     }
 
-    if(core_storage_data['game-mode'] === 1
-      && core_storage_data['max'] > 0){
+    if(core_storage_data.mode === 1
+      && core_storage_data.max > 0){
         time -= .1;
 
     }else{
@@ -36,37 +36,37 @@ function decisecond(){
       },
     });
 
-    if(core_storage_data['game-mode'] === 1
+    if(core_storage_data.mode === 1
       && time <= 0
-      && core_storage_data['max'] > 0){
+      && core_storage_data.max > 0){
         stop();
 
-    }else if(core_storage_data['game-mode'] === 0
-      && core_storage_data['max'] !== 0
-      && score >= core_storage_data['max']){
+    }else if(core_storage_data.mode === 0
+      && core_storage_data.max !== 0
+      && score >= core_storage_data.max){
         stop();
     }
 }
 
 function randomize_buttons(clicked_button_id){
-    if(core_storage_data['negative-onclick'] === 1
+    if(core_storage_data.negative_onclick === 1
       && core_elements[clicked_button_id].textContent.lastIndexOf('-', 0) === 0){
         stop();
         return;
     }
 
     score += core_elements[clicked_button_id].textContent.lastIndexOf('+', 0) === 0
-      ? core_storage_data['positive-points']
-      : core_storage_data['negative-points'];
+      ? core_storage_data.positive_points
+      : core_storage_data.negative_points;
     core_ui_update({
       'ids': {
         'score': score,
       },
     });
 
-    const game_ended = !(core_storage_data['game-mode'] === 1
-      || core_storage_data['max'] === 0
-      || score < core_storage_data['max']);
+    const game_ended = !(core_storage_data.mode === 1
+      || core_storage_data.max === 0
+      || score < core_storage_data.max);
 
     let loop_counter = grid_total - 1;
     do{
@@ -85,32 +85,32 @@ function randomize_buttons(clicked_button_id){
     let space_taken = 0;
     const available_buttons = [...buttons];
 
-    if(core_storage_data['positive-frequency'] > 0){
-        loop_counter = core_storage_data['positive-frequency'] > grid_total - 1
+    if(core_storage_data.positive_frequency > 0){
+        loop_counter = core_storage_data.positive_frequency > grid_total - 1
           ? grid_total - 1
-          : core_storage_data['positive-frequency'] - 1;
+          : core_storage_data.positive_frequency - 1;
         space_taken = loop_counter + 1;
         do{
             const element = core_elements[core_random_splice(available_buttons)];
             element.style.backgroundColor = '#206620';
             element.disabled = false;
-            element.textContent = core_storage_data['positive-points'] > 0
+            element.textContent = core_storage_data.positive_points > 0
               ? '+'
               : '-';
         }while(loop_counter--);
     }
 
-    if(core_storage_data['positive-frequency'] === 0
+    if(core_storage_data.positive_frequency === 0
       || grid_total - space_taken > 0){
-        loop_counter = core_storage_data['negative-frequency'] > grid_total - space_taken - 1
+        loop_counter = core_storage_data.negative_frequency > grid_total - space_taken - 1
           ? grid_total - space_taken - 1
-          : Math.floor(core_storage_data['negative-frequency']) - 1;
+          : Math.floor(core_storage_data.negative_frequency) - 1;
         if(loop_counter >= 0){
             do{
                 const element = core_elements[core_random_splice(available_buttons)];
                 element.style.backgroundColor = '#663366';
                 element.disabled = false;
-                element.textContent = core_storage_data['negative-points'] > 0
+                element.textContent = core_storage_data.negative_points > 0
                   ? '+'
                   : '-';
             }while(loop_counter--);
@@ -119,7 +119,7 @@ function randomize_buttons(clicked_button_id){
 }
 
 function repo_escape(){
-    if(!core_intervals['interval']
+    if(!core_intervals.interval
       && !core_menu_open){
         reset();
     }
@@ -141,31 +141,31 @@ function repo_init(){
       'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
       'storage': {
-        'game-mode': 1,
-        'grid-x': 5,
-        'grid-y': 5,
+        'grid_x': 5,
+        'grid_y': 5,
         'height': 50,
         'max': 30,
-        'negative-frequency': 1,
-        'negative-onclick': 0,
-        'negative-points': -1,
-        'positive-frequency': 1,
-        'positive-points': 1,
+        'mode': 1,
+        'negative_frequency': 1,
+        'negative_onclick': 0,
+        'negative_points': -1,
+        'positive_frequency': 1,
+        'positive_points': 1,
         'width': 50,
       },
       'storage-menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
         + '<tr><td><input class=mini id=width min=1 step=any type=number><td>Button Width'
-        + '<tr><td><input class=mini id=grid-x min=1 step=1 type=number><td>Grid X'
-        + '<tr><td><input class=mini id=grid-y min=1 step=1 type=number><td>Grid Y'
-        + '<tr><td><input class=mini id=max step=any type=number><td>Max <select id=game-mode><option value=0>Points<option value=1>Time</select>'
-        + '<tr><td><select id=negative-onclick><option value=0>Lose Points<option value=1>End Game</select><td>Negative Click'
-        + '<tr><td><input class=mini id=negative-frequency step=1 type=number><td>Negative Frequency'
-        + '<tr><td><input class=mini id=negative-points step=any type=number><td>Negative Points'
-        + '<tr><td><input class=mini id=positive-frequency step=1 type=number><td>Positive Frequency'
-        + '<tr><td><input class=mini id=positive-points step=any type=number><td>Positive Points</table>',
+        + '<tr><td><input class=mini id=grid_x min=1 step=1 type=number><td>Grid X'
+        + '<tr><td><input class=mini id=grid_y min=1 step=1 type=number><td>Grid Y'
+        + '<tr><td><input class=mini id=max step=any type=number><td>Max <select id=mode><option value=0>Points<option value=1>Time</select>'
+        + '<tr><td><select id=negative_onclick><option value=0>Lose Points<option value=1>End Game</select><td>Negative Click'
+        + '<tr><td><input class=mini id=negative_frequency step=1 type=number><td>Negative Frequency'
+        + '<tr><td><input class=mini id=negative_points step=any type=number><td>Negative Points'
+        + '<tr><td><input class=mini id=positive_frequency step=1 type=number><td>Positive Frequency'
+        + '<tr><td><input class=mini id=positive_points step=any type=number><td>Positive Points</table>',
       'title': 'SpeedButton.htm',
       'ui-elements': [
-        'game-div',
+        'game',
       ],
     });
 }
@@ -185,16 +185,16 @@ function reset(){
 function start(){
     core_object_reset(buttons);
     grid_total = Math.floor(Math.max(
-        core_storage_data['grid-x'],
+        core_storage_data.grid_x,
         1
       )) * Math.floor(Math.max(
-        core_storage_data['grid-y'],
+        core_storage_data.grid_y,
         1
       ));
 
     let output = '';
     for(let loop_counter = 0; loop_counter < grid_total; loop_counter++){
-        if(loop_counter % core_storage_data['grid-x'] === 0
+        if(loop_counter % core_storage_data.grid_x === 0
           && loop_counter !== 0){
             output += '<br>';
         }
@@ -203,8 +203,8 @@ function start(){
           + ' onclick=click_button(' + loop_counter
           + ') type=button> </button>';
     }
-    core_elements['game-div'].innerHTML = output + '<br>';
-    core_elements['game-div'].style.lineHeight = core_storage_data['height'] + 'px';
+    core_elements.game.innerHTML = output + '<br>';
+    core_elements.game.style.lineHeight = core_storage_data.height + 'px';
 
     for(const element in core_elements){
         if(!globalThis.isNaN(element)){
@@ -215,10 +215,10 @@ function start(){
     do{
         core_elements[loop_counter] = document.getElementById(loop_counter);
         core_elements[loop_counter].disabled = true;
-        core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
-        core_elements[loop_counter].style.height = core_storage_data['height'] + 'px';
-        core_elements[loop_counter].style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
-        core_elements[loop_counter].style.width = core_storage_data['width'] + 'px';
+        core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data.height / 2) + 'px';
+        core_elements[loop_counter].style.height = core_storage_data.height + 'px';
+        core_elements[loop_counter].style.lineHeight = Math.ceil(core_storage_data.height / 2) + 'px';
+        core_elements[loop_counter].style.width = core_storage_data.width + 'px';
         core_elements[loop_counter].textContent = ' ';
         buttons.push(loop_counter);
     }while(loop_counter--);
@@ -230,25 +230,25 @@ function start(){
     core_ui_update({
       'ids': {
         'score': 0,
-        'score-max': '',
+        'score_max': '',
         'time': 0,
-        'time-max': '',
+        'time_max': '',
       },
     });
 
-    if(core_storage_data['game-mode'] === 1){
-        time = core_storage_data['max'] >= 0
-          ? (core_storage_data['max'] === ''
+    if(core_storage_data.mode === 1){
+        time = core_storage_data.max >= 0
+          ? (core_storage_data.max === ''
             ? 0
-            : core_storage_data['max']
+            : core_storage_data.max
           )
           : 30;
-        if(core_storage_data['max'] > 0){
-            core_elements['time-max'].textContent = ' / ' + core_storage_data['max'];
+        if(core_storage_data.max > 0){
+            core_elements.time_max.textContent = ' / ' + core_storage_data.max;
         }
 
-    }else if(core_storage_data['max'] > 0){
-        core_elements['score-max'].textContent = ' / ' + core_storage_data['max'];
+    }else if(core_storage_data.max > 0){
+        core_elements.score_max.textContent = ' / ' + core_storage_data.max;
     }
 
     core_mode = 1;
