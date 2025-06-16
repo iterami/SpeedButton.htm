@@ -30,7 +30,7 @@ function decisecond(){
     core_ui_update({
       'ids': {
         'time': core_number_format({
-          'decimals-min': 1,
+          'decimals_min': 1,
           'number': time,
         }),
       },
