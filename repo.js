@@ -164,7 +164,7 @@ function repo_init(){
         + '<tr><td><input class=mini id=positive_frequency step=1 type=number><td>Positive Frequency'
         + '<tr><td><input class=mini id=positive_points step=any type=number><td>Positive Points</table>',
       'title': 'SpeedButton.htm',
-      'ui-elements': [
+      'ui_elements': [
         'game',
       ],
     });
