@@ -153,7 +153,7 @@ function repo_init(){
         'positive_points': 1,
         'width': 50,
       },
-      'storage-menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
+      'storage_menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
         + '<tr><td><input class=mini id=width min=1 step=any type=number><td>Button Width'
         + '<tr><td><input class=mini id=grid_x min=1 step=1 type=number><td>Grid X'
         + '<tr><td><input class=mini id=grid_y min=1 step=1 type=number><td>Grid Y'
