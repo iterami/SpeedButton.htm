@@ -121,15 +121,15 @@ function randomize_buttons(clicked_button_id){
 function repo_escape(){
     if(!core_intervals.interval
       && !core_menu_open){
-        reset();
+        start();
     }
 }
 
 function repo_init(){
     core_repo_init({
       'events': {
-        'start-button': {
-          'onclick': reset,
+        'start_button': {
+          'onclick': start,
         },
       },
       'globals': {
@@ -138,12 +138,12 @@ function repo_init(){
         'score': 0,
         'time': 0,
       },
-      'info': '<button id=start-button type=button>Restart</button>',
+      'info': '<button id=start_button type=button>Restart</button>',
       'menu': true,
       'storage': {
         'grid_x': 5,
         'grid_y': 5,
-        'height': 50,
+        'height': '50px',
         'max': 30,
         'mode': 1,
         'negative_frequency': 1,
@@ -151,10 +151,10 @@ function repo_init(){
         'negative_points': -1,
         'positive_frequency': 1,
         'positive_points': 1,
-        'width': 50,
+        'width': '50px',
       },
-      'storage_menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
-        + '<tr><td><input class=mini id=width min=1 step=any type=number><td>Button Width'
+      'storage_menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
+        + '<tr><td><input class=mini id=width type=text><td>Button Width'
         + '<tr><td><input class=mini id=grid_x min=1 step=1 type=number><td>Grid X'
         + '<tr><td><input class=mini id=grid_y min=1 step=1 type=number><td>Grid Y'
         + '<tr><td><input class=mini id=max step=any type=number><td>Max <select id=mode><option value=0>Points<option value=1>Time</select>'
@@ -171,18 +171,6 @@ function repo_init(){
 }
 
 function reset(){
-    if(score !== 0
-      && !globalThis.confirm('Start new game?')){
-        return;
-    }
-    stop();
-    if(core_menu_open){
-        core_escape();
-    }
-    start();
-}
-
-function start(){
     core_object_reset(buttons);
     grid_total = Math.floor(Math.max(
         core_storage_data.grid_x,
@@ -199,12 +187,12 @@ function start(){
             output += '<br>';
         }
 
-        output += '<button class=gridbuttonclickable disabled id=' + loop_counter
+        output += '<button class=gridbuttonclickable id=' + loop_counter
           + ' onclick=click_button(' + loop_counter
           + ') type=button> </button>';
     }
     core_elements.game.innerHTML = output + '<br>';
-    core_elements.game.style.lineHeight = core_storage_data.height + 'px';
+    core_elements.game.style.lineHeight = core_storage_data.height;
 
     for(const element in core_elements){
         if(!globalThis.isNaN(element)){
@@ -215,14 +203,17 @@ function start(){
     do{
         core_elements[loop_counter] = document.getElementById(loop_counter);
         core_elements[loop_counter].disabled = true;
-        core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data.height / 2) + 'px';
-        core_elements[loop_counter].style.height = core_storage_data.height + 'px';
-        core_elements[loop_counter].style.lineHeight = Math.ceil(core_storage_data.height / 2) + 'px';
-        core_elements[loop_counter].style.width = core_storage_data.width + 'px';
+        core_elements[loop_counter].style.height = core_storage_data.height;
+        core_elements[loop_counter].style.width = core_storage_data.width;
         core_elements[loop_counter].textContent = ' ';
+
+        const half = Math.ceil(core_elements[loop_counter].offsetWidth / 2) + 'px';
+        core_elements[loop_counter].style.fontSize = half;
+        core_elements[loop_counter].style.lineHeight = half;
         buttons.push(loop_counter);
     }while(loop_counter--);
 
+    core_elements.game.style.minWidth = (core_elements[0].offsetWidth * core_storage_data.grid_x + core_storage_data.grid_x * 2) + 'px';
     randomize_buttons(core_random_integer(grid_total));
 
     score = 0;
@@ -250,6 +241,18 @@ function start(){
     }else if(core_storage_data.max > 0){
         core_elements.score_max.textContent = ' / ' + core_storage_data.max;
     }
+}
+
+function start(){
+    if(score !== 0
+      && !globalThis.confirm('Start new game?')){
+        return;
+    }
+    stop();
+    if(core_menu_open){
+        core_escape();
+    }
+    reset();
 
     core_mode = 1;
     core_interval_modify({
