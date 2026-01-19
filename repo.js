@@ -92,7 +92,7 @@ function randomize_buttons(clicked_button_id){
         space_taken = loop_counter + 1;
         do{
             const element = core_elements[core_random_splice(available_buttons)];
-            element.style.backgroundColor = '#206620';
+            element.style.backgroundColor = core_storage_data.positive_color;
             element.disabled = false;
             element.textContent = core_storage_data.positive_points > 0
               ? '+'
@@ -108,7 +108,7 @@ function randomize_buttons(clicked_button_id){
         if(loop_counter >= 0){
             do{
                 const element = core_elements[core_random_splice(available_buttons)];
-                element.style.backgroundColor = '#663366';
+                element.style.backgroundColor = core_storage_data.negative_color;
                 element.disabled = false;
                 element.textContent = core_storage_data.negative_points > 0
                   ? '+'
@@ -154,9 +154,11 @@ function repo_init(){
         'height': '50px',
         'max': 30,
         'mode': 1,
+        'negative_color': '#663366',
         'negative_frequency': 1,
         'negative_onclick': 0,
         'negative_points': -1,
+        'positive_color': '#206620',
         'positive_frequency': 1,
         'positive_points': 1,
         'width': '50px',
@@ -167,8 +169,10 @@ function repo_init(){
         + '<tr><td><input class=mini id=grid_y min=1 step=1 type=number><td>Grid Y'
         + '<tr><td><input class=mini id=max step=any type=number><td>Max <select id=mode><option value=0>Points<option value=1>Time</select>'
         + '<tr><td><select id=negative_onclick><option value=0>Lose Points<option value=1>End Game</select><td>Negative Click'
+        + '<tr><td><input id=negative_color type=color><td>Negative Color'
         + '<tr><td><input class=mini id=negative_frequency step=1 type=number><td>Negative Frequency'
         + '<tr><td><input class=mini id=negative_points step=any type=number><td>Negative Points'
+        + '<tr><td><input id=positive_color type=color><td>Positive Color'
         + '<tr><td><input class=mini id=positive_frequency step=1 type=number><td>Positive Frequency'
         + '<tr><td><input class=mini id=positive_points step=any type=number><td>Positive Points</table>',
       'title': 'SpeedButton.htm',
