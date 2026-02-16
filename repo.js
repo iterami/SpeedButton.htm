@@ -261,10 +261,10 @@ function start(){
         return;
     }
     stop();
+    reset();
     if(core_menu_open){
         core_escape();
     }
-    reset();
 
     core_mode = 1;
     core_interval_modify({
