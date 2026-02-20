@@ -235,6 +235,8 @@ function reset(){
       },
     });
 
+    let score_max = '';
+    let time_max = '';
     if(core_storage_data.mode === 1){
         time = core_storage_data.max >= 0
           ? (core_storage_data.max === ''
@@ -243,12 +245,14 @@ function reset(){
           )
           : 30;
         if(core_storage_data.max > 0){
-            core_elements.time_max.textContent = ' / ' + core_storage_data.max;
+            time_max = ' / ' + core_storage_data.max;
         }
 
     }else if(core_storage_data.max > 0){
-        core_elements.score_max.textContent = ' / ' + core_storage_data.max;
+        score_max = ' / ' + core_storage_data.max;
     }
+    core_elements.score_max.textContent = score_max;
+    core_elements.time_max.textContent = time_max;
 }
 
 function start(){
