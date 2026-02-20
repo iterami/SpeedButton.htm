@@ -11,10 +11,6 @@ function click_button(clicked_button_id){
 }
 
 function decisecond(){
-    if(core_mode === 0){
-        return;
-    }
-
     if(core_storage_data.mode === 1
       && core_storage_data.max > 0){
         time -= .1;
@@ -265,7 +261,6 @@ function start(){
         core_escape();
     }
 
-    core_mode = 1;
     core_interval_modify({
       'id': 'interval',
       'interval': 100,
@@ -274,8 +269,7 @@ function start(){
 }
 
 function stop(){
-    core_mode = 0;
-    core_interval_pause_all();
+    core_interval_lock('interval');
 
     let loop_counter = grid_total - 1;
     do{
