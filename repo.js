@@ -199,8 +199,8 @@ function reset(){
           + ' onclick=click_button(' + loop_counter
           + ') type=button> </button>';
     }
-    core_elements.game.innerHTML = output + '<br>';
     core_elements.game.style.lineHeight = core_storage_data.height;
+    core_elements.game.innerHTML = output;
 
     for(const element in core_elements){
         if(!globalThis.isNaN(element)){
