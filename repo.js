@@ -64,53 +64,42 @@ function randomize_buttons(clicked_button_id){
       || core_storage_data.max === 0
       || score < core_storage_data.max);
 
-    let loop_counter = grid_total - 1;
-    do{
-        core_elements[loop_counter].disabled = true;
+    for(let i = 0; i < grid_total; i++){
+        core_elements[i].disabled = true;
         if(game_ended){
             continue;
         }
-        core_elements[loop_counter].style.backgroundColor = '';
-        core_elements[loop_counter].textContent = ' ';
-    }while(loop_counter--);
+        core_elements[i].style.backgroundColor = '';
+        core_elements[i].textContent = ' ';
+    }
 
     if(game_ended){
         return;
     }
 
-    let space_taken = 0;
     const available_buttons = [...buttons];
 
-    if(core_storage_data.positive_frequency > 0){
-        loop_counter = core_storage_data.positive_frequency > grid_total - 1
-          ? grid_total - 1
-          : core_storage_data.positive_frequency - 1;
-        space_taken = loop_counter + 1;
-        do{
-            const element = core_elements[core_random_splice(available_buttons)];
-            element.style.backgroundColor = core_storage_data.positive_color;
-            element.disabled = false;
-            element.textContent = core_storage_data.positive_points > 0
-              ? '+'
-              : '-';
-        }while(loop_counter--);
+    const positives = core_storage_data.positive_frequency > grid_total
+      ? grid_total
+      : core_storage_data.positive_frequency;
+    for(let i = 0; i < positives; i++){
+        const element = core_elements[core_random_splice(available_buttons)];
+        element.style.backgroundColor = core_storage_data.positive_color;
+        element.disabled = false;
+        element.textContent = core_storage_data.positive_points > 0
+          ? '+'
+          : '-';
     }
-
-    if(core_storage_data.positive_frequency === 0
-      || grid_total - space_taken > 0){
-        loop_counter = core_storage_data.negative_frequency > grid_total - space_taken - 1
-          ? grid_total - space_taken - 1
-          : Math.floor(core_storage_data.negative_frequency) - 1;
-        if(loop_counter >= 0){
-            do{
-                const element = core_elements[core_random_splice(available_buttons)];
-                element.style.backgroundColor = core_storage_data.negative_color;
-                element.disabled = false;
-                element.textContent = core_storage_data.negative_points > 0
-                  ? '+'
-                  : '-';
-            }while(loop_counter--);
-        }
+    const negatives = core_storage_data.negative_frequency > grid_total - positives
+      ? grid_total - positives
+      : core_storage_data.negative_frequency;
+    for(let i = 0; i < negatives; i++){
+        const element = core_elements[core_random_splice(available_buttons)];
+        element.style.backgroundColor = core_storage_data.negative_color;
+        element.disabled = false;
+        element.textContent = core_storage_data.negative_points > 0
+          ? '+'
+          : '-';
     }
 }
 
@@ -189,15 +178,14 @@ function reset(){
       ));
 
     let output = '';
-    for(let loop_counter = 0; loop_counter < grid_total; loop_counter++){
-        if(loop_counter % core_storage_data.grid_x === 0
-          && loop_counter !== 0){
+    for(let i = 0; i < grid_total; i++){
+        if(i % core_storage_data.grid_x === 0
+          && i !== 0){
             output += '<br>';
         }
 
-        output += '<button class=gridbuttonclickable id=' + loop_counter
-          + ' onclick=click_button(' + loop_counter
-          + ') type=button> </button>';
+        output += '<button class=gridbuttonclickable id=' + i
+          + ' onclick=click_button(' + i + ') type=button> </button>';
     }
     core_elements.game.style.lineHeight = core_storage_data.height;
     core_elements.game.innerHTML = output;
@@ -207,19 +195,18 @@ function reset(){
             delete core_elements[element];
         }
     }
-    let loop_counter = grid_total - 1;
-    do{
-        core_elements[loop_counter] = document.getElementById(loop_counter);
-        core_elements[loop_counter].disabled = true;
-        core_elements[loop_counter].style.height = core_storage_data.height;
-        core_elements[loop_counter].style.width = core_storage_data.width;
-        core_elements[loop_counter].textContent = ' ';
+    for(let i = 0; i < grid_total; i++){
+        core_elements[i] = document.getElementById(i);
+        core_elements[i].disabled = true;
+        core_elements[i].style.height = core_storage_data.height;
+        core_elements[i].style.width = core_storage_data.width;
+        core_elements[i].textContent = ' ';
 
-        const half = Math.ceil(core_elements[loop_counter].offsetWidth / 2) + 'px';
-        core_elements[loop_counter].style.fontSize = half;
-        core_elements[loop_counter].style.lineHeight = half;
-        buttons.push(loop_counter);
-    }while(loop_counter--);
+        const half = Math.ceil(core_elements[i].offsetWidth / 2) + 'px';
+        core_elements[i].style.fontSize = half;
+        core_elements[i].style.lineHeight = half;
+        buttons.push(i);
+    }
 
     core_elements.game.style.minWidth = (core_elements[0].offsetWidth * core_storage_data.grid_x + core_storage_data.grid_x * 2) + 'px';
     randomize_buttons(core_random_integer(grid_total));
@@ -275,11 +262,10 @@ function start(){
 function stop(){
     core_interval_lock('interval');
 
-    let loop_counter = grid_total - 1;
-    do{
-        if(!core_elements[loop_counter]){
+    for(let i = 0; i < grid_total; i++){
+        if(!core_elements[i]){
             break;
         }
-        core_elements[loop_counter].disabled = true;
-    }while(loop_counter--);
+        core_elements[i].disabled = true;
+    }
 }
