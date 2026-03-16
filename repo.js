@@ -155,10 +155,10 @@ function repo_init(){
         + '<tr><td><input class=mini id=max step=any type=number><td>Max <select id=mode><option value=0>Points<option value=1>Time</select>'
         + '<tr><td><select id=negative_onclick><option value=0>Lose Points<option value=1>End Game</select><td>Negative Click'
         + '<tr><td><input id=negative_color type=color><td>Negative Color'
-        + '<tr><td><input class=mini id=negative_frequency step=1 type=number><td>Negative Frequency'
+        + '<tr><td><input class=mini id=negative_frequency min=0 step=1 type=number><td>Negative Frequency'
         + '<tr><td><input class=mini id=negative_points step=any type=number><td>Negative Points'
         + '<tr><td><input id=positive_color type=color><td>Positive Color'
-        + '<tr><td><input class=mini id=positive_frequency step=1 type=number><td>Positive Frequency'
+        + '<tr><td><input class=mini id=positive_frequency min=0 step=1 type=number><td>Positive Frequency'
         + '<tr><td><input class=mini id=positive_points step=any type=number><td>Positive Points</table>',
       'title': 'SpeedButton.htm',
       'ui_elements': [
