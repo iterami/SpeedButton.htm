@@ -163,6 +163,7 @@ function repo_init(){
         + '<tr><td><select id=negative_onclick><option value=0>Lose Points<option value=1>End Game</select><td>Negative Click'
         + '<tr><td><input class=mini id=negative_points step=any type=number><td>Negative Points</table>',
       'title': 'SpeedButton.htm',
+      'ui': ' <span id=score></span><span id=score_max></span> | <span id=time></span><span id=time_max></span>',
       'ui_elements': [
         'game',
       ],
@@ -234,11 +235,11 @@ function reset(){
           )
           : 30;
         if(core_storage_data.max > 0){
-            time_max = ' / ' + core_storage_data.max;
+            time_max = '/' + core_storage_data.max;
         }
 
     }else if(core_storage_data.max > 0){
-        score_max = ' / ' + core_storage_data.max;
+        score_max = '/' + core_storage_data.max;
     }
     core_elements.score_max.textContent = score_max;
     core_elements.time_max.textContent = time_max;
