@@ -114,13 +114,11 @@ function repo_escape(){
 
 function repo_init(){
     core_repo_init({
-      'beforeunload': {
-        'todo': function(event){
-            if(score !== 0){
-                core_escape(true);
-                event.preventDefault();
-            }
-        },
+      'beforeunload': function(event){
+          if(score !== 0){
+              core_escape(true);
+              event.preventDefault();
+          }
       },
       'events': {
         'start': {
@@ -164,9 +162,7 @@ function repo_init(){
         + '<tr><td><input class=mini id=negative_points step=any type=number><td>Negative Points</table>',
       'title': 'SpeedButton.htm',
       'ui': ' <span id=score></span><span id=score_max></span> | <span id=time></span><span id=time_max></span>',
-      'ui_elements': [
-        'game',
-      ],
+      'ui_elements': ['game'],
     });
 }
 
